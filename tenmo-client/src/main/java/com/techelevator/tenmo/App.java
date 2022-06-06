@@ -11,6 +11,7 @@ import com.techelevator.tenmo.services.ConsoleService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class App {
 
@@ -112,10 +113,28 @@ public class App {
 
 	private void sendBucks() {
 		// TODO Auto-generated method stub
+        //I should be able to choose from a list of users to send TE Bucks to.
+        //I must not be allowed to send money to myself.
         List<User> userList = accountService.displayRegisteredUsers();
         consoleService.printUserList(userList, currentUser);
-        //I must not be allowed to send money to myself.
-	}
+        int selection = 0;
+        //Select from list of users
+        while (Objects.equals(userList.get(selection).getId(), currentUser.getUser().getId())){
+
+            selection = consoleService.promptForMenuSelection("Please enter the number of a user: ");
+            System.out.println("Please select a different option");
+        }
+
+
+//       if (Objects.equals(userList.get(selection).getId(), currentUser.getUser().getId())){
+//
+//       }
+        System.out.println(userList.get(selection).getId());
+
+        }
+
+
+
 
 	private void requestBucks() {
 		// TODO Auto-generated method stub

@@ -6,12 +6,14 @@ import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleService {
 
     private final Scanner scanner = new Scanner(System.in);
+    List<User> theRightPeople = new ArrayList<>();
 
     public int promptForMenuSelection(String prompt) {
         int menuSelection;
@@ -49,13 +51,25 @@ public class ConsoleService {
         System.out.println();
     }
 
+    //Prints list of users to send money to not including current logged-in user
     public void printUserList(List<User> users, AuthenticatedUser currentUser) {
         for(int i = 0; i < users.size(); i++) {
             if(!users.get(i).getUsername().equals(currentUser.getUser().getUsername()))
-            System.out.println(i + 1 + ":" + " " + users.get(i).getUsername());
+                theRightPeople.add(users.get(i));
+                //  System.out.println(theRightPeople.get(i));
+                //  System.out.println(i + ":" + " " + users.get(i).getUsername());
+        }
+        for (int i = 0; i < theRightPeople.size(); i++){
+            System.out.println(i + ":" + " " + theRightPeople.get(i).getUsername());
         }
     }
-
+    //Add people to the new List
+    public void addPeopleToList(List<User> users, AuthenticatedUser currentUser){
+        for(int i = 0; i < users.size(); i++) {
+            if(!users.get(i).getUsername().equals(currentUser.getUser().getUsername()))
+                theRightPeople.add(users.get(i));
+        }
+    }
     public UserCredentials promptForCredentials() {
         String username = promptForString("Username: ");
         String password = promptForString("Password: ");
