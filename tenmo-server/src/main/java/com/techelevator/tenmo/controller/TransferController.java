@@ -9,6 +9,7 @@ import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,16 +28,10 @@ public class TransferController {
     @Autowired
     private JdbcTransferStatus jdbcTransferStatus;
 
-//    @Autowired
-//    private LoginDTO loginDTO;
 
-    //end point for transfer
-  //  @PutMapping("transfer")
-
-
-    @GetMapping("transfer")
+    @PostMapping("transferbalance")
     public Transfer transferBalances(BigDecimal balance, User sender, User receiver) throws SQLException {
         return jdbcTransfer.transferBalanceFromUserToUser(balance, sender, receiver);
     }
-  //  }
+
 }

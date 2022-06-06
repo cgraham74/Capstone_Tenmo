@@ -35,9 +35,8 @@ public class JdbcTransfer implements TransferDao{
         //I can't send more TE Bucks than I have in my account.
         if (balance.compareTo(BigDecimal.ZERO)> 0){
 
-
         }
-        return null;
+        return transfer;
     }
 
 

@@ -6,6 +6,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcAccountDao implements AccountDao{
@@ -26,6 +28,17 @@ public class JdbcAccountDao implements AccountDao{
         throw new SQLException();
     }
 
+    @Override
+    public List<Account> findAllRegisteredUsers() {
+        List<Account> accountList = new ArrayList<>();
+        String sql = "SELECT * FROM account";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()){
+            Account account = mapRowToAccount(results);
+            accountList.add(account);
+        }
+        return accountList;
+    }
 
 
     private Account mapRowToAccount(SqlRowSet rs) {
