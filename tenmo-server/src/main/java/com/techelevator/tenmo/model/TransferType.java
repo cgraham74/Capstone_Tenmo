@@ -10,6 +10,7 @@ public class TransferType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "transfer_type_id")
     private int transfertypeid;
+
     private String transfertypedesc;
 
 

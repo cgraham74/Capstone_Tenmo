@@ -5,8 +5,8 @@ import com.techelevator.tenmo.repositories.AccountRepository;
 import com.techelevator.tenmo.repositories.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class TransferService{
@@ -20,7 +20,7 @@ public class TransferService{
    public TransferService(){
    }
 
-   public Transfer saveorupdatetransfer(int transfertypeid, int transferstatusid, int accountfrom, int accountto, BigDecimal amount){
+   public Transfer saveorupdatetransfer(int id, int transfertypeid, int transferstatusid, int accountfrom, int accountto, BigDecimal amount){
        BigDecimal fromBalance = accountRepository.findByuserid(accountfrom).getBalance();
 
        Transfer transfer = new Transfer();
@@ -35,6 +35,9 @@ public class TransferService{
        return transfer;
    }
 
+    public List<Transfer> findAll() {
+       return transferRepository.findAll();
+    }
 
 
 //    @Override

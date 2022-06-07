@@ -19,7 +19,16 @@ public class Transfer {
     private int accountto;
     private BigDecimal amount;
 
-    public Transfer(int transfertypeid, int transferstatusid, int accountfrom, int accountto, BigDecimal amount) {
+
+    @ManyToOne()
+    @JoinColumn(name = "transfer_type_id", insertable = false, updatable = false)
+    private TransferType transferType;
+
+    @ManyToOne
+    @JoinColumn(name = "transfer_status_id", insertable = false, updatable = false)
+    private TransferStatus transferStatus;
+
+    public Transfer(int id, int transfertypeid, int transferstatusid, int accountfrom, int accountto, BigDecimal amount) {
         this.id = id;
         this.transfertypeid = transfertypeid;
         this.transferstatusid = transferstatusid;
