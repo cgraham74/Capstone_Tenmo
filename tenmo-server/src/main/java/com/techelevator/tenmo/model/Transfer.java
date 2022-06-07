@@ -1,16 +1,25 @@
 package com.techelevator.tenmo.model;
-
+import javax.persistence.*;
 import java.math.BigDecimal;
-
+@Entity
+@Table(name = "transfer")
 public class Transfer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transfer_id")
     private int id;
+
+    @Column(name = "transfer_type_id")
     private int transfertypeid;
+    @Column(name = "transfer_status_id")
     private int transferstatusid;
+
     private int accountfrom;
     private int accountto;
     private BigDecimal amount;
 
-    public Transfer(int id, int transfertypeid, int transferstatusid, int accountfrom, int accountto, BigDecimal amount) {
+    public Transfer(int transfertypeid, int transferstatusid, int accountfrom, int accountto, BigDecimal amount) {
         this.id = id;
         this.transfertypeid = transfertypeid;
         this.transferstatusid = transferstatusid;

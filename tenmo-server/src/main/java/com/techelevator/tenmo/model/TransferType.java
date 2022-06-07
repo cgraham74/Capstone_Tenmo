@@ -1,6 +1,14 @@
 package com.techelevator.tenmo.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "transfer_type")
 public class TransferType {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transfer_type_id")
     private int transfertypeid;
     private String transfertypedesc;
 

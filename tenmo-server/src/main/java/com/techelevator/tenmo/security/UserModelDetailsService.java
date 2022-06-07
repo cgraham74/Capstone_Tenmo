@@ -1,7 +1,7 @@
 package com.techelevator.tenmo.security;
 
 
-import com.techelevator.tenmo.dao.UserDao;
+import com.techelevator.tenmo.services.UserDao;
 import com.techelevator.tenmo.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

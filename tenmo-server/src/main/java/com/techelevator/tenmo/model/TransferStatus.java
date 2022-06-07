@@ -1,7 +1,18 @@
 package com.techelevator.tenmo.model;
 
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "transfer_status")
 public class TransferStatus {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transfer_status_id")
     private int transferstatusid;
+
     private String transferstatusdesc;
 
     public TransferStatus() {

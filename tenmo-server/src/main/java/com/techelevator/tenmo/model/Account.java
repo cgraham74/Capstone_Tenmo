@@ -1,10 +1,21 @@
 package com.techelevator.tenmo.model;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "account")
 public class Account {
-    private int account_id;
-    private int user_id;
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
+    private int accountid;
+
+    @Column(name = "user_id")
+    private int userid;
+
     private BigDecimal balance;
 
 
@@ -12,26 +23,26 @@ public class Account {
 
     }
 
-    public Account(int account_id, int user_id, BigDecimal balance) {
-        this.account_id = account_id;
-        this.user_id = user_id;
+    public Account(int accountid, int userid, BigDecimal balance) {
+        this.accountid = accountid;
+        this.userid = userid;
         this.balance = balance;
     }
 
-    public int getAccount_id() {
-        return account_id;
+    public int getAccountid() {
+        return accountid;
     }
 
-    public void setAccount_id(int account_id) {
-        this.account_id = account_id;
+    public void setAccountid(int accountid) {
+        this.accountid = accountid;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserid() {
+        return userid;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public BigDecimal getBalance() {

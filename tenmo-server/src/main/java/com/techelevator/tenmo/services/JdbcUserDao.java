@@ -1,4 +1,4 @@
-package com.techelevator.tenmo.dao;
+package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.User;
 import org.springframework.dao.DataAccessException;
