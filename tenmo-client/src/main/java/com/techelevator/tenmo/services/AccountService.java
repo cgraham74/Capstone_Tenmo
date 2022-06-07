@@ -36,10 +36,10 @@ public class AccountService {
         return account;
     }
 
-    public List<User> displayRegisteredUsers(){
+    public List<User> displayRegisteredUsers(String username){
         List<User> userList = new ArrayList<>();
         try{
-            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "userlist", HttpMethod.GET, makeEntity(), User[].class);
+            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "transferlist?username=" + username, HttpMethod.GET, makeEntity(), User[].class);
             userList = Arrays.asList(Objects.requireNonNull(response.getBody()));
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());

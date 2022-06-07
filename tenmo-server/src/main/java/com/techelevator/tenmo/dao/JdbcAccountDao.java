@@ -31,7 +31,7 @@ public class JdbcAccountDao implements AccountDao{
     @Override
     public List<Account> findAllRegisteredUsers() {
         List<Account> accountList = new ArrayList<>();
-        String sql = "SELECT * FROM account";
+        String sql = "SELECT * FROM account;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()){
             Account account = mapRowToAccount(results);

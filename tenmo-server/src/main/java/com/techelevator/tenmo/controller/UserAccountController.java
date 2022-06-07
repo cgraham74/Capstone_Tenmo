@@ -24,9 +24,9 @@ public class UserAccountController {
         return jdbcAccountDao.findBalanceByUserId(id);
     }
 
-    @GetMapping("userlist")
-    public List<User> getRegisteredUserList() {
-        return jdbcUserDao.findAll();
+    @GetMapping("transferlist")
+    public List<User> getTransferUserList(String username) {
+        return jdbcUserDao.findTransferList(username);
     }
 
 }

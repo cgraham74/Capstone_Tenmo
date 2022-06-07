@@ -78,6 +78,18 @@ public class JdbcUserDao implements UserDao {
 
         return true;
     }
+    //Returns a list of users without current user.
+    @Override
+    public List<User> findTransferList(String username) {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE username != ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+        while(results.next()) {
+            User user = mapRowToUser(results);
+            users.add(user);
+        }
+        return users;
+    }
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();

@@ -115,21 +115,12 @@ public class App {
 		// TODO Auto-generated method stub
         //I should be able to choose from a list of users to send TE Bucks to.
         //I must not be allowed to send money to myself.
-        List<User> userList = accountService.displayRegisteredUsers();
-        consoleService.printUserList(userList, currentUser);
-        int selection = 0;
+        List<User> userList = accountService.displayRegisteredUsers(currentUser.getUser().getUsername());
+        consoleService.printUserList(userList);
+
         //Select from list of users
-        while (Objects.equals(userList.get(selection).getId(), currentUser.getUser().getId())){
-
-            selection = consoleService.promptForMenuSelection("Please enter the number of a user: ");
-            System.out.println("Please select a different option");
-        }
-
-
-//       if (Objects.equals(userList.get(selection).getId(), currentUser.getUser().getId())){
-//
-//       }
-        System.out.println(userList.get(selection).getId());
+       int selection = consoleService.promptForMenuSelection("Please enter the number of a user: ");
+       System.out.println(userList.get(selection - 1).getId());
 
         }
 
