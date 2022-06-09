@@ -13,7 +13,7 @@ public class Account {
     @Column(name = "account_id")
     private int accountid;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false, updatable = false)
     private int userid;
 
     private BigDecimal balance;

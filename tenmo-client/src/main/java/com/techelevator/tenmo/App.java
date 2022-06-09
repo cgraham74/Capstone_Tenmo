@@ -1,9 +1,6 @@
 package com.techelevator.tenmo;
 
-import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.AuthenticatedUser;
-import com.techelevator.tenmo.model.User;
-import com.techelevator.tenmo.model.UserCredentials;
+import com.techelevator.tenmo.model.*;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
@@ -104,13 +101,21 @@ public class App {
         Account accountOfCurrentUser =  accountService.getBalance(userId);
         //System.out.println("Current balance is: " + accountOfCurrentUser.getBalance());
         System.out.println("Current balance is: " + NumberFormat.getCurrencyInstance().format(accountOfCurrentUser.getBalance()));
+        System.out.println("Current logged in user's id: " +currentUser.getUser().getId());
 
         return accountOfCurrentUser.getBalance();
     }
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
+        Account account = accountService.getAccountFromUserId(currentUser.getUser().getId());
 
+        List<Transfer> transferOfCurrentUser = accountService.transferList((long) account.getAccountid());
+        System.out.println("Transfer of Current user: " + transferOfCurrentUser);
+        System.out.println("Whats in here -> " + account);
+        for (Transfer t: transferOfCurrentUser){
+            System.out.println(t.toString());
+        }
 	}
 
 	private void viewPendingRequests() {
