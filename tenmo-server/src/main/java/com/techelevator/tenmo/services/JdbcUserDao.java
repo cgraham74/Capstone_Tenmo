@@ -78,7 +78,7 @@ public class JdbcUserDao implements UserDao {
 
         return true;
     }
-    //Returns a list of users without current user.
+    //Returns a list of users excluding current user. Must use current User's name so method knows who to exclude
     @Override
     public List<User> findTransferList(String username) {
         List<User> users = new ArrayList<>();

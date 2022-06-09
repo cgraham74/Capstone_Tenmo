@@ -23,16 +23,17 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    //end point /account/"balancebyid?id=" Will list current user's balance given the account ID
     @GetMapping("balancebyid")
    public Account getBalancebyId(@RequestParam int id) {
         return accountService.findAccountById(id);
     }
-
+    //end point /account/"balancebyid?id=" Will list current user's balance given the User's ID
     @GetMapping("balancebyuserid")
     public Account getTransferUserList(@RequestParam int id) {
         return accountService.findAccountByuserid(id);
     }
-
+    //endpoint account/updatebalance/id?=" updates current user's balance
     @PostMapping("updatebalance/{id}")
     public Account updateBalanceById(@RequestBody Account account){
         return accountService.save(account);

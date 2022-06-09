@@ -10,6 +10,7 @@ import com.techelevator.tenmo.services.ConsoleService;
 import io.cucumber.java.bs.A;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,7 +102,9 @@ public class App {
         long userId = currentUser.getUser().getId();
         // Get balance of the current user by id
         Account accountOfCurrentUser =  accountService.getBalance(userId);
-        System.out.println("Current balance is: " + accountOfCurrentUser.getBalance());
+        //System.out.println("Current balance is: " + accountOfCurrentUser.getBalance());
+        System.out.println("Current balance is: " + NumberFormat.getCurrencyInstance().format(accountOfCurrentUser.getBalance()));
+
         return accountOfCurrentUser.getBalance();
     }
 

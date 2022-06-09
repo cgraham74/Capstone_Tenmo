@@ -10,15 +10,18 @@ import java.util.List;
 @Service
 public class TransferService{
 
-    @Autowired
-    TransferRepository transferRepository;
-    @Autowired
-    AccountRepository accountRepository;
 
-   public TransferService(){
-   }
+    private final TransferRepository transferRepository;
+    private final AccountRepository accountRepository;
 
-   public Transfer save(Transfer transfer){
+    @Autowired
+    public TransferService(TransferRepository transferRepository, AccountRepository accountRepository) {
+        this.transferRepository = transferRepository;
+        this.accountRepository = accountRepository;
+    }
+
+
+    public Transfer save(Transfer transfer){
        return transferRepository.save(transfer);
    }
 

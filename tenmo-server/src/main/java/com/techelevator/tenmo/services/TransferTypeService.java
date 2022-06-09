@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+//Service layer - Abstracts away business logic from the controller
 @Service
 public class TransferTypeService {
 
-    private TransferTypeRepository repository;
+    private final TransferTypeRepository repository;
 
     @Autowired
     public TransferTypeService(TransferTypeRepository repository) {

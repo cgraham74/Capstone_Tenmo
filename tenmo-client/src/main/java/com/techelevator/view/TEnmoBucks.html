@@ -15,7 +15,7 @@
     <button type="button" class="button" id="exit">Exit</button>
 </div>
 <div>
-    <p id = "newUserArea"> <</p>
+    <p id = "newUserArea"></p>
 </div>
 
 
@@ -30,11 +30,6 @@
     <p>Graham & Harper LLC</p>
 </div>
 
-<div class="container" id="btnTransferContainer">
-    <button type="button" class="button" id="alllButton" resource="http://localhost:8080/account/balancebyuserid?id=1001">Check Balance</button>
-    <button type="button" class="button" id="onlineButton">Transfer History</button>
-    <button type="button" class="button" id="offlineButton">Exit</button>
-</div>
 <body>
 <p>How to assign an "onclick" event to a p element:</p>
 
@@ -48,10 +43,11 @@ function myFunction() {
 </script>
 
 
-<p>Click to display the time.</p>
-
-<button onclick="getElementById('allButton')" resource="localhost:8080/account/balancebyuserid?id=1001">What is the time?</button>
-
-<p id="allButton"> It will show up here?</p>
-
+<nav>
+    <ul>
+        <li><a href="#">Account List</a></li>
+        <li><a href="#">User List</a></li>
+        <li><a href="#">Transfer List</a></li>
+    </ul>
+</nav>
 </body>
