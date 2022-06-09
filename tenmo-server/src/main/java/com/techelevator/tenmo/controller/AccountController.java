@@ -33,6 +33,7 @@ public class AccountController {
     public Account getTransferUserList(@RequestParam int id) {
         return accountService.findAccountByuserid(id);
     }
+
     //endpoint account/updatebalance/id?=" updates current user's balance
     @PostMapping("updatebalance/{id}")
     public Account updateBalanceById(@RequestBody Account account){

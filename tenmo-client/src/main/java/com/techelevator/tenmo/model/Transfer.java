@@ -4,18 +4,18 @@ import java.math.BigDecimal;
 
 public class Transfer {
     private int id;
-    private int status;
-    private int type;
-    private int accountTo;
-    private int accountFrom;
+    private int transferstatusid;
+    private int transfertypeid;
+    private int accountto;
+    private int accountfrom;
     private BigDecimal amount;
 
-    public Transfer(int id,int status, int type, int accountTo, int accountFrom, BigDecimal amount) {
+    public Transfer(int id, int transferstatusid, int transfertypeid, int accountto, int accountfrom, BigDecimal amount) {
         this.id = id;
-        this.status = status;
-        this.type = type;
-        this.accountTo = accountTo;
-        this.accountFrom = accountFrom;
+        this.transferstatusid = transferstatusid;
+        this.transfertypeid = transfertypeid;
+        this.accountto = accountto;
+        this.accountfrom = accountfrom;
         this.amount = amount;
     }
 
@@ -30,36 +30,36 @@ public class Transfer {
         this.id = id;
     }
 
-    public int getStatus() {
-        return status;
+    public int getTransferstatusid() {
+        return transferstatusid;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setTransferstatusid(int transferstatusid) {
+        this.transferstatusid = transferstatusid;
     }
 
-    public int getType() {
-        return type;
+    public int getTransfertypeid() {
+        return transfertypeid;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setTransfertypeid(int transfertypeid) {
+        this.transfertypeid = transfertypeid;
     }
 
-    public int getAccountTo() {
-        return accountTo;
+    public int getAccountto() {
+        return accountto;
     }
 
-    public void setAccountTo(int accountTo) {
-        this.accountTo = accountTo;
+    public void setAccountto(int accountto) {
+        this.accountto = accountto;
     }
 
-    public int getAccountFrom() {
-        return accountFrom;
+    public int getAccountfrom() {
+        return accountfrom;
     }
 
-    public void setAccountFrom(int accountFrom) {
-        this.accountFrom = accountFrom;
+    public void setAccountfrom(int accountfrom) {
+        this.accountfrom = accountfrom;
     }
 
     public BigDecimal getAmount() {
@@ -74,10 +74,10 @@ public class Transfer {
     public String toString() {
         return "Transfer{" +
                 "id=" + id +
-                ", status='" + status + '\'' +
-                ", type='" + type + '\'' +
-                ", accountTo=" + accountTo +
-                ", accountFrom=" + accountFrom +
+                ", status='" + transferstatusid + '\'' +
+                ", type='" + transfertypeid + '\'' +
+                ", accountTo=" + accountto +
+                ", accountFrom=" + accountfrom +
                 ", amount=" + amount +
                 '}';
     }

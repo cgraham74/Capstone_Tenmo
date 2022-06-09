@@ -109,13 +109,17 @@ public class App {
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
         Account account = accountService.getAccountFromUserId(currentUser.getUser().getId());
-
         List<Transfer> transferOfCurrentUser = accountService.transferList((long) account.getAccountid());
-        System.out.println("Transfer of Current user: " + transferOfCurrentUser);
-        System.out.println("Whats in here -> " + account);
+    //    System.out.println("Transfer of Current user: " + transferOfCurrentUser);
         for (Transfer t: transferOfCurrentUser){
-            System.out.println(t.toString());
+            System.out.println("__________________________________________________");
+            System.out.println("ID: " + t.getId() + " From: " + t.getAccountfrom() + " " + NumberFormat.getCurrencyInstance().format(t.getAmount()));
+            System.out.println("ID: " + t.getId() + " To: " + t.getAccountto() + " " + NumberFormat.getCurrencyInstance().format(t.getAmount()));
+            System.out.println("__________________________________________________");
+
         }
+
+
 	}
 
 	private void viewPendingRequests() {
@@ -125,15 +129,15 @@ public class App {
 
 	private void sendBucks() {
 		// TODO Auto-generated method stub
-        //I should be able to choose from a list of users to send TE Bucks to.
-        //I must not be allowed to send money to myself.
-        List<User> userList = accountService.displayRegisteredUsers(currentUser.getUser().getUsername());
-        consoleService.printUserList(userList);
-        System.out.println(userList);
-        //Select from list of users
-       int selection = consoleService.promptForMenuSelection("Please enter the number of a user: ");
-       System.out.println(userList.get(selection - 1).getId());
 
+        List<User> userList = accountService.getListOfUsers(currentUser.getUser().getUsername());
+        int counter = 0;
+        for (User user : userList){
+            counter++;
+            System.out.println( counter +" : " +user.getUsername());
+        }
+        int userSelection = consoleService.promptForInt("Pick Lucky person for big mad cash");
+        System.out.println(userList.get(userSelection - 1).getId());
 
         }
 

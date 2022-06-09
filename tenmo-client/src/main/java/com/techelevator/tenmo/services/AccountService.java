@@ -32,7 +32,7 @@ public class AccountService {
     public Account getBalance(Long id){
         var account = new Account();
         try{
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "/account/balancebyuserid?id=" + id, HttpMethod.GET, makeEntity(), Account.class);
+            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/balancebyuserid?id=" + id, HttpMethod.GET, makeEntity(), Account.class);
             account = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
@@ -57,7 +57,6 @@ public class AccountService {
         try{
             ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfer/transferfrom?id=" + id, HttpMethod.GET, makeEntity(), Transfer[].class );
             list = Arrays.asList((Transfer[])Objects.requireNonNull((Transfer[])response.getBody()));
-            System.out.println("Testing list from accountService.transferlist: " + list.size());
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
         }
@@ -74,4 +73,16 @@ public class AccountService {
         }
         return account;
     }
+
+    public List<User> getListOfUsers(String name){
+        List<User> userList = new ArrayList<>();
+        try {
+            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "user/recipients?username=" + name, HttpMethod.GET, makeEntity(), User[].class );
+            userList = Arrays.asList((User[])Objects.requireNonNull((User[])response.getBody()));
+        } catch (RestClientResponseException | ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return userList;
+    }
+
 }
