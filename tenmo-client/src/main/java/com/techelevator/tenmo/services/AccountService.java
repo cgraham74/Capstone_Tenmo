@@ -28,7 +28,7 @@ public class AccountService {
     public Account getBalance(Long id){
         var account = new Account();
         try{
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "balance?id=" + id, HttpMethod.GET, makeEntity(), Account.class);
+            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "/account/balancebyuserid?id=" + id, HttpMethod.GET, makeEntity(), Account.class);
             account = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());

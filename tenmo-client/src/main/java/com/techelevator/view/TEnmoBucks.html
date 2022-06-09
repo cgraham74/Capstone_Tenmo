@@ -1,0 +1,57 @@
+
+<div class="container" id="header">
+    <h1>TEnmo<span id="streams"> Bucks</span></h1>
+    <form action="">
+        <input type="text" name="firstname" placeholder="Name" id="userInputFirstName">
+    </form>
+    <form action="">
+        <input type="text" name="password" placeholder="Password" id="userInputPassword">
+    </form>
+
+</div>
+<div class="container" id="btnUserContainer">
+    <button type="button" class="button" id="newUser"onclick="getElementById('demo1').innerHTML=http://localhost:8080/account/balancebyuserid?id=1001">New User</button>
+    <button type="button" class="button" id="logIn">Log In</button>
+    <button type="button" class="button" id="exit">Exit</button>
+</div>
+<div>
+    <p id = "newUserArea"> <</p>
+</div>
+
+
+<div class="container" id="mainContainer">
+    <div class="container" id="streamOnline"></div>
+    <div class="container" id="streamOffline"></div>
+</div>
+<div>
+
+</div>
+<div class="container" id="footer">
+    <p>Graham & Harper LLC</p>
+</div>
+
+<div class="container" id="btnTransferContainer">
+    <button type="button" class="button" id="alllButton" resource="http://localhost:8080/account/balancebyuserid?id=1001">Check Balance</button>
+    <button type="button" class="button" id="onlineButton">Transfer History</button>
+    <button type="button" class="button" id="offlineButton">Exit</button>
+</div>
+<body>
+<p>How to assign an "onclick" event to a p element:</p>
+
+<p id="demo" onclick="myFunction()">Click me.</p>
+
+<script>
+function myFunction() {
+  document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
+
+}
+</script>
+
+
+<p>Click to display the time.</p>
+
+<button onclick="getElementById('allButton')" resource="localhost:8080/account/balancebyuserid?id=1001">What is the time?</button>
+
+<p id="allButton"> It will show up here?</p>
+
+</body>

@@ -7,7 +7,9 @@ import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
+import io.cucumber.java.bs.A;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -93,17 +95,19 @@ public class App {
         }
     }
 
-	private void viewCurrentBalance() {
-		// TODO Auto-generated method stub
-		var account = new Account();
-        account = accountService.getBalance(currentUser.getUser().getId());
-        //Format for money later
-        System.out.println("You're current balance is: " + account.getBalance());
-	}
+	private BigDecimal viewCurrentBalance() {
+        // TODO Auto-generated method stub
+        // Get the id of the current user
+        long userId = currentUser.getUser().getId();
+        // Get balance of the current user by id
+        Account accountOfCurrentUser =  accountService.getBalance(userId);
+        System.out.println("Current balance is: " + accountOfCurrentUser.getBalance());
+        return accountOfCurrentUser.getBalance();
+    }
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void viewPendingRequests() {
@@ -117,10 +121,11 @@ public class App {
         //I must not be allowed to send money to myself.
         List<User> userList = accountService.displayRegisteredUsers(currentUser.getUser().getUsername());
         consoleService.printUserList(userList);
-
+        System.out.println(userList);
         //Select from list of users
        int selection = consoleService.promptForMenuSelection("Please enter the number of a user: ");
        System.out.println(userList.get(selection - 1).getId());
+
 
         }
 

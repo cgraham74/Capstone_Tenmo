@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("type")
+@RequestMapping("transfertype")
 public class TransferTypeController {
 
    private TransferTypeService service;
