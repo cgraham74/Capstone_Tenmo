@@ -4,6 +4,7 @@ import com.techelevator.tenmo.model.*;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
+import com.techelevator.tenmo.services.TransferServices;
 import io.cucumber.java.bs.A;
 
 import java.math.BigDecimal;
@@ -129,7 +130,7 @@ public class App {
 
 	private void sendBucks() {
 		// TODO Auto-generated method stub
-
+        long sendMoneyTo = 0;
         List<User> userList = accountService.getListOfUsers(currentUser.getUser().getUsername());
         int counter = 0;
         for (User user : userList){
@@ -138,7 +139,19 @@ public class App {
         }
         int userSelection = consoleService.promptForInt("Pick Lucky person for big mad cash");
         System.out.println(userList.get(userSelection - 1).getId());
+        sendMoneyTo = userList.get(userSelection - 1).getId();
+        TransferServices transferServices = new TransferServices();
 
+        Account accountOfCurrentUser =  accountService.getBalance(currentUser.getUser().getId());
+
+        BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
+       if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > 0 || moneyToSend.compareTo(BigDecimal.ZERO) > 0){
+           //If condition is true - we want to allow the transfer of money from one account to the other.(At the same time inside a transaction)
+           System.out.println("You may proceed with your giving of the funds!");
+       }
+
+        transferServices.sendMoney((int) sendMoneyTo,moneyToSend);
+        // call update balance
         }
 
 

@@ -11,6 +11,7 @@ public class TransferStatus {
     @Column(name = "transfer_status_id")
     private int transferstatusid;
 
+    @Column(name = "transfer_status_desc")
     private String transferstatusdesc;
 
     public TransferStatus() {
