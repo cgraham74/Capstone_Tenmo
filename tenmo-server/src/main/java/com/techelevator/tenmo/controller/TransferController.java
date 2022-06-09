@@ -1,35 +1,50 @@
 package com.techelevator.tenmo.controller;
 
-import com.techelevator.tenmo.model.TransferStatus;
-import com.techelevator.tenmo.model.TransferType;
+
 import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.tenmo.model.Transfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("transfer/")
 public class TransferController {
 
+
+    private TransferService transferService;
+
     @Autowired
-    TransferService transferService;
+    public TransferController(TransferService transferService) {
+        this.transferService = transferService;
 
-    TransferType transferType;
-
-    TransferStatus transferStatus;
+    }
 
     @PostMapping("transferbalance")
-    public Transfer createnewtransfer(@RequestBody int id, @Valid @RequestBody int transfertypeid, @Valid @RequestBody int transferstatusid, @RequestBody int accountfrom, @RequestBody int accountto, @RequestBody BigDecimal amount){
+    public Transfer createnewtransfer(@RequestBody Transfer transfer){
 
-        return transferService.saveorupdatetransfer(id, transfertypeid, transferstatusid,accountfrom,accountto,amount);
+        return transferService.save(transfer);
     }
 
     @GetMapping("transfers")
     public List<Transfer> getAllTransfers(){
         return transferService.findAll();
     }
+
+    @GetMapping("transferfrom")
+    public List<Transfer> getAllTransfersaccountfrom(@RequestParam int id){
+        return transferService.findAllByAccountfrom(id);
+    }
+
+    @GetMapping("transferto")
+    public List<Transfer> getAllTransfersaccountto(@RequestParam int id){
+        return transferService.findAllByAccountto(id);
+    }
+
+    @GetMapping("transferId")
+    public Transfer getById(@RequestParam int id){
+        return transferService.findById(id);
+    }
+
 
 }

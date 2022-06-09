@@ -5,12 +5,10 @@ import com.techelevator.tenmo.repositories.AccountRepository;
 import com.techelevator.tenmo.repositories.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
 public class TransferService{
-
 
     @Autowired
     TransferRepository transferRepository;
@@ -20,23 +18,24 @@ public class TransferService{
    public TransferService(){
    }
 
-   public Transfer saveorupdatetransfer(int id, int transfertypeid, int transferstatusid, int accountfrom, int accountto, BigDecimal amount){
-       BigDecimal fromBalance = accountRepository.findByuserid(accountfrom).getBalance();
-
-       Transfer transfer = new Transfer();
-       transfer.setTransfertypeid(transfertypeid);
-       transfer.setTransferstatusid(transferstatusid);
-       if(amount.compareTo(BigDecimal.ZERO) > 0 && amount.compareTo(fromBalance) == 1){
-           transfer.setAccountfrom(accountfrom);
-       }
-       transfer.setAccountto(accountto);
-       transfer.setAmount(amount);
-
-       return transfer;
+   public Transfer save(Transfer transfer){
+       return transferRepository.save(transfer);
    }
 
     public List<Transfer> findAll() {
        return transferRepository.findAll();
+    }
+
+    public List<Transfer> findAllByAccountfrom(int id) {
+       return transferRepository.findAllByAccountfrom(id);
+    }
+
+    public List<Transfer> findAllByAccountto(int id) {
+       return transferRepository.findAllByAccountto(id);
+    }
+
+    public Transfer findById(int id) {
+       return transferRepository.findById(id);
     }
 
 

@@ -5,6 +5,7 @@ import com.techelevator.tenmo.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class AccountService{
 
@@ -21,4 +22,7 @@ public class AccountService{
         return accountRepository.findById(id);
     }
 
+    public Account save(Account account) {
+        return accountRepository.save(account);
+    }
 }
