@@ -15,8 +15,11 @@ public class Transfer {
     @Column(name = "transfer_status_id")
     private int transferstatusid;
 
+    @Column(name = "accountfrom")
     private int accountfrom;
+    @Column(name = "accountto")
     private int accountto;
+    @Column(name = "amount")
     private BigDecimal amount;
 
 

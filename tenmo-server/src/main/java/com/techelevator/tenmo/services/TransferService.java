@@ -13,11 +13,13 @@ public class TransferService{
 
     private final TransferRepository transferRepository;
     private final AccountRepository accountRepository;
+    private UserDao userDao;
 
     @Autowired
-    public TransferService(TransferRepository transferRepository, AccountRepository accountRepository) {
+    public TransferService(TransferRepository transferRepository, AccountRepository accountRepository, UserDao userDao) {
         this.transferRepository = transferRepository;
         this.accountRepository = accountRepository;
+        this.userDao = userDao;
     }
 
 

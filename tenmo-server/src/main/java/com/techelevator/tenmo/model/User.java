@@ -1,15 +1,25 @@
 package com.techelevator.tenmo.model;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "tenmo_user")
 public class User {
 
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   @Column(name = "user_id")
    private Long id;
+   @Column(name = "username")
    private String username;
+   @Column(name = "password_hash")
    private String password;
+   @Transient
    private boolean activated;
+   @Transient
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }

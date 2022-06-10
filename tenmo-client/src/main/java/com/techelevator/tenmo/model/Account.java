@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.model;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 
 public class Account {
     private int accountid;
@@ -14,6 +15,10 @@ public class Account {
         this.accountid = accountid;
         this.userid = userid;
         this.balance = balance;
+    }
+
+    public String currencyFormat(){
+        return NumberFormat.getCurrencyInstance().format(balance);
     }
 
     public int getAccountid() {
@@ -32,8 +37,7 @@ public class Account {
         this.userid = userid;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getBalance() {return balance;
     }
 
     public void setBalance(BigDecimal balance) {

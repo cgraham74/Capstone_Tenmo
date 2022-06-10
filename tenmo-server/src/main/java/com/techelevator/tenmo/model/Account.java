@@ -16,6 +16,7 @@ public class Account {
     @Column(name = "user_id", insertable = false, updatable = false)
     private int userid;
 
+    @Column(name = "balance")
     private BigDecimal balance;
 
 

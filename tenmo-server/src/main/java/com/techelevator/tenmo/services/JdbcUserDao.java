@@ -91,6 +91,17 @@ public class JdbcUserDao implements UserDao {
         return users;
     }
 
+    @Override
+    public User findById(int to) {
+
+        String sql = "SELECT username FROM tenmo_user WHERE user_id LIKE ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, to);
+        if(results.next()){
+            return mapRowToUser(results);
+        }
+        throw new RuntimeException("User " + to + " was not found.");
+    }
+
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getLong("user_id"));
