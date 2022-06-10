@@ -23,6 +23,8 @@ public class TransferService {
 
     private Transfer transfer;
 
+
+
     enum status {
         Pending,
         Approved,
@@ -39,11 +41,12 @@ public class TransferService {
         return new HttpEntity<String>(headers);
     }
 
-    public Transfer sendMoney(int id, BigDecimal amountToSend){
+    //Transfers money from one account to another in tandem
 
+    public void transferMoneyFromCurrentUserToTargetUser(long sendFromUser,long sendMoneyToUser, BigDecimal moneyToSend) {
 
-        return new Transfer();
     }
+
 
     public Transfer requestMoney(int id, BigDecimal amountToReq){
         return new Transfer();

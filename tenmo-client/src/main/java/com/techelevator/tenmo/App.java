@@ -146,21 +146,25 @@ public class App {
             counter++;
             System.out.println( counter +" : " +user.getUsername());
         }
-
         int userSelection = consoleService.promptForInt("Select user to receive funds");
         System.out.println(userList.get(userSelection - 1).getId());
         sendMoneyToUser = userList.get(userSelection - 1).getId();
         TransferService transferService = new TransferService();
 
+        //getting the balance of the current user - to ensure user doesn't send more than they have
         Account accountOfCurrentUser =  accountService.getBalance(currentUser.getUser().getId());
 
+        //Prompting user to enter amount to send
         BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
-       if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > -1 && moneyToSend.compareTo(BigDecimal.ZERO) > 0){
-           //If condition is true - we want to allow the transfer of money from one account to the other.(At the same time inside a transaction)
+
+        //if User has enough funds - send money from current users account to target user
+       if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > 0 && moneyToSend.compareTo(BigDecimal.ZERO) > 0){
+
            System.out.println("You may proceed with your giving of the funds!");
+           transferService.transferMoneyFromCurrentUserToTargetUser(currentUser.getUser().getId(),sendMoneyToUser, moneyToSend);
        }
 
-        transferService.sendMoney((int) sendMoneyToUser,moneyToSend);
+
         // call update balance
         }
 

@@ -46,5 +46,8 @@ public class TransferController {
         return transferService.findById(id);
     }
 
-
+    @GetMapping("what")
+    public String getWhat(){
+        return "what";
+    }
 }

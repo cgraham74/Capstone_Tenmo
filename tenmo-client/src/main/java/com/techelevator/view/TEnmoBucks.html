@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<Head>
+    <meta charset="UTF-8">
+    <title>TEnmo Transfer Services</title>
+
+</Head>
+<BODY>
+
+
 
 <div class="container" id="header">
     <h1>TEnmo<span id="streams"> Bucks</span></h1>
@@ -17,7 +27,18 @@
 <div>
     <p id = "newUserArea"></p>
 </div>
+<div>
+    <table>
+        <tr>
 
+            <td>List of Users</td>
+
+        </tr>
+        <tr th:each="transferService: ${transferService}">
+            <td th:text="${transferService.displayRegisteredUsers}">User List</td>
+        </tr>
+    </table>
+</div>
 
 <div class="container" id="mainContainer">
     <div class="container" id="streamOnline"></div>
@@ -30,7 +51,7 @@
     <p>Graham & Harper LLC</p>
 </div>
 
-<body>
+
 <p>How to assign an "onclick" event to a p element:</p>
 
 <p id="demo" onclick="myFunction()">Click me.</p>
@@ -50,4 +71,5 @@ function myFunction() {
         <li><a href="#">Transfer List</a></li>
     </ul>
 </nav>
-</body>
+</BODY>
+</html>

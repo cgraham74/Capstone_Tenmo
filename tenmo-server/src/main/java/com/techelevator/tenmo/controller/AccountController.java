@@ -28,6 +28,7 @@ public class AccountController {
    public Account getBalancebyId(@RequestParam int id) {
         return accountService.findAccountById(id);
     }
+
     //end point /account/"balancebyid?id=" Will list current user's balance given the User's ID
     @GetMapping("balancebyuserid")
     public Account getTransferUserList(@RequestParam int id) {
