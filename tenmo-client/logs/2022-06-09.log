@@ -35,3 +35,5 @@
 2022-06-09T16:25:27.0485135 404 : [{"timestamp":"2022-06-09T21:25:27.047+00:00","status":404,"error":"Not Found","message":"No message available","path":"/recipients"}]
 2022-06-09T16:26:26.842464 404 : [{"timestamp":"2022-06-09T21:26:26.829+00:00","status":404,"error":"Not Found","message":"No message available","path":"/recipients"}]
 2022-06-09T16:26:26.8494165 404 : [{"timestamp":"2022-06-09T21:26:26.848+00:00","status":404,"error":"Not Found","message":"No message available","path":"/recipients"}]
+2022-06-09T20:19:51.4624513 404 : [{"timestamp":"2022-06-10T01:19:51.438+00:00","status":404,"error":"Not Found","message":"No message available","path":"/transfer/transfer/transferfrom"}]
+2022-06-09T20:19:51.4684353 404 : [{"timestamp":"2022-06-10T01:19:51.467+00:00","status":404,"error":"Not Found","message":"No message available","path":"/transfer/transfer/transferto"}]

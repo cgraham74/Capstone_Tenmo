@@ -38,29 +38,42 @@ public class AccountService {
         }
         return account;
     }
+//
+//    public List<User> displayRegisteredUsers(String username){
+//        List<User> userList = new ArrayList<>();
+//        try{
+//            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "transferlist?username=" + username, HttpMethod.GET, makeEntity(), User[].class);
+//            userList = Arrays.asList(Objects.requireNonNull(response.getBody()));
+//        } catch (RestClientResponseException | ResourceAccessException e){
+//            BasicLogger.log(e.getMessage());
+//        }
+//        return userList;
+//    }
+//
+//    //Get list of Transfers from currentUser
+//    public List<Transfer> transferFromList(Long id) {
+//        List<Transfer>list = new ArrayList<>();
+//        try{
+//            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfer/transferfrom?id=" + id, HttpMethod.GET, makeEntity(), Transfer[].class );
+//            list = Arrays.asList((Transfer[])Objects.requireNonNull((Transfer[])response.getBody()));
+//        } catch (RestClientResponseException | ResourceAccessException e){
+//            BasicLogger.log(e.getMessage());
+//        }
+//        return list;
+//    }
+//
+//    //Get a list of transfers to currentUser
+//    public List<Transfer> transferToList(Long id) {
+//        List<Transfer>list = new ArrayList<>();
+//        try{
+//            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfer/transferto?id=" + id, HttpMethod.GET, makeEntity(), Transfer[].class );
+//            list = Arrays.asList((Transfer[])Objects.requireNonNull((Transfer[])response.getBody()));
+//        } catch (RestClientResponseException | ResourceAccessException e){
+//            BasicLogger.log(e.getMessage());
+//        }
+//        return list;
+//    }
 
-    public List<User> displayRegisteredUsers(String username){
-        List<User> userList = new ArrayList<>();
-        try{
-            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "transferlist?username=" + username, HttpMethod.GET, makeEntity(), User[].class);
-            userList = Arrays.asList(Objects.requireNonNull(response.getBody()));
-        } catch (RestClientResponseException | ResourceAccessException e){
-            BasicLogger.log(e.getMessage());
-        }
-        return userList;
-    }
-
-    //Get list of Transfers from currentUser
-    public List<Transfer> transferList(Long id) {
-        List<Transfer>list = new ArrayList<>();
-        try{
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfer/transferfrom?id=" + id, HttpMethod.GET, makeEntity(), Transfer[].class );
-            list = Arrays.asList((Transfer[])Objects.requireNonNull((Transfer[])response.getBody()));
-        } catch (RestClientResponseException | ResourceAccessException e){
-            BasicLogger.log(e.getMessage());
-        }
-        return list;
-    }
 
     public Account getAccountFromUserId(Long id){
         Account account = new Account();
