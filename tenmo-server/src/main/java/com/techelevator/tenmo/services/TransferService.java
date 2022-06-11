@@ -22,7 +22,6 @@ public class TransferService{
         this.userDao = userDao;
     }
 
-
     public Transfer save(Transfer transfer){
        return transferRepository.save(transfer);
    }
@@ -42,25 +41,6 @@ public class TransferService{
     public Transfer findById(int id) {
        return transferRepository.findById(id);
     }
-
-
-//    @Override
-//    public Transfer transferBalanceFromUserToUser(BigDecimal balance, User sender, User receiver) {
-//        Transfer transfer = new Transfer();
-//        String sql = "BEGIN TRANSACTION;\n" +
-//                "        UPDATE account SET balance = balance - ? WHERE account_number = ?;\n" +
-//                "        UPDATE account SET balance = balance + ? WHERE account_number = ?;\n" +
-//                "        COMMIT;";
-//        jdbcTemplate.update(sql, balance, sender, balance, receiver);
-//
-//        //I can't send a zero or negative amount.
-//        //I can't send more TE Bucks than I have in my account.
-//        if (balance.compareTo(BigDecimal.ZERO)> 0){
-//
-//        }
-//        return transfer;
-//    }
-
 
 //    private Transfer mapRowToTransfer(SqlRowSet rs){
 //        Transfer transfer = new Transfer();

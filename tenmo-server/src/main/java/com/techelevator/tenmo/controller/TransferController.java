@@ -72,19 +72,30 @@ public class TransferController {
 
     @PostMapping("sendmoney")
     public Transfer create(@RequestBody Transfer transfer){
+        //Getting amount to transfer between accounts
         BigDecimal moneyToSend = transfer.getAmount();
+
+        // Getting the id of both the Current user (sender) and Target user (recipient)
         Account accountOfCurrentUser = accountService.findAccountById(transfer.getAccountfrom());
         Account accountofTargetuser = accountService.findAccountById(transfer.getAccountto());
 
-        //Updates the balances with transfer transaction
+        //Updates the balances of from and to users with transfer transaction
         if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) <= 0 && moneyToSend.compareTo(BigDecimal.ZERO) > 0){
-            if(accountOfCurrentUser.getUserid() != accountofTargetuser.getUserid())
-            accountOfCurrentUser.setBalance(accountOfCurrentUser.getBalance().subtract(moneyToSend));
-            accountofTargetuser.setBalance(accountofTargetuser.getBalance().add(moneyToSend));
-            accountService.transferBalance(accountOfCurrentUser, accountofTargetuser);
-            transferService.save(transfer);
+
+            //Verifying user and recipient differs - else throwing an exception with personalized message
+            if(accountOfCurrentUser.getUserid() != accountofTargetuser.getUserid()) {
+
+                //Adding the amount to one account and subtracting from another
+                accountOfCurrentUser.setBalance(accountOfCurrentUser.getBalance().subtract(moneyToSend));
+                accountofTargetuser.setBalance(accountofTargetuser.getBalance().add(moneyToSend));
+                accountService.transferBalance(accountOfCurrentUser, accountofTargetuser);
+
+
+                transferService.save(transfer);
+                return transfer;
+            }
         }
-        return transfer;
+             throw new RuntimeException("Cannot send money to self");
     }
 
 //    @GetMapping("what")
