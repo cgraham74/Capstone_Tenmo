@@ -132,9 +132,15 @@ public class App {
 	}
 
 
-	private void viewPendingRequests() {
+	private List<Transfer> viewPendingRequests() {
 		// TODO Auto-generated method stub
-		
+		List<Transfer> pendingTransfers = transferService.pendingTransfers(currentUser.getUser().getId());
+        System.out.println("Before the ForEach Loop tester");
+        for (Transfer transfer : pendingTransfers){
+            System.out.println(transfer);
+            System.out.println("Empty Transfer list");
+        }
+        return pendingTransfers;
 	}
 
     public List<User> getAllUsers(){
@@ -154,17 +160,18 @@ public class App {
         //Capture selection of recipient
         int userSelection = consoleService.promptForInt("Select user to receive funds");
 
-       //Getting Id of Recipient
-       long sendMoneyToUser = userList.get(userSelection - 1).getId();
-
-        TransferService transferService = new TransferService();
-
+        //Getting Id of Recipient
+        long sendMoneyToUser = userList.get(userSelection - 1).getId();
 
         Account accountOfCurrentUser =  accountService.getBalance(currentUser.getUser().getId());
-
+        Account accountofTargetUser = accountService.getBalance(sendMoneyToUser);
 
         BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
 
+        //Sends money from current user to selected user.
+        transferService.transferMoney(accountOfCurrentUser.getAccountid(),accountofTargetUser.getAccountid(), moneyToSend);
+
+        System.out.println("You sent: " + moneyToSend + " TE bucks to " + userSelection);
         }
 
 	private void requestBucks() {

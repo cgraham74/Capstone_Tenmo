@@ -91,14 +91,20 @@ public class TransferService{
         throw new RuntimeException("Insufficient Funds for Transfer");
     }
 
+    //Request funds - throws error if requesting from self or if amount is 0
     public Transfer requestFundsFromUser(Transfer transfer){
         transfer.setTransferstatusid(1);
         transfer.setTransfertypeid(1);
-        return transferRepository.save(transfer);
+        if (transfer.getAccountto() != transfer.getAccountfrom()){
+            if(transfer.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                return transferRepository.save(transfer);
+            }
+            throw new RuntimeException("Request must be larger than 0");
+        }
+        throw new RuntimeException("Invalid Request - Cannot request from self");
     }
 
     public List<Transfer> findAllBystatus(int accountfrom) {
-
         return transferRepository.findByStatus(accountfrom);
     }
 }
