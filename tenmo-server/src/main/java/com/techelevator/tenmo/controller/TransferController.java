@@ -71,19 +71,20 @@ public class TransferController {
 
 
     @PostMapping("sendmoney")
-    public void create(@RequestBody Transfer transfer){
+    public Transfer create(@RequestBody Transfer transfer){
         BigDecimal moneyToSend = transfer.getAmount();
-        Account accountOfCurrentUser = accountService.findAccountByuserid(transfer.getAccountfrom());
-        Account accountofTargetuser = accountService.findAccountByuserid(transfer.getAccountto());
+        Account accountOfCurrentUser = accountService.findAccountById(transfer.getAccountfrom());
+        Account accountofTargetuser = accountService.findAccountById(transfer.getAccountto());
 
         //Updates the balances with transfer transaction
         if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) <= 0 && moneyToSend.compareTo(BigDecimal.ZERO) > 0){
+            if(accountOfCurrentUser.getUserid() != accountofTargetuser.getUserid())
             accountOfCurrentUser.setBalance(accountOfCurrentUser.getBalance().subtract(moneyToSend));
             accountofTargetuser.setBalance(accountofTargetuser.getBalance().add(moneyToSend));
             accountService.transferBalance(accountOfCurrentUser, accountofTargetuser);
             transferService.save(transfer);
         }
-
+        return transfer;
     }
 
 //    @GetMapping("what")
