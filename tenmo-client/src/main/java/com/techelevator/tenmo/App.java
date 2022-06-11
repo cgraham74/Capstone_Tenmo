@@ -100,6 +100,7 @@ public class App {
         return list;
     }
 
+    //Fully Functional / Working
 	private BigDecimal viewCurrentBalance() {
         // TODO Auto-generated method stub
         // Get the id of the current user
@@ -113,6 +114,7 @@ public class App {
         return accountOfCurrentUser.getBalance();
     }
 
+    //Fully Functional / Working
 	private List<Transfer> viewTransferHistory() {
 		// TODO Auto-generated method stub
         Account account = accountService.getAccountFromUserId(currentUser.getUser().getId());
@@ -134,24 +136,19 @@ public class App {
 
 	private List<Transfer> viewPendingRequests() {
 		// TODO Auto-generated method stub
-		List<Transfer> pendingTransfers = transferService.pendingTransfers(currentUser.getUser().getId());
-        System.out.println("Before the ForEach Loop tester");
+        Account currentUserAccount = accountService.getAccountFromUserId(currentUser.getUser().getId());
+		List<Transfer> pendingTransfers = transferService.pendingTransfers((long) currentUserAccount.getAccountid());
+        int counter = 1;
         for (Transfer transfer : pendingTransfers){
-            System.out.println(transfer);
-            System.out.println("Empty Transfer list");
+            System.out.println("Current pending transactions: "+ "(" + counter +") " + transfer.getAccountfrom() + " for the amount of " + transfer.getAmount());
+            counter++;
         }
         return pendingTransfers;
 	}
 
-    public List<User> getAllUsers(){
-        List<User> userList = accountService.getListOfUsers(currentUser.getUser().getUsername());
-        int counter = 0;
-        for (User user : userList){
-            counter++;
-            System.out.println( counter +" : " +user.getUsername());
-        }
-        return userList;
-    }
+
+
+    //Fully Functional - Working
 	private void sendBucks() {
 		// TODO Auto-generated method stub
         //List of Available recipients
@@ -178,5 +175,15 @@ public class App {
 		// TODO Auto-generated method stub
 		
 	}
+
+    public List<User> getAllUsers(){
+        List<User> userList = accountService.getListOfUsers(currentUser.getUser().getUsername());
+        int counter = 0;
+        for (User user : userList){
+            counter++;
+            System.out.println( counter +" : " +user.getUsername());
+        }
+        return userList;
+    }
 
 }

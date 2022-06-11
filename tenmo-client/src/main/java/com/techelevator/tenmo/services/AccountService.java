@@ -26,7 +26,6 @@ public class AccountService {
         return new HttpEntity<String>(headers);
     }
 
-
     public Account getBalance(Long id){
         var account = new Account();
         try{
@@ -37,7 +36,6 @@ public class AccountService {
         }
         return account;
     }
-
 
     public Account getAccountFromUserId(Long id){
         Account account = new Account();
@@ -60,17 +58,4 @@ public class AccountService {
         }
         return userList;
     }
-
-    public boolean updateBalanceById(Account updatedAccount){
-
-        boolean success = false;
-        try {
-            restTemplate.put(API_BASE_URL + "account/updatebalance/id?=" + updatedAccount.getUserid(), HttpMethod.PUT, makeEntity(), Account.class);
-            success = true;
-        }catch (RestClientResponseException | ResourceAccessException ex){
-            BasicLogger.log(ex.getMessage());
-        }
-        return success;
-    }
-
 }

@@ -81,7 +81,7 @@ public class TransferController {
         return transferService.requestFundsFromUser(transfer);
     }
 
-    @GetMapping("pending/")
+    @GetMapping("pending")
     public List<Transfer> findByTransferstatus(@RequestParam int accountfrom){
         return transferService.findAllBystatus(accountfrom);
     }

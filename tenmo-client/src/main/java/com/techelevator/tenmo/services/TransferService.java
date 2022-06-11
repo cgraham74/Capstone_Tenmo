@@ -89,11 +89,11 @@ public class TransferService {
         }
         return list;
     }
-
+    //Get list of Transfers with a pending status from the server
     public List<Transfer> pendingTransfers(Long id){
         List<Transfer> list = new ArrayList<>();
         try{
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfer/pending?id=" + id , HttpMethod.GET, makeEntity(), Transfer[].class);
+            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfer/pending?accountfrom=" + id , HttpMethod.GET, makeEntity(), Transfer[].class);
             list = Arrays.asList((Transfer[])Objects.requireNonNull((Transfer[])response.getBody()));
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
