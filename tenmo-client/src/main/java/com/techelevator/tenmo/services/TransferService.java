@@ -43,9 +43,7 @@ public class TransferService {
 
     //Transfers money from one account to another in tandem
 
-    public void transferMoneyFromCurrentUserToTargetUser(long sendFromUser,long sendMoneyToUser, BigDecimal moneyToSend) {
 
-    }
 
 
     public Transfer requestMoney(int id, BigDecimal amountToReq){

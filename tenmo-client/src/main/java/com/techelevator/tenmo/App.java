@@ -157,19 +157,7 @@ public class App {
         //Prompting user to enter amount to send
         BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
 
-        //if User has enough funds - send money from current users account to target user
-       if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > 0 && moneyToSend.compareTo(BigDecimal.ZERO) > 0){
-
-           System.out.println("You may proceed with your giving of the funds!");
-           transferService.transferMoneyFromCurrentUserToTargetUser(currentUser.getUser().getId(),sendMoneyToUser, moneyToSend);
-       }
-
-
-        // call update balance
         }
-
-
-
 
 	private void requestBucks() {
 		// TODO Auto-generated method stub

@@ -5,11 +5,13 @@ import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.repositories.AccountRepository;
 import com.techelevator.tenmo.repositories.TransferTypeRepository;
+import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.services.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +31,17 @@ public class TransferController {
     private UserDao userDao;
     private AccountRepository accountRepository;
     private TransferTypeRepository transferTypeRepository;
+    private AccountService accountService;
 
     @Autowired
-    public TransferController(TransferService transferService) {
+    public TransferController(TransferService transferService, UserDao userDao, AccountRepository accountRepository, TransferTypeRepository transferTypeRepository, AccountService accountService) {
         this.transferService = transferService;
-
+        this.userDao = userDao;
+        this.accountRepository = accountRepository;
+        this.transferTypeRepository = transferTypeRepository;
+        this.accountService = accountService;
     }
+
 
     @PostMapping("transferbalance")
     public Transfer createnewtransfer(@RequestBody Transfer transfer){
@@ -62,23 +69,20 @@ public class TransferController {
         return transferService.findById(id);
     }
 
+
     @PostMapping("sendmoney")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestParam("to") int to, @RequestParam("amount") @Positive BigDecimal amount, Principal principal){
-        User fromUser = userDao.findByUsername(principal.getName());
-        User toUser = userDao.findById(to);
-        Account fromUserAccount = accountRepository.findByUser(fromUser);
-        Account toUserAccount = accountRepository.findByUser(toUser);
-        if(fromUserAccount.getBalance().compareTo(amount) < 0){
-            throw new RuntimeException("Insufficient funds");
+    public void create(@RequestBody Transfer transfer){
+        BigDecimal moneyToSend = transfer.getAmount();
+        Account accountOfCurrentUser = accountService.findAccountByuserid(transfer.getAccountfrom());
+        Account accountofTargetuser = accountService.findAccountByuserid(transfer.getAccountto());
+
+        //Updates the balances with transfer transaction
+        if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) <= 0 && moneyToSend.compareTo(BigDecimal.ZERO) > 0){
+            accountOfCurrentUser.setBalance(accountOfCurrentUser.getBalance().subtract(moneyToSend));
+            accountofTargetuser.setBalance(accountofTargetuser.getBalance().add(moneyToSend));
+            accountService.transferBalance(accountOfCurrentUser, accountofTargetuser);
+            transferService.save(transfer);
         }
-        Transfer transfer = new Transfer();
-        transfer.setAmount(amount);
-        transfer.setAccountfrom(fromUserAccount.getAccountid());
-        transfer.setAccountto(toUserAccount.getAccountid());
-        transfer.setTransfertypeid(2);
-
-
 
     }
 

@@ -4,12 +4,13 @@ import com.techelevator.tenmo.repositories.AccountRepository;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
-
+//@PreAuthorize("isAuthenticated()")
 @RestController
 @RequestMapping(path = "account/")
 public class AccountController {
@@ -40,5 +41,6 @@ public class AccountController {
     public Account updateBalanceById(@RequestBody Account account){
         return accountService.save(account);
     }
+
 
 }

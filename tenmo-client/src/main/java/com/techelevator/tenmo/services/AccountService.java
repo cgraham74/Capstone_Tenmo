@@ -23,6 +23,7 @@ public class AccountService {
 
     public HttpEntity makeEntity(){
         HttpHeaders headers = new HttpHeaders();
+      //  headers.setBearerAuth(token);
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<String>(headers);
     }
