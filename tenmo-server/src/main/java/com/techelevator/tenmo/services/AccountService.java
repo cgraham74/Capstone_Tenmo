@@ -4,10 +4,6 @@ import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-
 
 @Service
 public class AccountService{
@@ -29,13 +25,4 @@ public class AccountService{
     public Account save(Account account) {
         return accountRepository.save(account);
     }
-
-
-
-    @Transactional
-    public void transferBalance(Account accountFrom, Account accountTo) {
-        accountRepository.save(accountFrom);
-        accountRepository.save(accountTo);
-    }
-
 }

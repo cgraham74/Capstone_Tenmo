@@ -1,5 +1,4 @@
 package com.techelevator.tenmo.services;
-import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.util.BasicLogger;
@@ -23,8 +22,6 @@ public class TransferService {
 
     private Transfer transfer;
 
-
-
     enum status {
         Pending,
         Approved,
@@ -41,23 +38,26 @@ public class TransferService {
         return new HttpEntity<String>(headers);
     }
 
-    //Transfers money from one account to another in tandem
-
-
-
-
+    //Request money from another user (NOT SELF)
     public Transfer requestMoney(int id, BigDecimal amountToReq){
+
         return new Transfer();
     }
 
-    public Account transferMoney(Long id){
-        //Handle Transfer of Funds between 2 accounts inside a Transaction
-        //Update the balance of both accounts
-        //Return senders new Balance
+    //Send Money to another user
+    public Transfer transferMoney(int id, int accountfrom, int accountto, BigDecimal amount){
+        Transfer transfer = new Transfer(2, 2, accountto, accountfrom, amount);
+        Transfer newTransfer = new Transfer();
+        try{
+            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "transfer/transferfunds", HttpMethod.POST, makeEntity(), Transfer.class);
+            newTransfer = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
 
-
-       return accountService.getBalance(id);
+       return newTransfer;
     }
+
 
     public List<User> displayRegisteredUsers(String username){
         List<User> userList = new ArrayList<>();

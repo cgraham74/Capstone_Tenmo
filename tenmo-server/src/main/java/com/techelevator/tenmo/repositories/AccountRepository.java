@@ -23,11 +23,4 @@ public interface AccountRepository extends JpaRepository<Account, Integer>{
     //Finds account by user id
     Account findByuserid(int id);
 
-//    @Modifying
-//    @Query(value = "BEGIN TRANSACTION; " +
-//            "UPDATE account SET balance = balance - ? WHERE account_id = ?; " +
-//            "UPDATE account SET balance = balance + ? WHERE account_id = ?; " +
-//            "COMMIT;", nativeQuery = true)
-//    void updateBalance(BigDecimal amountfrom, int accountFrom, BigDecimal amountto, int accountTo);
-
 }

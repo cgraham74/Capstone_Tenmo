@@ -19,6 +19,14 @@ public class Transfer {
         this.amount = amount;
     }
 
+    public Transfer(int transferstatusid, int transfertypeid, int accountto, int accountfrom, BigDecimal amount) {
+        this.transferstatusid = transferstatusid;
+        this.transfertypeid = transfertypeid;
+        this.accountto = accountto;
+        this.accountfrom = accountfrom;
+        this.amount = amount;
+    }
+
     public Transfer(){
     }
 

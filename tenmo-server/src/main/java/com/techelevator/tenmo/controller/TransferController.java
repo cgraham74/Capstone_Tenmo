@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
@@ -27,7 +28,7 @@ import java.util.List;
 public class TransferController {
 
 
-    private TransferService transferService;
+    private final TransferService transferService;
     private UserDao userDao;
     private AccountRepository accountRepository;
     private TransferTypeRepository transferTypeRepository;
@@ -45,7 +46,6 @@ public class TransferController {
 
     @PostMapping("transferbalance")
     public Transfer createnewtransfer(@RequestBody Transfer transfer){
-
         return transferService.save(transfer);
     }
 
@@ -64,42 +64,25 @@ public class TransferController {
         return transferService.findAllByAccountto(id);
     }
 
-    @GetMapping("transferId")
-    public Transfer getById(@RequestParam int id){
+    //Gets transfers by id
+    @GetMapping("transferid")
+    public Transfer findById(@RequestParam int id){
         return transferService.findById(id);
     }
 
 
-    @PostMapping("sendmoney")
+    @PostMapping("transferfunds")
     public Transfer create(@RequestBody Transfer transfer){
-        //Getting amount to transfer between accounts
-        BigDecimal moneyToSend = transfer.getAmount();
-
-        // Getting the id of both the Current user (sender) and Target user (recipient)
-        Account accountOfCurrentUser = accountService.findAccountById(transfer.getAccountfrom());
-        Account accountofTargetuser = accountService.findAccountById(transfer.getAccountto());
-
-        //Updates the balances of from and to users with transfer transaction
-        if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) <= 0 && moneyToSend.compareTo(BigDecimal.ZERO) > 0){
-
-            //Verifying user and recipient differs - else throwing an exception with personalized message
-            if(accountOfCurrentUser.getUserid() != accountofTargetuser.getUserid()) {
-
-                //Adding the amount to one account and subtracting from another
-                accountOfCurrentUser.setBalance(accountOfCurrentUser.getBalance().subtract(moneyToSend));
-                accountofTargetuser.setBalance(accountofTargetuser.getBalance().add(moneyToSend));
-                accountService.transferBalance(accountOfCurrentUser, accountofTargetuser);
-
-
-                transferService.save(transfer);
-                return transfer;
-            }
-        }
-             throw new RuntimeException("Cannot send money to self");
+      return transferService.transferBalance(transfer);
     }
 
-//    @GetMapping("what")
-//    public String getWhat(){
-//        return "what";
-//    }
+    @PostMapping("request")
+    public Transfer addNewTransferRequest(@RequestBody Transfer transfer){
+        return transferService.requestFundsFromUser(transfer);
+    }
+
+    @GetMapping("pending")
+    public List<Transfer> findByTransferstatus(@RequestParam int accountfrom){
+        return transferService.findAllBystatus(accountfrom);
+    }
 }

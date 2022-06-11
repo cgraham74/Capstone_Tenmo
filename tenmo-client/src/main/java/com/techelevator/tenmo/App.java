@@ -137,24 +137,32 @@ public class App {
 		
 	}
 
-	private void sendBucks() {
-		// TODO Auto-generated method stub
-        long sendMoneyToUser = 0;
+    public List<User> getAllUsers(){
         List<User> userList = accountService.getListOfUsers(currentUser.getUser().getUsername());
         int counter = 0;
         for (User user : userList){
             counter++;
             System.out.println( counter +" : " +user.getUsername());
         }
+        return userList;
+    }
+	private void sendBucks() {
+		// TODO Auto-generated method stub
+        //List of Available recipients
+        List<User> userList = getAllUsers();
+
+        //Capture selection of recipient
         int userSelection = consoleService.promptForInt("Select user to receive funds");
-        System.out.println(userList.get(userSelection - 1).getId());
-        sendMoneyToUser = userList.get(userSelection - 1).getId();
+
+       //Getting Id of Recipient
+       long sendMoneyToUser = userList.get(userSelection - 1).getId();
+
         TransferService transferService = new TransferService();
 
-        //getting the balance of the current user - to ensure user doesn't send more than they have
+
         Account accountOfCurrentUser =  accountService.getBalance(currentUser.getUser().getId());
 
-        //Prompting user to enter amount to send
+
         BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
 
         }
