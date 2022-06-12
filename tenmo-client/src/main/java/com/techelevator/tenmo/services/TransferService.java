@@ -21,15 +21,21 @@ public class TransferService {
     private AccountService accountService;
     private Transfer transfer;
 
+    private String authToken = null;
+    public void setAuthToken(String authToken){
+        this.authToken = authToken;
+    }
 
     public HttpEntity makeEntity(){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(authToken);
         return new HttpEntity<String>(headers);
     }
     public HttpEntity makeEntity(Transfer transfer){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(authToken);
         return new HttpEntity<>(transfer, headers);
     }
 

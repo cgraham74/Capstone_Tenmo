@@ -5,7 +5,9 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TransferService;
+import com.techelevator.util.BasicLogger;
 import io.cucumber.java.bs.A;
+import net.bytebuddy.matcher.FilterableList;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -25,6 +27,7 @@ public class App {
     private final AccountService accountService = new AccountService();
     private final TransferService transferService = new TransferService();
     private AuthenticatedUser currentUser;
+    private List<User> userList = getAllUsers();
 
     public static void main(String[] args) {
         App app = new App();
@@ -142,46 +145,62 @@ public class App {
 		// TODO Auto-generated method stub
         Account currentUserAccount = accountService.getAccountFromUserId(currentUser.getUser().getId());
 		List<Transfer> pendingTransfers = transferService.pendingTransfers((long) currentUserAccount.getAccountid());
+        List<Integer> transactionIds = new ArrayList<>();
+
+
         try{
             for (Transfer transfer : pendingTransfers) {
+                transactionIds.add(transfer.getId());
                 System.out.println("Transaction Id: " + "(" + transfer.getId() + ") " + transfer.getAccountfrom() + " for the amount of " + transfer.getAmount());
-                approveOrReject();
             }
+
+            String message = approveOrReject(transactionIds);
+            System.out.println(message);
         }catch(NullPointerException e){
             System.out.println("Please choose a valid id.");
         }
 
         return pendingTransfers;
 	}
-     public String approveOrReject(){
-        Long input = (long)consoleService.promptForMenuSelection("Select transaction by id: ");
-        Transfer transfer  = transferService.singlePendingTransfer(input);
-        System.out.println("Id: "+ transfer.getId() + " " + transfer.getAmount() + " " + transfer.getAccountfrom());
-        int choice = 0;
-        while (choice != 1 || choice != 2){
-
-            choice = consoleService.promptForMenuSelection("Approve [1] or Reject [2]");
-            if (choice == 1 || choice == 2){
-                break;
+     public String approveOrReject(List<Integer> transactionIds){
+        String success = null;
+        try {
+             int input =  consoleService.promptForMenuSelection("Select transaction by id: ");
+            if (transactionIds.contains(input)) {
+                Transfer transfer = transferService.singlePendingTransfer((long)input);
+                System.out.println("Id: " + transfer.getId() + " " + transfer.getAmount() + " " + transfer.getAccountto());
+                int choice = 0;
+                while (true) {
+                    choice = consoleService.promptForMenuSelection("Approve [1] or Reject [2]");
+                    if (choice == 1 || choice == 2) {
+                        break;
+                    }
+                }
+                if (choice == 1) {
+                    transfer.setTransferstatusid(APPROVED);
+                    transferService.transferMoney(transfer.getAccountfrom(), transfer.getAccountto(), transfer.getAmount());
+                    transferService.update(transfer);
+                    success = "Transfer Approved";
+                } else {
+                    transfer.setTransferstatusid(REJECTED);
+                    transferService.update(transfer);
+                    success = "Transfer Rejected";
+                }
+            } else {
+                success = "Invalid Transfer Id";
+                throw new RuntimeException(success);
             }
-        }
-        if(choice == 1){
-            transfer.setTransferstatusid(APPROVED);
-            transferService.transferMoney(transfer.getAccountfrom(),transfer.getAccountto(), transfer.getAmount());
-            transferService.update(transfer);
 
-        } else {
-            transfer.setTransferstatusid(REJECTED);
-            transferService.update(transfer);
+        }catch (RuntimeException e){
+            BasicLogger.log(e.getMessage());
         }
-        return "Stop being red for now";
+        return success;
      }
 
     //Fully Functional - Working
 	private void sendBucks() {
 		// TODO Auto-generated method stub
         //List of Available recipients
-        List<User> userList = getAllUsers();
 
         try {
             //Capture selection of recipient

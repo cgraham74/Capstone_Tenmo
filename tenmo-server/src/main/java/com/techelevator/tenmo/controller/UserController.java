@@ -38,4 +38,9 @@ public class UserController {
     public List<User> getAllAvailableRecipients(String username){
     return dao.findTransferList(username);
     }
+
+    @GetMapping("allusers")
+    public List<User> findByAccountId(int id){
+        return dao.findAllByAccountId(id);
+    }
 }

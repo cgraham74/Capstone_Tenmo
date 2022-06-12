@@ -17,4 +17,6 @@ public interface UserDao {
     List<User> findTransferList(String username);
 
     User findById(int to);
+
+    List<User> findAllByAccountId(int id);
 }

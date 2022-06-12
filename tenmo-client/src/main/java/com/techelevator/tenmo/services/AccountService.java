@@ -20,9 +20,15 @@ public class AccountService {
     public static final String API_BASE_URL = "http://localhost:8080/";
     private RestTemplate restTemplate = new RestTemplate();
 
+    private String authToken = null;
+    public void setAuthToken(String authToken){
+        this.authToken = authToken;
+    }
+
     public HttpEntity makeEntity(){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(authToken);
         return new HttpEntity<String>(headers);
     }
 
