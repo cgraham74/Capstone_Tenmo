@@ -142,13 +142,15 @@ public class App {
 		// TODO Auto-generated method stub
         Account currentUserAccount = accountService.getAccountFromUserId(currentUser.getUser().getId());
 		List<Transfer> pendingTransfers = transferService.pendingTransfers((long) currentUserAccount.getAccountid());
-
-        for (Transfer transfer : pendingTransfers){
-            System.out.println("Transaction Id: "+ "(" + transfer.getId() +") " + transfer.getAccountfrom() + " for the amount of " + transfer.getAmount());
-
+        try{
+            for (Transfer transfer : pendingTransfers) {
+                System.out.println("Transaction Id: " + "(" + transfer.getId() + ") " + transfer.getAccountfrom() + " for the amount of " + transfer.getAmount());
+                approveOrReject();
+            }
+        }catch(NullPointerException e){
+            System.out.println("Please choose a valid id.");
         }
 
-        approveOrReject();
         return pendingTransfers;
 	}
      public String approveOrReject(){
