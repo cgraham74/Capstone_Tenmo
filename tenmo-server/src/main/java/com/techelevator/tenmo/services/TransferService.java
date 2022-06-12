@@ -2,7 +2,7 @@ package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
-import com.techelevator.tenmo.model.TransferStatus;
+
 import com.techelevator.tenmo.model.TransferType;
 import com.techelevator.tenmo.repositories.AccountRepository;
 import com.techelevator.tenmo.repositories.TransferRepository;
@@ -18,6 +18,8 @@ import java.util.List;
 @Service
 public class TransferService{
 
+    private final int SEND = 2;
+    private final int RECEIVE = 1;
     private final AccountService accountService;
     private final TransferRepository transferRepository;
     private final AccountRepository accountRepository;
@@ -81,8 +83,10 @@ public class TransferService{
                 accountRepository.save(accountOfCurrentUser);
                 accountRepository.save(accountofTargetuser);
 
-                //Saving a transaction of the transfer
-                transferRepository.save(transfer);
+                //Saving a new transaction of the transfer only if it is a send request
+                if(transfer.getTransfertypeid() == SEND) {
+                    transferRepository.save(transfer);
+                }
                 return transfer;
             }
 
@@ -106,5 +110,13 @@ public class TransferService{
 
     public List<Transfer> findAllBystatus(int accountfrom) {
         return transferRepository.findByStatus(accountfrom);
+    }
+
+    public Transfer saveUpdate(Transfer transfer) {
+        return transferRepository.save(transfer);
+    }
+
+    public void update(int usid, int transferid) {
+        transferRepository.update(usid,transferid);
     }
 }

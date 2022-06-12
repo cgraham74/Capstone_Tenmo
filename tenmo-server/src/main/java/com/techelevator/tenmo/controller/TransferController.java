@@ -10,16 +10,9 @@ import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.services.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Positive;
-import java.math.BigDecimal;
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -85,5 +78,16 @@ public class TransferController {
     public List<Transfer> findByTransferstatus(@RequestParam int accountfrom){
         return transferService.findAllBystatus(accountfrom);
     }
+
+    @GetMapping("pendingbyid")
+    public Transfer findByTransferId(@RequestParam int id){
+        return transferService.findById(id);
+    }
+
+    @PutMapping("update")
+    public void updateTransfer(@RequestParam int statusid, @RequestParam int transferid){
+        transferService.update(statusid, transferid);
+    }
+
 
 }

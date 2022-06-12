@@ -34,9 +34,17 @@ public class TransferService {
     }
 
     //Request money from another user (NOT SELF)
-    public Transfer requestMoney(int id, BigDecimal amountToReq){
+    public Transfer requestMoney(BigDecimal amount, int accountto, int accountfrom){
+        Transfer transfer = new Transfer(1,1, accountto, accountfrom,amount);
+        HttpEntity<Transfer> entity = makeEntity(transfer);
+        Transfer newTransfer = null;
+        try{
+            newTransfer = restTemplate.postForObject(API_BASE_URL + "transfer/request", entity, Transfer.class);
+        }catch (RestClientResponseException | ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
 
-        return new Transfer();
+        return newTransfer;
     }
 
     //Send Money to another user
@@ -101,4 +109,26 @@ public class TransferService {
         return list;
     }
 
+    public Transfer singlePendingTransfer(Long id){
+        Transfer transfer = new Transfer();
+        try{
+            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "transfer/pendingbyid?id=" + id, HttpMethod.GET, makeEntity(), Transfer.class);
+            transfer = response.getBody();
+        }catch (RestClientResponseException | ResourceAccessException ex){
+            BasicLogger.log(ex.getMessage());
+        }
+        return transfer;
+    }
+
+    public boolean update(Transfer transfer) {
+        HttpEntity<Transfer> entity = makeEntity(transfer);
+        boolean success = false;
+        try{
+            restTemplate.put(API_BASE_URL + "transfer/update" + transfer.getId(), entity);
+            success = true;
+        }catch (RestClientResponseException | ResourceAccessException ex){
+            BasicLogger.log(ex.getMessage());
+        }
+        return success;
+    }
 }

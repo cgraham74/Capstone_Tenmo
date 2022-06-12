@@ -2,8 +2,10 @@ package com.techelevator.tenmo.repositories;
 
 import com.techelevator.tenmo.model.Transfer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,4 +23,9 @@ public interface TransferRepository extends JpaRepository<Transfer, Integer> {
 
     @Query(value = "SELECT * FROM transfer WHERE transfer_status_id = 1 AND accountfrom = ?1", nativeQuery = true)
     List<Transfer> findByStatus(int accountfrom);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE transfer SET transfer_status_id = ?1 WHERE transfer_id = ?2 ", nativeQuery = true)
+    void update(int statusid, int transferid);
 }

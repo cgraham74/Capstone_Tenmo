@@ -5,6 +5,7 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TransferService;
+import io.cucumber.java.bs.A;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -16,6 +17,9 @@ public class App {
 
     private static final String API_BASE_URL = "http://localhost:8080/";
 
+    private final int APPROVED = 2;
+    private final int PENDING = 1;
+    private final int REJECTED = 3;
     private final ConsoleService consoleService = new ConsoleService();
     private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
     private final AccountService accountService = new AccountService();
@@ -133,20 +137,43 @@ public class App {
         return mergedList;
 	}
 
-
+    //Fully functional - working
 	private List<Transfer> viewPendingRequests() {
 		// TODO Auto-generated method stub
         Account currentUserAccount = accountService.getAccountFromUserId(currentUser.getUser().getId());
 		List<Transfer> pendingTransfers = transferService.pendingTransfers((long) currentUserAccount.getAccountid());
-        int counter = 1;
+
         for (Transfer transfer : pendingTransfers){
-            System.out.println("Current pending transactions: "+ "(" + counter +") " + transfer.getAccountfrom() + " for the amount of " + transfer.getAmount());
-            counter++;
+            System.out.println("Transaction Id: "+ "(" + transfer.getId() +") " + transfer.getAccountfrom() + " for the amount of " + transfer.getAmount());
+
         }
+
+        approveOrReject();
         return pendingTransfers;
 	}
+     public String approveOrReject(){
+        Long input = (long)consoleService.promptForMenuSelection("Select transaction by id: ");
+        Transfer transfer  = transferService.singlePendingTransfer(input);
+        System.out.println("Id: "+ transfer.getId() + " " + transfer.getAmount() + " " + transfer.getAccountfrom());
+        int choice = 0;
+        while (choice != 1 || choice != 2){
 
+            choice = consoleService.promptForMenuSelection("Approve [1] or Reject [2]");
+            if (choice == 1 || choice == 2){
+                break;
+            }
+        }
+        if(choice == 1){
+            transfer.setTransferstatusid(APPROVED);
+            transferService.transferMoney(transfer.getAccountfrom(),transfer.getAccountto(), transfer.getAmount());
+            transferService.update(transfer);
 
+        } else {
+            transfer.setTransferstatusid(REJECTED);
+            transferService.update(transfer);
+        }
+        return "Stop being red for now";
+     }
 
     //Fully Functional - Working
 	private void sendBucks() {
@@ -168,12 +195,19 @@ public class App {
         //Sends money from current user to selected user.
         transferService.transferMoney(accountOfCurrentUser.getAccountid(),accountofTargetUser.getAccountid(), moneyToSend);
 
-        System.out.println("You sent: " + moneyToSend + " TE bucks to " + userSelection);
+        System.out.println("You sent: " + moneyToSend + " TE bucks to " + userList.get(userSelection - 1).getUsername());
         }
 
 	private void requestBucks() {
 		// TODO Auto-generated method stub
-		
+		List<User> userList = getAllUsers();
+        int userSelection = consoleService.promptForInt("Select user to request TE bucks from");
+        long requestFundsFromUser = userList.get(userSelection - 1).getId();
+        Account accountFromUser = accountService.getAccountFromUserId(requestFundsFromUser);
+        Account accountToCurrent = accountService.getAccountFromUserId(currentUser.getUser().getId());
+        BigDecimal amountToRequest = consoleService.promptForBigDecimal("Enter request amount: ");
+        //Creating a transfer request from current user - to receive funds from selected user.
+        transferService.requestMoney(amountToRequest,accountToCurrent.getAccountid(),accountFromUser.getAccountid());
 	}
 
     public List<User> getAllUsers(){
