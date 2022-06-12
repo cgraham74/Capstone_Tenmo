@@ -211,13 +211,17 @@ public class App {
 	private void requestBucks() {
 		// TODO Auto-generated method stub
 		List<User> userList = getAllUsers();
-        int userSelection = consoleService.promptForInt("Select user to request TE bucks from");
-        long requestFundsFromUser = userList.get(userSelection - 1).getId();
-        Account accountFromUser = accountService.getAccountFromUserId(requestFundsFromUser);
-        Account accountToCurrent = accountService.getAccountFromUserId(currentUser.getUser().getId());
-        BigDecimal amountToRequest = consoleService.promptForBigDecimal("Enter request amount: ");
-        //Creating a transfer request from current user - to receive funds from selected user.
-        transferService.requestMoney(amountToRequest,accountToCurrent.getAccountid(),accountFromUser.getAccountid());
+        try {
+            int userSelection = consoleService.promptForInt("Select user to request TE bucks from");
+            long requestFundsFromUser = userList.get(userSelection - 1).getId();
+            Account accountFromUser = accountService.getAccountFromUserId(requestFundsFromUser);
+            Account accountToCurrent = accountService.getAccountFromUserId(currentUser.getUser().getId());
+            BigDecimal amountToRequest = consoleService.promptForBigDecimal("Enter request amount: ");
+            //Creating a transfer request from current user - to receive funds from selected user.
+            transferService.requestMoney(amountToRequest, accountToCurrent.getAccountid(), accountFromUser.getAccountid());
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println("Please select a valid Id.");
+        }
 	}
 
     public List<User> getAllUsers(){
