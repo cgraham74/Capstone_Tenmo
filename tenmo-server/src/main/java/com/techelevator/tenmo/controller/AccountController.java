@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.controller;
 
+import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.repositories.AccountRepository;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.model.Account;

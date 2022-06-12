@@ -39,8 +39,8 @@ public class UserController {
     return dao.findTransferList(username);
     }
 
-    @GetMapping("allusers")
-    public List<User> findByAccountId(int id){
-        return dao.findAllByAccountId(id);
+    @GetMapping("/accountid")
+    public User findUserByaccountid(int id){
+        return dao.findUserByAccountid(id);
     }
 }

@@ -102,6 +102,19 @@ public class JdbcUserDao implements UserDao {
         throw new RuntimeException("User " + to + " was not found.");
     }
 
+    @Override
+    public User findUserByAccountid(int id) {
+        String sql = "SELECT * FROM tenmo_user\n" +
+                "JOIN account ON\n" +
+                "account.user_id = tenmo_user.user_id WHERE\n" +
+                "account.account_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if(results.next()){
+            return mapRowToUser(results);
+        }
+        throw new RuntimeException("User was not found");
+    }
+
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getLong("user_id"));

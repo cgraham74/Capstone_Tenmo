@@ -19,6 +19,9 @@ public class Account {
     @Column(name = "balance")
     private BigDecimal balance;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false,updatable = false)
+    private User user;
 
     public Account(){
 
