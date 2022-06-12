@@ -183,21 +183,29 @@ public class App {
         //List of Available recipients
         List<User> userList = getAllUsers();
 
-        //Capture selection of recipient
-        int userSelection = consoleService.promptForInt("Select user to receive funds");
+        try {
+            //Capture selection of recipient
+            int userSelection = consoleService.promptForInt("Select user to receive funds");
 
-        //Getting Id of Recipient
-        long sendMoneyToUser = userList.get(userSelection - 1).getId();
+            //Getting Id of Recipient
+            long sendMoneyToUser = userList.get(userSelection - 1).getId();
 
-        Account accountOfCurrentUser =  accountService.getBalance(currentUser.getUser().getId());
-        Account accountofTargetUser = accountService.getBalance(sendMoneyToUser);
+            if (userSelection < userList.size()) {
+                Account accountOfCurrentUser = accountService.getBalance(currentUser.getUser().getId());
+                Account accountofTargetUser = accountService.getBalance(sendMoneyToUser);
 
-        BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
+                BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
 
-        //Sends money from current user to selected user.
-        transferService.transferMoney(accountOfCurrentUser.getAccountid(),accountofTargetUser.getAccountid(), moneyToSend);
+                //Sends money from current user to selected user.
+                transferService.transferMoney(accountOfCurrentUser.getAccountid(), accountofTargetUser.getAccountid(), moneyToSend);
 
-        System.out.println("You sent: " + moneyToSend + " TE bucks to " + userList.get(userSelection - 1).getUsername());
+                System.out.println("You sent: " + moneyToSend + " TE bucks to " + userList.get(userSelection - 1).getUsername());
+            }
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Please select a valid Id");
+        }
+
+
         }
 
 	private void requestBucks() {
