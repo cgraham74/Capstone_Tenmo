@@ -191,7 +191,7 @@ public class App {
                     } else {
                         transfer.setTransferstatusid(REJECTED);
                         boolean response = transferService.update(transfer);
-                        success = "Transfer Rejected" + response;
+                        success = "Transfer Rejected";
                     }
                 } else {
                     success = "Invalid Transfer Id";

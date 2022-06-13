@@ -22,3 +22,4 @@
 2022-06-13T15:14:44.2622459 401 : [no body]
 2022-06-13T15:17:38.2693925 401 : [no body]
 2022-06-13T15:17:43.4010468 400 : [{"timestamp":"2022-06-13T20:17:43.381+00:00","status":400,"error":"Bad Request","message":"Validation failed for object='registerUserDTO'. Error count: 2","errors":[{"codes":["NotEmpty.registerUserDTO... (947 bytes)]
+2022-06-13T15:20:04.8748499 500 : [{"timestamp":"2022-06-13T20:20:04.854+00:00","status":500,"error":"Internal Server Error","message":"Insufficient Funds for Transfer","path":"/transfer/transferfunds"}]
