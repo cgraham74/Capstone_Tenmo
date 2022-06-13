@@ -7,11 +7,10 @@
 <BODY>
 <table>
     <tr>
-        <td>Account History</td>
-        <td>Transfers</td>
-        <td>Pending</td>
-        <td>SendBucks</td>
-        <td>Request Bucks</td>
+
+        <td>Transfer Id</td>
+        <td>Transfer Status</td>
+
     </tr>
     <tr th:each="transfer: ${transfers}">
         <td th:text="${transfer.id}">Transfers</td>

@@ -12,6 +12,7 @@ import com.techelevator.tenmo.services.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,12 +45,13 @@ public class TransferController {
         return transferService.save(transfer);
     }
 
+
     @GetMapping("transfers")
     public List<Transfer> getAllTransfers(){
         return transferService.findAll();
     }
 
-    @RequestMapping("/test")
+    @GetMapping("/test")
     public String getAllTransfers(Model model){
         List<Transfer> transfers = this.transferService.findAll();
         model.addAttribute("transfers", transfers);
@@ -97,7 +99,4 @@ public class TransferController {
     public void updateTransfer(@RequestParam int statusid, @RequestParam int transferid){
         transferService.update(statusid, transferid);
     }
-
-
-
 }
