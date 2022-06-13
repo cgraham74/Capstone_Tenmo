@@ -55,3 +55,14 @@
 2022-06-12T15:06:52.7439726 Invalid Transfer Id
 2022-06-12T15:07:05.5200725 404 : [{"timestamp":"2022-06-12T20:07:05.519+00:00","status":404,"error":"Not Found","message":"No message available","path":"/transfer/update47"}]
 2022-06-12T15:14:36.5059883 Invalid Transfer Id
+2022-06-12T17:13:30.2525509 404 : [{"timestamp":"2022-06-12T22:13:30.238+00:00","status":404,"error":"Not Found","message":"No message available","path":"/transfer/update34"}]
+2022-06-12T17:29:01.4848706 401 : [no body]
+2022-06-12T17:29:24.2174957 500 : [{"timestamp":"2022-06-12T22:29:24.215+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-12T17:54:47.6197078 Invalid Transfer Id
+2022-06-12T18:12:41.2898671 Invalid Transfer Id
+2022-06-12T18:14:20.1065606 404 : [{"timestamp":"2022-06-12T23:14:20.092+00:00","status":404,"error":"Not Found","message":"No message available","path":"/transfer/update11"}]
+2022-06-12T18:19:48.2381855 404 : [{"timestamp":"2022-06-12T23:19:48.225+00:00","status":404,"error":"Not Found","message":"No message available","path":"/transfer/update11"}]
+2022-06-12T18:27:51.0081379 400 : [{"timestamp":"2022-06-12T23:27:50.995+00:00","status":400,"error":"Bad Request","message":"Required int parameter 'statusid' is not present","path":"/transfer/update"}]
+2022-06-12T18:31:44.6369088 Invalid Transfer Id
+2022-06-12T18:32:27.8271789 401 : [{"timestamp":"2022-06-12T23:32:27.807+00:00","status":401,"error":"Unauthorized","message":"Full authentication is required to access this resource","path":"/transfer/pending"}]
+2022-06-12T18:33:06.9855492 401 : [{"timestamp":"2022-06-12T23:33:06.970+00:00","status":401,"error":"Unauthorized","message":"Full authentication is required to access this resource","path":"/transfer/pending"}]

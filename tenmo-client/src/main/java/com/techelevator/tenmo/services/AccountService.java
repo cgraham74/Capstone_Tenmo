@@ -64,4 +64,15 @@ public class AccountService {
         }
         return userList;
     }
+
+    public User getUserByAccountId(int id){
+        User user = new User();
+        try {
+            ResponseEntity<User> response = restTemplate.exchange(API_BASE_URL + "user/accountid?id=" + id, HttpMethod.GET, makeEntity(), User.class);
+            user = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException ex){
+            BasicLogger.log(ex.getMessage());
+        }
+        return user;
+    }
 }
