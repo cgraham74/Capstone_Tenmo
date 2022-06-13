@@ -70,11 +70,12 @@ public class App {
     private void handleLogin() {
         UserCredentials credentials = consoleService.promptForCredentials();
         currentUser = authenticationService.login(credentials);
-        if (currentUser == null) {
+        try {
+            accountService.setAuthToken(currentUser.getToken());
+            transferService.setAuthToken(currentUser.getToken());
+        }catch(NullPointerException e){
             consoleService.printErrorMessage();
         }
-        accountService.setAuthToken(currentUser.getToken());
-        transferService.setAuthToken(currentUser.getToken());
     }
 
     private void mainMenu() {
