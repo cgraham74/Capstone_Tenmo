@@ -109,7 +109,7 @@ public class App {
         return list;
     }
 
-    //Fully Functional / Working
+
 	private BigDecimal viewCurrentBalance() {
         // TODO Auto-generated method stub
         // Get the id of the current user
@@ -123,7 +123,7 @@ public class App {
         return accountOfCurrentUser.getBalance();
     }
 
-    //Fully Functional / Working
+
 	private List<Transfer> viewTransferHistory() {
 		// TODO Auto-generated method stub
         Account account = accountService.getAccountFromUserId(currentUser.getUser().getId());
@@ -144,7 +144,7 @@ public class App {
         return mergedList;
 	}
 
-    //Fully functional - working
+
 	private List<Transfer> viewPendingRequests() {
 		// TODO Auto-generated method stub
         Account currentUserAccount = accountService.getAccountFromUserId(currentUser.getUser().getId());
@@ -207,7 +207,7 @@ public class App {
         return success;
      }
 
-    //Fully Functional - Working
+
 	private void sendBucks() {
 		// TODO Auto-generated method stub
         //List of Available recipients
@@ -232,7 +232,7 @@ public class App {
                 System.out.println("You sent: " + moneyToSend + " TE bucks to " + userList.get(userSelection - 1).getUsername());
             }
         }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("Please select a valid Id");
+            System.out.println("Please select a valid user");
         }
 
 
@@ -250,7 +250,7 @@ public class App {
             //Creating a transfer request from current user - to receive funds from selected user.
             transferService.requestMoney(amountToRequest, accountToCurrent.getAccountid(), accountFromUser.getAccountid());
         }catch(ArrayIndexOutOfBoundsException e){
-            System.out.println("Please select a valid Id.");
+            System.out.println("Please select a valid user.");
         }
 	}
 

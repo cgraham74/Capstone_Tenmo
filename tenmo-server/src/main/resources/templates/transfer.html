@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TEnmo Transfer Service</title>
+</head>
+<BODY>
+<table>
+    <tr>
+        <td>Account History</td>
+        <td>Transfers</td>
+        <td>Pending</td>
+        <td>SendBucks</td>
+        <td>Request Bucks</td>
+    </tr>
+    <tr th:each="transfer: ${transfers}">
+        <td th:text="${transfer.id}">Transfers</td>
+        <td th:text="${transfer.transferstatusid}">Transfer Status</td>
+
+    </tr>
+</table>
+
+</BODY>
+</html>
