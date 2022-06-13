@@ -51,12 +51,6 @@ public class TransferController {
         return transferService.findAll();
     }
 
-    @GetMapping("/test")
-    public String getAllTransfers(Model model){
-        List<Transfer> transfers = this.transferService.findAll();
-        model.addAttribute("transfers", transfers);
-        return "transfer";
-    }
 
     @GetMapping("transferfrom")
     public List<Transfer> getAllTransfersaccountfrom(@RequestParam int id){

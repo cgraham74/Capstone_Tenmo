@@ -7,14 +7,17 @@
 <BODY>
 <table>
     <tr>
-
-        <td>Transfer Id</td>
+<! Column names for the table >
+        <td>Id</td>
         <td>Transfer Status</td>
-
+        <td>Account From</td>
+        <td>Account To</td>
     </tr>
     <tr th:each="transfer: ${transfers}">
         <td th:text="${transfer.id}">Transfers</td>
         <td th:text="${transfer.transferstatusid}">Transfer Status</td>
+        <td th:text="${transfer.accountfrom}">Account From</td>
+        <td th:text="${transfer.accountto}">Account To</td>
 
     </tr>
 </table>

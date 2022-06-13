@@ -33,7 +33,7 @@ public class TransferWebController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/test")
+    @GetMapping("/transfer")
     public String getAllTransfers(Model model){
         List<Transfer> transfers = this.transferService.findAll();
         model.addAttribute("transfers", transfers);
