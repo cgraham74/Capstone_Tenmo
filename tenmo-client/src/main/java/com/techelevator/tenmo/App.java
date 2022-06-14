@@ -298,8 +298,6 @@ public class App {
         System.out.println("From: " + from.getUsername());
         System.out.println("To: " + to.getUsername());
         System.out.println("Amount: " + singleTransfer.getAmount());
-
-
     }
 
 
