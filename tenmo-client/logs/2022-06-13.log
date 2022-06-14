@@ -31,3 +31,9 @@
 2022-06-13T16:11:26.0405885 Invalid Transfer Id
 2022-06-13T16:11:58.3629896 401 : [no body]
 >>>>>>> Stashed changes
+2022-06-13T17:06:10.662934 Invalid Transfer Id
+2022-06-13T17:11:37.0373502 500 : [{"timestamp":"2022-06-13T22:11:37.018+00:00","status":500,"error":"Internal Server Error","message":"Insufficient Funds for Transfer","path":"/transfer/transferfunds"}]
+2022-06-13T17:23:30.0995908 500 : [{"timestamp":"2022-06-13T22:23:30.088+00:00","status":500,"error":"Internal Server Error","message":"Insufficient Funds for Transfer","path":"/transfer/transferfunds"}]
+2022-06-13T17:24:05.864944 500 : [{"timestamp":"2022-06-13T22:24:05.851+00:00","status":500,"error":"Internal Server Error","message":"Insufficient Funds for Transfer","path":"/transfer/transferfunds"}]
+2022-06-13T17:27:13.6087977 500 : [{"timestamp":"2022-06-13T22:27:13.594+00:00","status":500,"error":"Internal Server Error","message":"Insufficient Funds for Transfer","path":"/transfer/transferfunds"}]
+2022-06-13T17:30:45.1324893 500 : [{"timestamp":"2022-06-13T22:30:45.119+00:00","status":500,"error":"Internal Server Error","message":"Insufficient Funds for Transfer","path":"/transfer/transferfunds"}]

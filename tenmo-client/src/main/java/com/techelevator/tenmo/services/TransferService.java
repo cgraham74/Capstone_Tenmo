@@ -21,6 +21,7 @@ public class TransferService {
     private AccountService accountService;
     private Transfer transfer;
     private String authToken = null;
+    private ConsoleService consoleService;
 
     public void setAuthToken(String authToken){
         this.authToken = authToken;
@@ -51,6 +52,19 @@ public class TransferService {
         }
 
         return newTransfer;
+    }
+
+    //Get a single transfer by its id
+
+    public Transfer getTransferById(int id){
+        Transfer transfer = null;
+        try {
+            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "transfer/transferid?id=" + id, HttpMethod.GET, makeEntity(), Transfer.class);
+            transfer = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return transfer;
     }
 
     //Send Money to another user
@@ -138,4 +152,7 @@ public class TransferService {
         }
         return success;
     }
+
+
+
 }

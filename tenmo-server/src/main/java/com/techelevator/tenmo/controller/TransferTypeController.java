@@ -26,4 +26,5 @@ public class TransferTypeController {
        return service.findAll();
     }
 
+
 }

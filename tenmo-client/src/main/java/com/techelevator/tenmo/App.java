@@ -142,8 +142,13 @@ public class App {
             System.out.println("ID: " + t.getId() + " From: " + user.getUsername() + " " + NumberFormat.getCurrencyInstance().format(t.getAmount()));
         }
         System.out.println("__________________________________________________");
+        int userInput = consoleService.promptForMenuSelection("Select a transaction id for more details, or 0 to exit");
+        displaySingleTransfer(userInput);
+
         return mergedList;
 	}
+
+
 
 
 	private List<Transfer> viewPendingRequests() {
@@ -154,14 +159,17 @@ public class App {
 
 
         try{
-            for (Transfer transfer : pendingTransfers) {
-                transactionIds.add(transfer.getId());
-                User user = accountService.getUserByAccountId(transfer.getAccountto());
-                System.out.println("Transaction Id: " + "(" + transfer.getId() + ") " + user.getUsername() + " for the amount of " + transfer.getAmount());
+            if (pendingTransfers.size() > 0){
+                for (Transfer transfer : pendingTransfers) {
+                    transactionIds.add(transfer.getId());
+                    User user = accountService.getUserByAccountId(transfer.getAccountto());
+                    System.out.println("Transaction Id: " + "(" + transfer.getId() + ") " + user.getUsername() + " for the amount of " + transfer.getAmount());
+                }
+                String message = approveOrReject(transactionIds);
+                System.out.println(message);
+            } else {
+                System.out.println("You have no pending transactions at this time.");
             }
-
-            String message = approveOrReject(transactionIds);
-            System.out.println(message);
         }catch(NullPointerException e){
             System.out.println("Please choose a valid id.");
         }
@@ -184,10 +192,17 @@ public class App {
                         }
                     }
                     if (choice == 1) {
-                        transfer.setTransferstatusid(APPROVED);
-                        transferService.transferMoney(transfer.getAccountfrom(), transfer.getAccountto(), transfer.getAmount());
-                        transferService.update(transfer);
-                        success = "Transfer Approved";
+                        long userId = currentUser.getUser().getId();
+                        Account accountOfCurrentUser =  accountService.getBalance(userId);
+                        if (accountOfCurrentUser.getBalance().compareTo(transfer.getAmount()) > 0){
+                            transfer.setTransferstatusid(APPROVED);
+                            transferService.transferMoney(transfer.getAccountfrom(), transfer.getAccountto(), transfer.getAmount());
+                            transferService.update(transfer);
+                            success = "Transfer Approved";
+                        } else {
+                            success = "Insufficient funds";
+                        }
+
                     } else {
                         transfer.setTransferstatusid(REJECTED);
                         boolean response = transferService.update(transfer);
@@ -199,7 +214,7 @@ public class App {
                 }
 
             } else {
-                success = "User Exited";
+                success = "";
             }
 
         }catch (RuntimeException e){
@@ -226,11 +241,18 @@ public class App {
                 Account accountofTargetUser = accountService.getBalance(sendMoneyToUser);
 
                 BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
+                System.out.println("Account of current user: " + accountOfCurrentUser.getBalance());
 
-                //Sends money from current user to selected user.
-                transferService.transferMoney(accountOfCurrentUser.getAccountid(), accountofTargetUser.getAccountid(), moneyToSend);
+                if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > 0){
+                    System.out.println("Insufficient funds");
+                } else if (moneyToSend.compareTo(BigDecimal.ZERO) <= 0) {
+                    System.out.println("Must send a positive number more than $0.00");
+                } else {
+                    //Sends money from current user to selected user.
+                    transferService.transferMoney(accountOfCurrentUser.getAccountid(), accountofTargetUser.getAccountid(), moneyToSend);
+                    System.out.println("You sent: " + moneyToSend + " TE bucks to " + userList.get(userSelection - 1).getUsername());
+                }
 
-                System.out.println("You sent: " + moneyToSend + " TE bucks to " + userList.get(userSelection - 1).getUsername());
             }
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Please select a valid user");
@@ -264,5 +286,20 @@ public class App {
         }
         return userList;
     }
+
+    public void displaySingleTransfer(int id){
+        Transfer singleTransfer = transferService.getTransferById(id);
+        User from = accountService.getUserByAccountId(singleTransfer.getAccountfrom());
+        User to = accountService.getUserByAccountId(singleTransfer.getAccountto());
+
+        System.out.println("Id: " + singleTransfer.getId());
+        System.out.println("Status: " + singleTransfer.getTransferstatusid());
+        System.out.println("Type: " + singleTransfer.getTransfertypeid());
+        System.out.println("From: " + from.getUsername());
+        System.out.println("To: " + to.getUsername());
+        System.out.println("Amount: " + singleTransfer.getAmount());
+
+    }
+
 
 }

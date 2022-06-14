@@ -16,6 +16,10 @@ public interface TransferRepository extends JpaRepository<Transfer, Integer> {
 
     List<Transfer> findAllByAccountto(int id);
 
+
+    @Query(value = "SELECT * FROM transfer " +
+            "JOIN transfer_type ON transfer_type.transfer_type_id = transfer.transfer_id " +
+            "JOIN transfer_status ON transfer_status.transfer_status_id = transfer.transfer_id" ,nativeQuery = true )
     Transfer findById(int id);
 
     @Query(value = "select * from transfer join account on account_id in(transfer.account_from, transfer.account_to) join tenmo_user on account.user_id = tenmo_user.user_id where tenmo_user.username = ?1", nativeQuery = true)
