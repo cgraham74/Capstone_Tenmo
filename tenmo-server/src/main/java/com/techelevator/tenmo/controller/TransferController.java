@@ -68,6 +68,10 @@ public class TransferController {
         return transferService.findById(id);
     }
 
+    @GetMapping("transferidDesc")
+    public Object[] findByIdDesc(@RequestParam int id){
+        return transferService.findByIdDesc(id);
+    }
 
     @PostMapping("transferfunds")
     public Transfer create(@RequestBody Transfer transfer){

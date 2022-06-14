@@ -6,8 +6,6 @@ import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.util.BasicLogger;
-import io.cucumber.java.bs.A;
-import net.bytebuddy.matcher.FilterableList;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -291,13 +289,16 @@ public class App {
         Transfer singleTransfer = transferService.getTransferById(id);
         User from = accountService.getUserByAccountId(singleTransfer.getAccountfrom());
         User to = accountService.getUserByAccountId(singleTransfer.getAccountto());
+        TransferStatus status = transferService.getTransferStatus(singleTransfer.getTransferstatusid());
+        TransferType type = transferService.getTransferType(singleTransfer.getTransfertypeid());
 
         System.out.println("Id: " + singleTransfer.getId());
-        System.out.println("Status: " + singleTransfer.getTransferstatusid());
-        System.out.println("Type: " + singleTransfer.getTransfertypeid());
+        System.out.println("Status: " + status.getTransferstatusdesc());
+        System.out.println("Type: " + type.getTransfertypedesc());
         System.out.println("From: " + from.getUsername());
         System.out.println("To: " + to.getUsername());
         System.out.println("Amount: " + singleTransfer.getAmount());
+
 
     }
 

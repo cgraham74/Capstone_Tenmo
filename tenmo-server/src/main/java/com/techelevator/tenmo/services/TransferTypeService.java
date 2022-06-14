@@ -20,4 +20,8 @@ public class TransferTypeService {
     public List<TransferType> findAll() {
         return repository.findAll();
     }
+
+    public TransferType findById(int id) {
+        return repository.findById(id);
+    }
 }

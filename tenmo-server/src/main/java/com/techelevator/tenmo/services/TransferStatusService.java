@@ -20,4 +20,8 @@ public class TransferStatusService{
     public List<TransferStatus> findAll() {
         return repository.findAll();
     }
+
+    public TransferStatus findById(int id) {
+        return repository.findById(id);
+    }
 }

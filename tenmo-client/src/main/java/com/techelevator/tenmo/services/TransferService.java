@@ -1,6 +1,8 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.TransferStatus;
+import com.techelevator.tenmo.model.TransferType;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.util.BasicLogger;
 import org.springframework.http.*;
@@ -21,6 +23,8 @@ public class TransferService {
     private AccountService accountService;
     private Transfer transfer;
     private String authToken = null;
+    private TransferType transferType;
+    private TransferStatus transferStatus;
     private ConsoleService consoleService;
 
     public void setAuthToken(String authToken){
@@ -67,6 +71,16 @@ public class TransferService {
         return transfer;
     }
 
+    public Object[] getTransferByIdDesc(int id){
+        Object[] transfer = null;
+        try {
+            ResponseEntity<Object[]> response = restTemplate.exchange(API_BASE_URL + "transfer/transferidDesc?id=" + id, HttpMethod.GET, makeEntity(), Object[].class);
+            transfer = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return transfer;
+    }
     //Send Money to another user
     public Transfer transferMoney(int accountfrom, int accountto, BigDecimal amount){
         Transfer transfer = new Transfer(2, 2, accountto, accountfrom, amount);
@@ -153,6 +167,26 @@ public class TransferService {
         return success;
     }
 
+    public TransferType getTransferType(int id) {
+        TransferType transferType = new TransferType();
+        try {
+            ResponseEntity<TransferType> response = restTemplate.exchange(API_BASE_URL + "transfertype/type?id=" + id, HttpMethod.GET, makeEntity(), TransferType.class);
+            transferType = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException ex) {
+            BasicLogger.log(ex.getMessage());
+        }
+        return transferType;
+    }
 
+    public TransferStatus getTransferStatus(int id) {
+        TransferStatus transferStatus = new TransferStatus();
+        try {
+            ResponseEntity<TransferStatus> response = restTemplate.exchange(API_BASE_URL + "transferstatus/byid?id=" + id, HttpMethod.GET, makeEntity(), TransferStatus.class);
+            transferStatus = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException ex) {
+            BasicLogger.log(ex.getMessage());
+        }
+        return transferStatus;
+    }
 
 }

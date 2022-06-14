@@ -26,5 +26,9 @@ public class TransferTypeController {
        return service.findAll();
     }
 
+    @GetMapping("type")
+    public TransferType findById(int id) {
+       return service.findById(id);
+    }
 
 }

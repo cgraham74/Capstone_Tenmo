@@ -1,4 +1,5 @@
 package com.techelevator.tenmo.model;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -24,12 +25,17 @@ public class Transfer {
     @Column(name = "amount")
     private BigDecimal amount;
 
+    @Transient
+    private String typeDescription;
+    @Transient
+    private String statusDescription;
 
-    @ManyToOne()
+
+    @OneToOne()
     @JoinColumn(name = "transfer_type_id", insertable = false, updatable = false)
     private TransferType transferType;
 
-    @ManyToOne
+    @OneToOne()
     @JoinColumn(name = "transfer_status_id", insertable = false, updatable = false)
     private TransferStatus transferStatus;
 
@@ -41,8 +47,31 @@ public class Transfer {
         this.accountfrom = accountfrom;
         this.accountto = accountto;
         this.amount = amount;
+        if(transferstatusid == 1){
+            statusDescription = "Pending";
+        } else if (transferstatusid == 2){
+            statusDescription = "Approved";
+        } else {
+            statusDescription = "Rejected";
+        }
+         if(transfertypeid == 1){
+             typeDescription = "Request";
+         }else {
+             typeDescription = "Send";
+         }
+
     }
 
+    public Transfer(int transfer_id, int transfer_status_id, int transfer_type_id, int accountfrom, int accountto, BigDecimal amount, String statusDescription, String typeDescription) {
+        this.id = transfer_id;
+        this.transferstatusid = transfer_status_id;
+        this.transfertypeid = transfer_type_id;
+        this.accountfrom = accountfrom;
+        this.accountto = accountto;
+        this.amount = amount;
+        this.typeDescription = typeDescription;
+        this.statusDescription = statusDescription;
+    }
 
     public Transfer(int transferstatusid, int transfertypeid, int accountto, int accountfrom, BigDecimal amount) {
         this.transferstatusid = transferstatusid;

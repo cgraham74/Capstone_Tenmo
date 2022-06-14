@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransferStatusRepository extends JpaRepository<TransferStatus, Integer> {
 
+    TransferStatus findById(int id);
 }

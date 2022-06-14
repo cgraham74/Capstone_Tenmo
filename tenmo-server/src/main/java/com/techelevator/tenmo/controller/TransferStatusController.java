@@ -28,4 +28,9 @@ public class TransferStatusController {
     public List<TransferStatus> findAllTransferStatus(){
         return service.findAll();
     }
+
+    @GetMapping("byid")
+    public TransferStatus findById(int id) {
+        return service.findById(id);
+    }
 }

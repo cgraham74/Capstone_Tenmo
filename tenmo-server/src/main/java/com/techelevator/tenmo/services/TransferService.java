@@ -56,6 +56,9 @@ public class TransferService{
        return transferRepository.findById(id);
     }
 
+    public Object[] findByIdDesc(int id) {
+        return transferRepository.findByIdDesc(id);
+    }
     //Transactional annotation being used for the balance transfer transaction so that if any methods in here fail to add *AND* subtract
     // then they both fail and balances are not updated
     @ResponseStatus(HttpStatus.CREATED)
