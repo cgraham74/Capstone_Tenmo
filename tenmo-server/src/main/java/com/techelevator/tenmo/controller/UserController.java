@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+//@PreAuthorize("hasRole('ROLE_ADMIN') or #username == authentication.principal.username")
+
 @PreAuthorize("isAuthenticated()")
 @RequestMapping("/user")
 public class UserController {

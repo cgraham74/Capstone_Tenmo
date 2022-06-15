@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transfer/")
-//@PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 public class TransferController {
 
 

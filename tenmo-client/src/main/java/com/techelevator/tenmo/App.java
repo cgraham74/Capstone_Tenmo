@@ -140,8 +140,13 @@ public class App {
             System.out.println("ID: " + t.getId() + " From: " + user.getUsername() + " " + NumberFormat.getCurrencyInstance().format(t.getAmount()));
         }
         System.out.println("__________________________________________________");
-        int userInput = consoleService.promptForMenuSelection("Select a transaction id for more details, or 0 to exit");
-        displaySingleTransfer(userInput);
+        int userInput = consoleService.promptForMenuSelection("Select a transaction id for more details, or 0 to exit: ");
+        if(userInput != 0){
+            displaySingleTransfer(userInput);
+        } else {
+            System.out.println("Returning to main menu.");
+        }
+
 
         return mergedList;
 	}
