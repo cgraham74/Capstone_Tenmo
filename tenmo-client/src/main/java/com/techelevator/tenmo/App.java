@@ -197,7 +197,7 @@ public class App {
                     System.out.println("Id: " + transfer.getId() + " " + transfer.getAmount() + " " + transfer.getAccountto());
                     int choice = 0;
                     while (true) {
-                        choice = consoleService.promptForMenuSelection("Approve [1] or Reject [2]");
+                        choice = consoleService.promptForMenuSelection("Approve [1] or Reject [2]: ");
                         if (choice == 1 || choice == 2) {
                             break;
                         }
@@ -248,12 +248,12 @@ public class App {
             //Getting Id of Recipient
             long sendMoneyToUser = userList.get(userSelection - 1).getId();
 
-            if (userSelection < userList.size()) {
+            if (userSelection <= userList.size()) {
                 Account accountOfCurrentUser = accountService.getBalance(currentUser.getUser().getId());
                 Account accountofTargetUser = accountService.getBalance(sendMoneyToUser);
 
+                System.out.println("Account balance: " + accountOfCurrentUser.getBalance());
                 BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
-                System.out.println("Account of current user: " + accountOfCurrentUser.getBalance());
 
                 if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > 0){
                     System.out.println((char)27 + "[31m" +  "Insufficient funds"+ (char)27 + "[0m");

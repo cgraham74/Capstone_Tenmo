@@ -7,3 +7,7 @@ g2022-06-16T13:18:43.7660279 401 : [no body]
 2022-06-16T14:42:59.3508704 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
 2022-06-16T14:43:22.7211396 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
 2022-06-16T14:43:35.7103773 401 : [no body]
+2022-06-16T15:05:23.5676085 401 : [no body]
+2022-06-16T15:05:31.3080455 401 : [no body]
+2022-06-16T15:09:16.3866676 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-16T15:10:56.1759299 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
