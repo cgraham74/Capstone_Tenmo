@@ -49,7 +49,7 @@ public class App {
             } else if (menuSelection == 2) {
                 handleLogin();
             } else if (menuSelection != 0) {
-                System.out.println("Invalid Selection");
+                System.out.println( (char)27 + "[31m" +"Invalid Selection"+ (char)27 + "[0m");
                 consoleService.pause();
             }
         }
@@ -94,7 +94,7 @@ public class App {
             } else if (menuSelection == 0) {
                 continue;
             } else {
-                System.out.println("Invalid Selection");
+                System.out.println((char)27 + "[31m" +"Invalid Selection"+ (char)27 + "[0m");
             }
             consoleService.pause();
         }
@@ -117,8 +117,6 @@ public class App {
         Account accountOfCurrentUser =  accountService.getBalance(userId);
         //System.out.println("Current balance is: " + accountOfCurrentUser.getBalance());
         System.out.println("Current balance is: " + NumberFormat.getCurrencyInstance().format(accountOfCurrentUser.getBalance()));
-        System.out.println("Current logged in user's id: " +currentUser.getUser().getId());
-
         return accountOfCurrentUser.getBalance();
     }
 
@@ -174,7 +172,7 @@ public class App {
                 System.out.println("You have no pending transactions at this time.");
             }
         }catch(NullPointerException e){
-            System.out.println("Please choose a valid id.");
+            System.out.println((char)27 + "[33m" +"Please choose a valid id."+ (char)27 + "[0m");
         }
 
         return pendingTransfers;
@@ -203,16 +201,17 @@ public class App {
                             transferService.update(transfer);
                             success = "Transfer Approved";
                         } else {
-                            success = "Insufficient funds";
+                            success = (char)27 + "[31m" +  "Insufficient funds"+ (char)27 + "[0m";
+
                         }
 
                     } else {
                         transfer.setTransferstatusid(REJECTED);
                         boolean response = transferService.update(transfer);
-                        success = "Transfer Rejected";
+                        success = (char)27 + "[31m" +  "Transfer Rejected"+ (char)27 + "[0m";
                     }
                 } else {
-                    success = "Invalid Transfer Id";
+                    success = (char)27 + "[31m" +  "Invalid Transfer Id"+ (char)27 + "[0m";
                     throw new RuntimeException(success);
                 }
 
@@ -234,7 +233,7 @@ public class App {
 
         try {
             //Capture selection of recipient
-            int userSelection = consoleService.promptForInt("Select user to receive funds");
+            int userSelection = consoleService.promptForInt("Select user to receive funds: ");
 
             //Getting Id of Recipient
             long sendMoneyToUser = userList.get(userSelection - 1).getId();
@@ -247,9 +246,10 @@ public class App {
                 System.out.println("Account of current user: " + accountOfCurrentUser.getBalance());
 
                 if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > 0){
-                    System.out.println("Insufficient funds");
+                    System.out.println((char)27 + "[31m" +  "Insufficient funds"+ (char)27 + "[0m");
+
                 } else if (moneyToSend.compareTo(BigDecimal.ZERO) <= 0) {
-                    System.out.println("Must send a positive number more than $0.00");
+                    System.out.println((char)27 + "[33m" +  "Must send a positive number more than $0.00"+ (char)27 + "[0m");
                 } else {
                     //Sends money from current user to selected user.
                     transferService.transferMoney(accountOfCurrentUser.getAccountid(), accountofTargetUser.getAccountid(), moneyToSend);
@@ -258,7 +258,7 @@ public class App {
 
             }
         }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("Please select a valid user");
+            System.out.println((char)27 + "[33m" + "Please select a valid user"+ (char)27 + "[0m");
         }
 
 
@@ -268,7 +268,7 @@ public class App {
 		// TODO Auto-generated method stub
 		List<User> userList = getAllUsers();
         try {
-            int userSelection = consoleService.promptForInt("Select user to request TE bucks from");
+            int userSelection = consoleService.promptForInt("Select user to request TE bucks from: ");
             long requestFundsFromUser = userList.get(userSelection - 1).getId();
             Account accountFromUser = accountService.getAccountFromUserId(requestFundsFromUser);
             Account accountToCurrent = accountService.getAccountFromUserId(currentUser.getUser().getId());
@@ -277,10 +277,10 @@ public class App {
             if(amountToRequest.compareTo(BigDecimal.ZERO) > 0) {
                 transferService.requestMoney(amountToRequest, accountToCurrent.getAccountid(), accountFromUser.getAccountid());
             }else{
-                System.out.println("Please enter a positive amount.");
+                System.out.println((char)27 + "[33m" + "Please enter a positive amount."+ (char)27 + "[0m");
             }
         }catch(ArrayIndexOutOfBoundsException e){
-            System.out.println("Please select a valid user.");
+            System.out.println((char)27 + "[33m" + "Please select a valid user."+ (char)27 + "[0m");
         }
 	}
 

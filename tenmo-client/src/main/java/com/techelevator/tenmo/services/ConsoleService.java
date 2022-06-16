@@ -25,9 +25,9 @@ public class ConsoleService {
     }
 
     public void printGreeting() {
-        System.out.println("*********************");
-        System.out.println("* Welcome to TEnmo! *");
-        System.out.println("*********************");
+        System.out.println((char)27 + "[35m" + "*********************"+ (char)27 + "[0m");
+        System.out.println((char)27 + "[34m" + "* Welcome to TEnmo! *"+ (char)27 + "[0m");
+        System.out.println((char)27 + "[35m" + "*********************"+ (char)27 + "[0m");
     }
 
     public void printLoginMenu() {
@@ -97,7 +97,7 @@ public class ConsoleService {
     }
 
     public void printErrorMessage() {
-        System.out.println("An error occurred. Check the log for details.");
+        System.err.println("An error occurred. Check the log for details.");
     }
 
 }
