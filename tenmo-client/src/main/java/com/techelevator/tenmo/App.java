@@ -174,7 +174,7 @@ public class App {
                 for (Transfer transfer : pendingTransfers) {
                     transactionIds.add(transfer.getId());
                     User user = accountService.getUserByAccountId(transfer.getAccountto());
-                    System.out.println("Transaction Id: " + "(" + transfer.getId() + ") " + user.getUsername() + " for the amount of " + transfer.getAmount());
+                    System.out.println("Trasnfer Id: " + "[" + transfer.getId() + "]: Account holder: " + user.getUsername() + " is requesting the amount of " + NumberFormat.getCurrencyInstance().format(transfer.getAmount()));
                 }
                 String message = approveOrReject(transactionIds);
                 System.out.println(message);
@@ -316,7 +316,7 @@ public class App {
         System.out.println("Type: " + type.getTransfertypedesc());
         System.out.println("From: " + from.getUsername());
         System.out.println("To: " + to.getUsername());
-        System.out.println("Amount: " + singleTransfer.getAmount());
+        System.out.println("Amount: $" + singleTransfer.getAmount());
     }
 
 
