@@ -274,7 +274,11 @@ public class App {
             Account accountToCurrent = accountService.getAccountFromUserId(currentUser.getUser().getId());
             BigDecimal amountToRequest = consoleService.promptForBigDecimal("Enter request amount: ");
             //Creating a transfer request from current user - to receive funds from selected user.
-            transferService.requestMoney(amountToRequest, accountToCurrent.getAccountid(), accountFromUser.getAccountid());
+            if(amountToRequest.compareTo(BigDecimal.ZERO) > 0) {
+                transferService.requestMoney(amountToRequest, accountToCurrent.getAccountid(), accountFromUser.getAccountid());
+            }else{
+                System.out.println("Please enter a positive amount.");
+            }
         }catch(ArrayIndexOutOfBoundsException e){
             System.out.println("Please select a valid user.");
         }
