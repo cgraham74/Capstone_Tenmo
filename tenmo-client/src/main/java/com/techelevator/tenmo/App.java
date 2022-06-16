@@ -252,7 +252,7 @@ public class App {
                 Account accountOfCurrentUser = accountService.getBalance(currentUser.getUser().getId());
                 Account accountofTargetUser = accountService.getBalance(sendMoneyToUser);
 
-                System.out.println("Account balance: " + accountOfCurrentUser.getBalance());
+                System.out.println("Account balance: " + NumberFormat.getCurrencyInstance().format(accountOfCurrentUser.getBalance()));
                 BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
 
                 if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > 0){
