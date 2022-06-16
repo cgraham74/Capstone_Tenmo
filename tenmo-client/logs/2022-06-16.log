@@ -1,2 +1,4 @@
 2022-06-16T13:18:43.7660279 401 : [no body]
 2022-06-16T13:18:51.6360321 401 : [no body]
+2022-06-16T14:24:44.1310713 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-16T14:24:56.3676976 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null

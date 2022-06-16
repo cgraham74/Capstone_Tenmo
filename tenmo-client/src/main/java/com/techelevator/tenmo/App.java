@@ -139,12 +139,22 @@ public class App {
         }
         System.out.println("__________________________________________________");
         int userInput = consoleService.promptForMenuSelection("Select a transaction id for more details, or 0 to exit: ");
-        if(userInput != 0){
-            displaySingleTransfer(userInput);
-        } else {
-            System.out.println("Returning to main menu.");
-        }
 
+        try {
+            if(userInput != 0){
+                if (transferService.getTransferById(userInput).getId() == userInput){
+                    displaySingleTransfer(userInput);
+                } else {
+                    System.out.println("No transfer id by that number");
+                }
+
+            } else {
+                System.out.println("Returning to main menu.");
+            }
+
+        }catch (NullPointerException e){
+            BasicLogger.log(e.getMessage());
+        }
 
         return mergedList;
 	}
