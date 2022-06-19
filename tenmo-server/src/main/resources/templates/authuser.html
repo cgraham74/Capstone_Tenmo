@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<img src="tenmo.png">
+<div class="container" id="btnGroupContainer">
+    <button type="button" class="button" id="transferButton">Transfers</button>
+    <button type="button" class="button" id="pendingButton">Pending</button>
+    <button type="button" class="button" id="sendButton">Send</button>
+    <button type="button" class="button" id="requestButton">Request</button>
+</div>
+<h1 th:text="'Welcome ' + ${loginresponse.user.username}"></h1>
+<h2 th:text="'Account Number: ' + ${account.accountid} + ' Current balance: $' + ${account.balance}"></h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>TYPE</th>
+        <th>TO</th>
+        <th>FROM</th>
+        <th>AMOUNT</th>
+        <th>STATUS</th>
+    </tr>
+    <tr th:each="transfer:${transfer}">
+        <td th:text="${transfer.id}">Number</td>
+        <td th:text="${transfer.transferType.transfertypedesc}">Name</td>
+        <td th:text="${transfer.accountto}">Info</td>
+        <td th:text="${transfer.accountfrom}">Number</td>
+        <td th:text="'$' + ${transfer.amount}">Name</td>
+        <td th:text="${transfer.transferStatus.transferstatusdesc}">Info</td>
+    </tr>
+</table>
+
+
+
+
+
+<span th:text="'Currently logged in as: ' + ${#authentication.getPrincipal().getUsername()}"></span>
+</body>
+</html>
