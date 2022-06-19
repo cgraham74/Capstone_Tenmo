@@ -111,11 +111,9 @@ public class App {
         Account account = accountService.getAccount(currentUser.getUser().getId());
         List<TransferDTO> currentUserTransferHistory = transferService.getHistory((long) account.getAccountid());
 
-
-
         System.out.println("__________________________________________________");
         System.out.println("Transfers: ");
-        System.out.printf("%-5s%-10s%-15s%-8s%s", "ID", "TYPE", "ACCOUNT", "AMOUNT", "STATUS\n");
+        System.out.printf("%-5s%-8s%-10s%-10s%-8s%s", "ID", "TYPE", "TO", "FROM", "AMOUNT", "STATUS\n");
 
 
         for( TransferDTO t : currentUserTransferHistory ){
@@ -124,10 +122,10 @@ public class App {
             User to = accountService.getUserByAccountId(t.getAccountto());
 
             if(t.getTransferType().getTransfertypedesc().equals("Send")) {
-                System.out.printf("%-5s%-10s%-15s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), to.getUsername(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
+                System.out.printf("%-5s%-8s%-10s%-10s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc() ,to.getUsername(),from.getUsername(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
               //  System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " To: " + t.getAccountto() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
             } else {
-                System.out.printf("%-5s%-10s%-15s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), from.getUsername(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
+                System.out.printf("%-5s%-8s%-10s%-10s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), from.getUsername(),to.getUsername(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
                // System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " From: " + t.getAccountfrom() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
             }
         }
@@ -173,7 +171,7 @@ public class App {
         return pendingTransfers;
 	}
      public String approveOrReject(List<Integer> transactionIds){
-        String success = null;
+        String success = "";
         try {
             int input = consoleService.promptForMenuSelection("Select transaction by id or enter 0 to exit: ");
             if (input != 0) {
@@ -182,38 +180,35 @@ public class App {
                     System.out.println("Id: " + transfer.getId() + " " + transfer.getAmount() + " " + transfer.getAccountto());
                     int choice = 0;
                     while (true) {
-                        choice = consoleService.promptForMenuSelection("Approve [1] or Reject [2]: ");
-                        if (choice == 1 || choice == 2) {
+                        choice = consoleService.promptForMenuSelection("Approve [1] | Reject [2] | EXIT [0]: ");
+                        if (choice == 1) {
+                            long userId = currentUser.getUser().getId();
+                            Account accountOfCurrentUser =  accountService.getAccount(userId);
+                            if (accountOfCurrentUser.getBalance().compareTo(transfer.getAmount()) > 0){
+                                transfer.setTransferstatusid(APPROVED);
+                                transferService.transferMoney(transfer.getTransfertypeid(), transfer.getAccountfrom(), transfer.getAccountto(), transfer.getAmount());
+                                transferService.update(transfer);
+                                success = "Transfer Approved";
+                            } else {
+                                success = (char)27 + "[31m" +  "Insufficient funds"+ (char)27 + "[0m";
+                            }
                             break;
                         }
-                    }
-                    if (choice == 1) {
-                        long userId = currentUser.getUser().getId();
-                        Account accountOfCurrentUser =  accountService.getAccount(userId);
-                        if (accountOfCurrentUser.getBalance().compareTo(transfer.getAmount()) > 0){
-                            transfer.setTransferstatusid(APPROVED);
-                            transferService.transferMoney(transfer.getTransfertypeid(), transfer.getAccountfrom(), transfer.getAccountto(), transfer.getAmount());
-                            transferService.update(transfer);
-                            success = "Transfer Approved";
-                        } else {
-                            success = (char)27 + "[31m" +  "Insufficient funds"+ (char)27 + "[0m";
-
+                        if (choice == 2){
+                            transfer.setTransferstatusid(REJECTED);
+                            boolean response = transferService.update(transfer);
+                            success = (char)27 + "[31m" +  "Transfer Rejected"+ (char)27 + "[0m";
+                            break;
                         }
-
-                    } else {
-                        transfer.setTransferstatusid(REJECTED);
-                        boolean response = transferService.update(transfer);
-                        success = (char)27 + "[31m" +  "Transfer Rejected"+ (char)27 + "[0m";
+                        if (choice == 0) {
+                            break;
+                        }
                     }
                 } else {
                     success = (char)27 + "[31m" +  "Invalid Transfer Id"+ (char)27 + "[0m";
                     throw new RuntimeException(success);
                 }
-
-            } else {
-                success = "";
             }
-
         }catch (RuntimeException e){
             BasicLogger.log(e.getMessage());
         }
