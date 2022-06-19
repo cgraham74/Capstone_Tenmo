@@ -111,15 +111,23 @@ public class App {
         Account account = accountService.getAccount(currentUser.getUser().getId());
         List<TransferDTO> currentUserTransferHistory = transferService.getHistory((long) account.getAccountid());
 
+
+
         System.out.println("__________________________________________________");
         System.out.println("Transfers: ");
-        System.out.printf("%-5s%-10s%-8s%-8s%s", "ID", "TYPE", "ACCOUNT", "AMOUNT", "STATUS\n");
+        System.out.printf("%-5s%-10s%-15s%-8s%s", "ID", "TYPE", "ACCOUNT", "AMOUNT", "STATUS\n");
+
+
         for( TransferDTO t : currentUserTransferHistory ){
+
+            User from = accountService.getUserByAccountId(t.getAccountfrom());
+            User to = accountService.getUserByAccountId(t.getAccountto());
+
             if(t.getTransferType().getTransfertypedesc().equals("Send")) {
-                System.out.printf("%-5s%-10s%-8s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), t.getAccountto(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
+                System.out.printf("%-5s%-10s%-15s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), to.getUsername(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
               //  System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " To: " + t.getAccountto() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
             } else {
-                System.out.printf("%-5s%-10s%-8s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), t.getAccountfrom(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
+                System.out.printf("%-5s%-10s%-15s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), from.getUsername(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
                // System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " From: " + t.getAccountfrom() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
             }
         }

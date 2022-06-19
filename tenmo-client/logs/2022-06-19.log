@@ -1,0 +1,3 @@
+2022-06-19T07:33:20.5641591 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-19T07:33:34.4704782 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-19T07:33:50.9514991 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null

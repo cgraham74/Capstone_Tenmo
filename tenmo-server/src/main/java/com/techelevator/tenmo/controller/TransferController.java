@@ -49,26 +49,10 @@ public class TransferController {
         return transferService.findAll();
     }
 
-//    @GetMapping("transferfrom")
-//    public List<Transfer> getAllTransfersaccountfrom(@RequestParam int id){
-//        return transferService.findAllByAccountfrom(id);
-//    }
-//
-//    @GetMapping("transferto")
-//    public List<Transfer> getAllTransfersaccountto(@RequestParam int id){
-//        return transferService.findAllByAccountto(id);
-//    }
-
-    //Gets transfers by id
     @GetMapping("transfer")
     public Transfer findById(@RequestParam int id){
         return transferService.findById(id);
     }
-//
-//    @GetMapping("transferiddesc")
-//    public Object findByIdDesc(@RequestParam int id){
-//        return transferService.findByIdDesc(id);
-//    }
 
     @PostMapping("transferfunds")
     public Transfer create(@RequestBody Transfer transfer){

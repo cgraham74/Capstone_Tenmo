@@ -23,7 +23,7 @@ public class TransferService{
     private final AccountService accountService;
     private final TransferRepository transferRepository;
     private final AccountRepository accountRepository;
-    private UserDao userDao;
+    private final UserDao userDao;
 
     @Autowired
     public TransferService(TransferRepository transferRepository, AccountRepository accountRepository, UserDao userDao,
@@ -32,8 +32,6 @@ public class TransferService{
         this.accountRepository = accountRepository;
         this.userDao = userDao;
         this.accountService = accountService;
-
-
     }
 
     public Transfer save(Transfer transfer){
