@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transfer/")
-//@PreAuthorize("hasRole('ROLE_ADMIN') or #username == authentication.principal.username")
 @PreAuthorize("isAuthenticated()")
 public class TransferController {
 

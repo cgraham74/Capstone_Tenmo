@@ -20,10 +20,10 @@ public class TransferType {
         this.transfertypeid = transfertypeid;
         this.transfertypedesc = transfertypedesc;
     }
-//
-//    @OneToMany()
-//    @JoinColumn(name = "transfer_type_id", insertable = false, updatable = false)
-//    private List<Transfer> transfer;
+
+    @OneToMany()
+    @JoinColumn(name = "transfer_type_id", insertable = false, updatable = false)
+    private List<Transfer> transfer;
 
     public TransferType() {
     }

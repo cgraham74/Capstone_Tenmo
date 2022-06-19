@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("transfertype")
 public class TransferTypeController {
 
-    //Made final so that we can't change our service layer by accident
    private final TransferTypeService service;
 
    @Autowired

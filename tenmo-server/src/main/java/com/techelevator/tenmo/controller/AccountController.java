@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
-@RequestMapping(path = "account/")
+@RequestMapping(path = "/account/")
 public class AccountController {
 
 

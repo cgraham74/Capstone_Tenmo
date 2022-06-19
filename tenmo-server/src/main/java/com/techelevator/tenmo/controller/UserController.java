@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-//
-// @PreAuthorize("hasRole('ROLE_USER') or #username == authentication.principal.username")
 @PreAuthorize("isAuthenticated()")
-@RequestMapping("/user")
+@RequestMapping("/user/")
 public class UserController {
 
     private final UserDao dao;
 
-    // Dependency injecting UserDao (our repository) at the UserController constructor level.
     @Autowired
     public UserController(UserDao userDao) {
         this.dao = userDao;
@@ -32,18 +29,18 @@ public class UserController {
     }
 
     // endpoint is /user/"name?username="  Finds users id by their name
-    @GetMapping("/name")
+    @GetMapping("name")
     public int findIdByUsername(String username){
         return dao.findIdByUsername(username);
     }
 
     // endpoint is /user/recipients?username="
-    @GetMapping("/recipients")
+    @GetMapping("recipients")
     public List<User> getAllAvailableRecipients(String username){
     return dao.findTransferList(username);
     }
 
-    @GetMapping("/accountid")
+    @GetMapping("accountid")
     public User findUserByaccountid(int id){
         return dao.findUserByAccountid(id);
     }

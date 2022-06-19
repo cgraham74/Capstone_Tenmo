@@ -44,10 +44,9 @@ public class TransferService {
     //Request money from another user (NOT SELF)
     public Transfer requestMoney(BigDecimal amount, int accountto, int accountfrom){
         Transfer transfer = new Transfer(1,1, accountto, accountfrom,amount);
-        HttpEntity<Transfer> entity = makeEntity(transfer);
         Transfer newTransfer = null;
         try{
-            newTransfer = restTemplate.postForObject(API_BASE_URL + "transfer/request", entity, Transfer.class);
+            newTransfer = restTemplate.postForObject(API_BASE_URL + "transfer/request", makeEntity(transfer), Transfer.class);
         }catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
         }
@@ -70,27 +69,15 @@ public class TransferService {
     //Send Money to another user
     public Transfer transferMoney(int typeid, int accountfrom, int accountto, BigDecimal amount){
         Transfer transfer = new Transfer(2, typeid, accountto, accountfrom, amount);
-        HttpEntity<Transfer> entity = makeEntity(transfer);
         Transfer newTransfer = null;
         try{
-            newTransfer= restTemplate.postForObject(API_BASE_URL + "transfer/transferfunds", entity, Transfer.class);
+            newTransfer= restTemplate.postForObject(API_BASE_URL + "transfer/transferfunds", makeEntity(transfer), Transfer.class);
 
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
         }
        return newTransfer;
     }
-
-//    public List<User> displayRegisteredUsers(String username){
-//        List<User> userList = new ArrayList<>();
-//        try{
-//            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "transferlist?username=" + username, HttpMethod.GET, makeEntity(), User[].class);
-//            userList = Arrays.asList(Objects.requireNonNull(response.getBody()));
-//        } catch (RestClientResponseException | ResourceAccessException e){
-//            BasicLogger.log(e.getMessage());
-//        }
-//        return userList;
-//    }
 
     //Should get a list of transfers that belong to ONE USER!
     public List<TransferDTO>getHistory(Long id){
@@ -128,10 +115,9 @@ public class TransferService {
     }
 
     public boolean update(Transfer transfer) {
-        HttpEntity<Transfer> entity = makeEntity(transfer);
         boolean success = false;
         try{
-            restTemplate.put(API_BASE_URL + "transfer/update?statusid=" + transfer.getTransferstatusid() + "&transferid=" + transfer.getId(), entity);
+            restTemplate.put(API_BASE_URL + "transfer/update?statusid=" + transfer.getTransferstatusid() + "&transferid=" + transfer.getId(), makeEntity(transfer));
             success = true;
         }catch (RestClientResponseException | ResourceAccessException ex){
             BasicLogger.log(ex.getMessage());

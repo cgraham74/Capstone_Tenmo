@@ -115,7 +115,6 @@ public class App {
         System.out.println("Transfers: ");
         System.out.printf("%-5s%-8s%-10s%-10s%-8s%s", "ID", "TYPE", "TO", "FROM", "AMOUNT", "STATUS\n");
 
-
         for( TransferDTO t : currentUserTransferHistory ){
 
             User from = accountService.getUserByAccountId(t.getAccountfrom());
@@ -123,10 +122,8 @@ public class App {
 
             if(t.getTransferType().getTransfertypedesc().equals("Send")) {
                 System.out.printf("%-5s%-8s%-10s%-10s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc() ,to.getUsername(),from.getUsername(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
-              //  System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " To: " + t.getAccountto() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
             } else {
                 System.out.printf("%-5s%-8s%-10s%-10s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), from.getUsername(),to.getUsername(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
-               // System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " From: " + t.getAccountfrom() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
             }
         }
         System.out.println("__________________________________________________");
@@ -219,31 +216,35 @@ public class App {
 		// TODO Auto-generated method stub
         //List of Available recipients
         List<User> userList = getAllUsers();
+        //Capture selection of recipient
+        int userSelection = consoleService.promptForInt("Select user to receive funds or [0] to exit: ");
         try {
-            //Capture selection of recipient
-            int userSelection = consoleService.promptForInt("Select user to receive funds: ");
-
-            //Getting Id of Recipient
-            long sendMoneyToUser = userList.get(userSelection - 1).getId();
-
-            if (userSelection <= userList.size()) {
-                Account accountOfCurrentUser = accountService.getAccount(currentUser.getUser().getId());
-                Account accountofTargetUser = accountService.getAccount(sendMoneyToUser);
-
-                System.out.println("Account balance: " + NumberFormat.getCurrencyInstance().format(accountOfCurrentUser.getBalance()));
-                BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
-
-                if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > 0){
-                    System.out.println((char)27 + "[31m" +  "Insufficient funds"+ (char)27 + "[0m");
-
-                } else if (moneyToSend.compareTo(BigDecimal.ZERO) <= 0) {
-                    System.out.println((char)27 + "[33m" +  "Must send a positive number more than $0.00"+ (char)27 + "[0m");
-                } else {
-                    //Sends money from current user to selected user.
-                    transferService.transferMoney(APPROVED, accountOfCurrentUser.getAccountid(), accountofTargetUser.getAccountid(), moneyToSend);
-                    System.out.println("You sent: " + moneyToSend + " TE bucks to " + userList.get(userSelection - 1).getUsername());
+            while (true){
+                if (userSelection == 0){
+                    break;
                 }
+                if (userSelection <= userList.size()) {
+                    //Getting Id of Recipient
+                    long sendMoneyToUser = userList.get(userSelection - 1).getId();
 
+                    Account accountOfCurrentUser = accountService.getAccount(currentUser.getUser().getId());
+                    Account accountofTargetUser = accountService.getAccount(sendMoneyToUser);
+
+                    System.out.println("Account balance: " + NumberFormat.getCurrencyInstance().format(accountOfCurrentUser.getBalance()));
+                    BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
+
+                    if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) > 0){
+                        System.out.println((char)27 + "[31m" +  "Insufficient funds"+ (char)27 + "[0m");
+
+                    } else if (moneyToSend.compareTo(BigDecimal.ZERO) <= 0) {
+                        System.out.println((char)27 + "[33m" +  "Must send a positive number more than $0.00"+ (char)27 + "[0m");
+                    } else {
+                        //Sends money from current user to selected user.
+                        transferService.transferMoney(APPROVED, accountOfCurrentUser.getAccountid(), accountofTargetUser.getAccountid(), moneyToSend);
+                        System.out.println("You sent: " + moneyToSend + " TE bucks to " + userList.get(userSelection - 1).getUsername());
+                    }
+                }
+                break;
             }
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println((char)27 + "[33m" + "Please select a valid user"+ (char)27 + "[0m");
@@ -255,9 +256,7 @@ public class App {
 		List<User> userList = getAllUsers();
         try {
             int userSelection = consoleService.promptForInt("Select user to request TE bucks from: ");
-            //long requestFundsFromUser = userList.get(userSelection - 1).getId();
             Account accountFromUser = accountService.getAccount(userList.get(userSelection - 1).getId());
-            //Account accountFromUser = accountService.getAccount(requestFundsFromUser);
             Account accountToCurrent = accountService.getAccount(currentUser.getUser().getId());
             BigDecimal amountToRequest = consoleService.promptForBigDecimal("Enter request amount: ");
             //Creating a transfer request from current user - to receive funds from selected user.
@@ -292,6 +291,4 @@ public class App {
         System.out.println("To: " + to.getUsername());
         System.out.println("Amount: $" + singleTransfer.getAmount());
     }
-
-
 }
