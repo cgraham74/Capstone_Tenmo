@@ -8,13 +8,8 @@ import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.services.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.access.prepost.PreAuthorize;
-
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -65,7 +60,7 @@ public class TransferController {
 //    }
 
     //Gets transfers by id
-    @GetMapping("transferid")
+    @GetMapping("transfer")
     public Transfer findById(@RequestParam int id){
         return transferService.findById(id);
     }

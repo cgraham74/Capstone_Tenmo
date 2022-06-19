@@ -59,7 +59,7 @@ public class TransferService {
     public TransferDTO getTransferById(int id){
         TransferDTO transfer = null;
         try {
-            ResponseEntity<TransferDTO> response = restTemplate.exchange(API_BASE_URL + "transfer/transferid?id=" + id, HttpMethod.GET, makeEntity(), TransferDTO.class);
+            ResponseEntity<TransferDTO> response = restTemplate.exchange(API_BASE_URL + "transfer/transfer?id=" + id, HttpMethod.GET, makeEntity(), TransferDTO.class);
             transfer = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
@@ -81,16 +81,16 @@ public class TransferService {
        return newTransfer;
     }
 
-    public List<User> displayRegisteredUsers(String username){
-        List<User> userList = new ArrayList<>();
-        try{
-            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "transferlist?username=" + username, HttpMethod.GET, makeEntity(), User[].class);
-            userList = Arrays.asList(Objects.requireNonNull(response.getBody()));
-        } catch (RestClientResponseException | ResourceAccessException e){
-            BasicLogger.log(e.getMessage());
-        }
-        return userList;
-    }
+//    public List<User> displayRegisteredUsers(String username){
+//        List<User> userList = new ArrayList<>();
+//        try{
+//            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "transferlist?username=" + username, HttpMethod.GET, makeEntity(), User[].class);
+//            userList = Arrays.asList(Objects.requireNonNull(response.getBody()));
+//        } catch (RestClientResponseException | ResourceAccessException e){
+//            BasicLogger.log(e.getMessage());
+//        }
+//        return userList;
+//    }
 
     //Should get a list of transfers that belong to ONE USER!
     public List<TransferDTO>getHistory(Long id){

@@ -110,13 +110,17 @@ public class App {
     private void viewTransferHistory(){
         Account account = accountService.getAccount(currentUser.getUser().getId());
         List<TransferDTO> currentUserTransferHistory = transferService.getHistory((long) account.getAccountid());
+
         System.out.println("__________________________________________________");
         System.out.println("Transfers: ");
+        System.out.printf("%-5s%-10s%-8s%-8s%s", "ID", "TYPE", "ACCOUNT", "AMOUNT", "STATUS\n");
         for( TransferDTO t : currentUserTransferHistory ){
             if(t.getTransferType().getTransfertypedesc().equals("Send")) {
-                System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " To: " + t.getAccountto() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
+                System.out.printf("%-5s%-10s%-8s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), t.getAccountto(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
+              //  System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " To: " + t.getAccountto() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
             } else {
-                System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " From: " + t.getAccountfrom() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
+                System.out.printf("%-5s%-10s%-8s%-8s(%s)\n", t.getId(), t.getTransferType().getTransfertypedesc(), t.getAccountfrom(),t.getAmount(), t.getTransferStatus().getTransferstatusdesc());
+               // System.out.println("ID: " + t.getId() + " " + t.getTransferType().getTransfertypedesc() + " From: " + t.getAccountfrom() + " Amount: " + t.getAmount() + " Status: " + t.getTransferStatus().getTransferstatusdesc());
             }
         }
         System.out.println("__________________________________________________");
@@ -143,6 +147,7 @@ public class App {
 
         try{
             if (pendingTransfers.size() > 0){
+
                 for (Transfer transfer : pendingTransfers) {
                     transactionIds.add(transfer.getId());
                     User user = accountService.getUserByAccountId(transfer.getAccountto());
@@ -207,7 +212,6 @@ public class App {
         return success;
      }
 
-
 	private void sendBucks() {
 		// TODO Auto-generated method stub
         //List of Available recipients
@@ -250,7 +254,7 @@ public class App {
             int userSelection = consoleService.promptForInt("Select user to request TE bucks from: ");
             //long requestFundsFromUser = userList.get(userSelection - 1).getId();
             Account accountFromUser = accountService.getAccount(userList.get(userSelection - 1).getId());
-           // Account accountFromUser = accountService.getAccount(requestFundsFromUser);
+            //Account accountFromUser = accountService.getAccount(requestFundsFromUser);
             Account accountToCurrent = accountService.getAccount(currentUser.getUser().getId());
             BigDecimal amountToRequest = consoleService.promptForBigDecimal("Enter request amount: ");
             //Creating a transfer request from current user - to receive funds from selected user.
