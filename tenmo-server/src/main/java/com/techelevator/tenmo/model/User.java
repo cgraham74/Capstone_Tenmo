@@ -1,5 +1,7 @@
 package com.techelevator.tenmo.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -22,8 +24,11 @@ public class User {
    @Transient
    private Set<Authority> authorities = new HashSet<>();
 
-   public User() { }
+   @OneToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "user_id")
+   private Account account;
 
+   public User() { }
 
 
    public User(Long id, String username, String password, String authorities) {

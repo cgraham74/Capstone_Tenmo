@@ -1,8 +1,8 @@
 package com.techelevator.tenmo.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 @Entity
 @Table(name = "transfer")
@@ -17,19 +17,13 @@ public class Transfer {
     private int transfertypeid;
     @Column(name = "transfer_status_id")
     private int transferstatusid;
-
     @Column(name = "accountfrom")
     private int accountfrom;
     @Column(name = "accountto")
     private int accountto;
+    @Positive(message = "Amount cannot be negative")
     @Column(name = "amount")
     private BigDecimal amount;
-
-    @Transient
-    private String typeDescription;
-    @Transient
-    private String statusDescription;
-
 
     @OneToOne()
     @JoinColumn(name = "transfer_type_id", insertable = false, updatable = false)
@@ -40,45 +34,29 @@ public class Transfer {
     private TransferStatus transferStatus;
 
     @Autowired
-    public Transfer(int id, int transfertypeid, int transferstatusid, int accountfrom, int accountto, BigDecimal amount) {
+    public Transfer(int id, TransferType transferType, TransferStatus transferStatus, int accountto, int accountfrom, BigDecimal amount){
         this.id = id;
-        this.transfertypeid = transfertypeid;
-        this.transferstatusid = transferstatusid;
+        this.transferType = transferType;
+        this.transferStatus = transferStatus;
         this.accountfrom = accountfrom;
         this.accountto = accountto;
         this.amount = amount;
-        if(transferstatusid == 1){
-            statusDescription = "Pending";
-        } else if (transferstatusid == 2){
-            statusDescription = "Approved";
-        } else {
-            statusDescription = "Rejected";
-        }
-         if(transfertypeid == 1){
-             typeDescription = "Request";
-         }else {
-             typeDescription = "Send";
-         }
-
     }
 
-    public Transfer(int transfer_id, int transfer_status_id, int transfer_type_id, int accountfrom, int accountto, BigDecimal amount, String statusDescription, String typeDescription) {
-        this.id = transfer_id;
-        this.transferstatusid = transfer_status_id;
-        this.transfertypeid = transfer_type_id;
-        this.accountfrom = accountfrom;
-        this.accountto = accountto;
-        this.amount = amount;
-        this.typeDescription = typeDescription;
-        this.statusDescription = statusDescription;
+    public TransferType getTransferType() {
+        return transferType;
     }
 
-    public Transfer(int transferstatusid, int transfertypeid, int accountto, int accountfrom, BigDecimal amount) {
-        this.transferstatusid = transferstatusid;
-        this.transfertypeid = transfertypeid;
-        this.accountto = accountto;
-        this.accountfrom = accountfrom;
-        this.amount = amount;
+    public void setTransferType(TransferType transferType) {
+        this.transferType = transferType;
+    }
+
+    public TransferStatus getTransferStatus() {
+        return transferStatus;
+    }
+
+    public void setTransferStatus(TransferStatus transferStatus) {
+        this.transferStatus = transferStatus;
     }
 
     public Transfer() {

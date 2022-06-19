@@ -3,13 +3,10 @@ package com.techelevator.tenmo.services;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.util.BasicLogger;
-
 import org.springframework.http.*;
-
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,19 +29,8 @@ public class AccountService {
         return new HttpEntity<String>(headers);
     }
 
-    public Account getBalance(Long id){
+    public Account getAccount(Long id){
         var account = new Account();
-        try{
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/balancebyuserid?id=" + id, HttpMethod.GET, makeEntity(), Account.class);
-            account = response.getBody();
-        } catch (RestClientResponseException | ResourceAccessException e){
-            BasicLogger.log(e.getMessage());
-        }
-        return account;
-    }
-
-    public Account getAccountFromUserId(Long id){
-        Account account = new Account();
         try{
             ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/balancebyuserid?id=" + id, HttpMethod.GET, makeEntity(), Account.class);
             account = response.getBody();

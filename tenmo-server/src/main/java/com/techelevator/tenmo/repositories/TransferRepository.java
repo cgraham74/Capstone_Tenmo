@@ -17,16 +17,18 @@ public interface TransferRepository extends JpaRepository<Transfer, Integer> {
     List<Transfer> findAllByAccountto(int id);
 
 
-    @Query(value = "SELECT transfer.transfer_id, transfer.transfer_status_id, transfer.transfer_type_id, transfer.accountfrom, transfer.accountto, transfer.amount, transfer_status.transfer_status_desc, transfer_type.transfertypedesc FROM transfer " +
-            "LEFT JOIN transfer_type ON transfer_type.transfer_type_id = transfer.transfer_type_id " +
-            "LEFT JOIN transfer_status ON transfer_status.transfer_status_id = transfer.transfer_status_id " +
+    @Query(value = "SELECT transfer.transfer_id, transfer.transfer_status_id, transfer.transfer_type_id, transfer.accountfrom, \n" +
+            "transfer.accountto, transfer.amount, transfer_status.transfer_status_desc, transfer_type.transfertypedesc \n" +
+            "FROM transfer \n" +
+            "LEFT JOIN transfer_type ON transfer_type.transfer_type_id = transfer.transfer_type_id\n" +
+            "LEFT JOIN transfer_status ON transfer_status.transfer_status_id = transfer.transfer_status_id\n" +
             "WHERE transfer.transfer_id = ?1" ,nativeQuery = true )
-    Object[] findByIdDesc(int id);
+    Transfer findByIdDesc(int id);
 
     Transfer findById(int id);
 
-    @Query(value = "select * from transfer join account on account_id in(transfer.account_from, transfer.account_to) join tenmo_user on account.user_id = tenmo_user.user_id where tenmo_user.username = ?1", nativeQuery = true)
-    List<Transfer> findByUser(String username);
+//    @Query(value = "select * from transfer join account on account_id in(transfer.account_from, transfer.account_to) join tenmo_user on account.user_id = tenmo_user.user_id where tenmo_user.username = ?1", nativeQuery = true)
+//    List<Transfer> findByUser(String username);
 
     @Query(value = "SELECT * FROM transfer WHERE transfer_status_id = 1 AND accountfrom = ?1", nativeQuery = true)
     List<Transfer> findByStatus(int accountfrom);

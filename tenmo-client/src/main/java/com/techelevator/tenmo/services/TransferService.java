@@ -1,9 +1,6 @@
 package com.techelevator.tenmo.services;
 
-import com.techelevator.tenmo.model.Transfer;
-import com.techelevator.tenmo.model.TransferStatus;
-import com.techelevator.tenmo.model.TransferType;
-import com.techelevator.tenmo.model.User;
+import com.techelevator.tenmo.model.*;
 import com.techelevator.util.BasicLogger;
 import org.springframework.http.*;
 import org.springframework.web.client.ResourceAccessException;
@@ -59,11 +56,10 @@ public class TransferService {
     }
 
     //Get a single transfer by its id
-
-    public Transfer getTransferById(int id){
-        Transfer transfer = null;
+    public TransferDTO getTransferById(int id){
+        TransferDTO transfer = null;
         try {
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "transfer/transferid?id=" + id, HttpMethod.GET, makeEntity(), Transfer.class);
+            ResponseEntity<TransferDTO> response = restTemplate.exchange(API_BASE_URL + "transfer/transferid?id=" + id, HttpMethod.GET, makeEntity(), TransferDTO.class);
             transfer = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
@@ -71,22 +67,11 @@ public class TransferService {
         return transfer;
     }
 
-    public Object[] getTransferByIdDesc(int id){
-        Object[] transfer = null;
-        try {
-            ResponseEntity<Object[]> response = restTemplate.exchange(API_BASE_URL + "transfer/transferidDesc?id=" + id, HttpMethod.GET, makeEntity(), Object[].class);
-            transfer = response.getBody();
-        } catch (RestClientResponseException | ResourceAccessException e){
-            BasicLogger.log(e.getMessage());
-        }
-        return transfer;
-    }
     //Send Money to another user
-    public Transfer transferMoney(int accountfrom, int accountto, BigDecimal amount){
-        Transfer transfer = new Transfer(2, 2, accountto, accountfrom, amount);
+    public Transfer transferMoney(int typeid, int accountfrom, int accountto, BigDecimal amount){
+        Transfer transfer = new Transfer(2, typeid, accountto, accountfrom, amount);
         HttpEntity<Transfer> entity = makeEntity(transfer);
         Transfer newTransfer = null;
-
         try{
             newTransfer= restTemplate.postForObject(API_BASE_URL + "transfer/transferfunds", entity, Transfer.class);
 
@@ -95,7 +80,6 @@ public class TransferService {
         }
        return newTransfer;
     }
-
 
     public List<User> displayRegisteredUsers(String username){
         List<User> userList = new ArrayList<>();
@@ -108,29 +92,18 @@ public class TransferService {
         return userList;
     }
 
-    //Get list of Transfers from currentUser
-    public List<Transfer> transferFromList(Long id) {
-        List<Transfer>list = new ArrayList<>();
+    //Should get a list of transfers that belong to ONE USER!
+    public List<TransferDTO>getHistory(Long id){
+        List<TransferDTO>list = new ArrayList<>();
         try{
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfer/transferfrom?id=" + id, HttpMethod.GET, makeEntity(), Transfer[].class );
-            list = Arrays.asList((Transfer[])Objects.requireNonNull((Transfer[])response.getBody()));
+            ResponseEntity<TransferDTO[]> response = restTemplate.exchange(API_BASE_URL + "transfer/history?id=" + id, HttpMethod.GET, makeEntity(), TransferDTO[].class);
+            list = Arrays.asList((TransferDTO[])Objects.requireNonNull((TransferDTO[])response.getBody()));
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
         }
         return list;
     }
 
-    //Get a list of transfers to currentUser
-    public List<Transfer> transferToList(Long id) {
-        List<Transfer>list = new ArrayList<>();
-        try{
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfer/transferto?id=" + id, HttpMethod.GET, makeEntity(), Transfer[].class );
-            list = Arrays.asList((Transfer[])Objects.requireNonNull((Transfer[])response.getBody()));
-        } catch (RestClientResponseException | ResourceAccessException e){
-            BasicLogger.log(e.getMessage());
-        }
-        return list;
-    }
     //Get list of Transfers with a pending status from the server
     public List<Transfer> pendingTransfers(Long id){
         List<Transfer> list = new ArrayList<>();
@@ -154,7 +127,6 @@ public class TransferService {
         return transfer;
     }
 
-
     public boolean update(Transfer transfer) {
         HttpEntity<Transfer> entity = makeEntity(transfer);
         boolean success = false;
@@ -165,28 +137,6 @@ public class TransferService {
             BasicLogger.log(ex.getMessage());
         }
         return success;
-    }
-
-    public TransferType getTransferType(int id) {
-        TransferType transferType = new TransferType();
-        try {
-            ResponseEntity<TransferType> response = restTemplate.exchange(API_BASE_URL + "transfertype/type?id=" + id, HttpMethod.GET, makeEntity(), TransferType.class);
-            transferType = response.getBody();
-        } catch (RestClientResponseException | ResourceAccessException ex) {
-            BasicLogger.log(ex.getMessage());
-        }
-        return transferType;
-    }
-
-    public TransferStatus getTransferStatus(int id) {
-        TransferStatus transferStatus = new TransferStatus();
-        try {
-            ResponseEntity<TransferStatus> response = restTemplate.exchange(API_BASE_URL + "transferstatus/byid?id=" + id, HttpMethod.GET, makeEntity(), TransferStatus.class);
-            transferStatus = response.getBody();
-        } catch (RestClientResponseException | ResourceAccessException ex) {
-            BasicLogger.log(ex.getMessage());
-        }
-        return transferStatus;
     }
 
 }

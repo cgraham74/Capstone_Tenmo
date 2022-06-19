@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "transfer_type")
@@ -19,6 +20,10 @@ public class TransferType {
         this.transfertypeid = transfertypeid;
         this.transfertypedesc = transfertypedesc;
     }
+//
+//    @OneToMany()
+//    @JoinColumn(name = "transfer_type_id", insertable = false, updatable = false)
+//    private List<Transfer> transfer;
 
     public TransferType() {
     }

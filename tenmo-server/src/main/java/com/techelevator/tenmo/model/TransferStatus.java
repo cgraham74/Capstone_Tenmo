@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "transfer_status")
@@ -13,6 +14,11 @@ public class TransferStatus {
 
     @Column(name = "transfer_status_desc")
     private String transferstatusdesc;
+
+
+    @OneToMany()
+    @JoinColumn(name = "transfer_status_id", insertable = false, updatable = false)
+    private List<Transfer> transfer;
 
     public TransferStatus() {
     }

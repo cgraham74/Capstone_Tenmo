@@ -2,6 +2,7 @@ package com.techelevator.tenmo.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "account")
@@ -19,9 +20,10 @@ public class Account {
     @Column(name = "balance")
     private BigDecimal balance;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", insertable = false,updatable = false)
-    private User user;
+
+//    @OneToMany(mappedBy = "account",fetch = FetchType.LAZY)
+//    private List<Transfer>transferList;
+
 
     public Account(){
 

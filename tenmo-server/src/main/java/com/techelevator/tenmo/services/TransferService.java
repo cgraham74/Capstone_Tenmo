@@ -2,8 +2,6 @@ package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
-
-import com.techelevator.tenmo.model.TransferType;
 import com.techelevator.tenmo.repositories.AccountRepository;
 import com.techelevator.tenmo.repositories.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class TransferService{
@@ -23,7 +23,6 @@ public class TransferService{
     private final AccountService accountService;
     private final TransferRepository transferRepository;
     private final AccountRepository accountRepository;
-
     private UserDao userDao;
 
     @Autowired
@@ -33,6 +32,7 @@ public class TransferService{
         this.accountRepository = accountRepository;
         this.userDao = userDao;
         this.accountService = accountService;
+
 
     }
 
@@ -56,7 +56,7 @@ public class TransferService{
        return transferRepository.findById(id);
     }
 
-    public Object[] findByIdDesc(int id) {
+    public Object findByIdDesc(int id) {
         return transferRepository.findByIdDesc(id);
     }
     //Transactional annotation being used for the balance transfer transaction so that if any methods in here fail to add *AND* subtract
@@ -121,5 +121,13 @@ public class TransferService{
 
     public void update(int usid, int transferid) {
         transferRepository.update(usid,transferid);
+    }
+
+    public List<Transfer> getAllToAndFromAccount(int id){
+        List<Transfer>from = transferRepository.findAllByAccountfrom(id);
+        List<Transfer>to = transferRepository.findAllByAccountto(id);
+        List<Transfer> list = new ArrayList<>();
+        Stream.of(from, to).forEach(list::addAll);
+        return list;
     }
 }

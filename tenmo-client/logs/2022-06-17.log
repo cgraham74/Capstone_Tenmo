@@ -1,0 +1,70 @@
+2022-06-17T10:51:56.1660303 I/O error on POST request for "http://localhost:8080/login": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2022-06-17T10:52:05.9587836 I/O error on POST request for "http://localhost:8080/register": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2022-06-17T15:25:36.1028229 403 : [{"timestamp":"2022-06-17T20:25:36.083+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T15:31:23.0469992 400 : [{"timestamp":"2022-06-17T20:31:22.985+00:00","status":400,"error":"Bad Request","message":"Validation failed for object='registerUserDTO'. Error count: 2","errors":[{"codes":["NotEmpty.registerUserDTO... (947 bytes)]
+2022-06-17T15:31:28.5302787 403 : [{"timestamp":"2022-06-17T20:31:28.528+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T15:41:33.907759 403 : [{"timestamp":"2022-06-17T20:41:33.861+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T15:41:50.3434321 403 : [{"timestamp":"2022-06-17T20:41:50.329+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T15:42:19.1153259 403 : [{"timestamp":"2022-06-17T20:42:19.101+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T15:42:24.6575616 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T15:51:45.6559748 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T16:28:17.8950165 403 : [{"timestamp":"2022-06-17T21:28:17.875+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T16:47:58.6562105 403 : [{"timestamp":"2022-06-17T21:47:58.644+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T16:48:32.8901313 403 : [{"timestamp":"2022-06-17T21:48:32.873+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T16:48:58.8954198 403 : [{"timestamp":"2022-06-17T21:48:58.877+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T16:49:37.2214322 403 : [{"timestamp":"2022-06-17T21:49:37.203+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T16:50:38.8966083 403 : [{"timestamp":"2022-06-17T21:50:38.880+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T17:33:31.2769168 403 : [{"timestamp":"2022-06-17T22:33:31.259+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T17:48:22.7116988 403 : [{"timestamp":"2022-06-17T22:48:22.695+00:00","status":403,"error":"Forbidden","message":"Access is denied","path":"/account/balancebyuserid"}]
+2022-06-17T19:28:39.1108225 500 : [{"timestamp":"2022-06-18T00:28:39.098+00:00","status":500,"error":"Internal Server Error","message":"PreparedStatementCallback; bad SQL grammar [SELECT username FROM tenmo_user WHERE user_id LIKE ?;];... (465 bytes)]
+2022-06-17T19:28:52.903992 500 : [{"timestamp":"2022-06-18T00:28:52.903+00:00","status":500,"error":"Internal Server Error","message":"PreparedStatementCallback; bad SQL grammar [SELECT username FROM tenmo_user WHERE user_id LIKE ?;];... (465 bytes)]
+2022-06-17T20:38:00.0953992 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T20:38:41.4661584 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T20:45:25.6905593 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T20:45:34.816069 401 : [{"timestamp":"2022-06-18T01:45:34.804+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/account/balancebyuserid"}]
+2022-06-17T20:45:38.0027039 500 : [{"timestamp":"2022-06-18T01:45:38.000+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"com.techelevator.tenmo.model.Account.getUserid()\" because \"accountofTargetuser\" is null","path":"/transfer/transferfunds"}]
+2022-06-17T20:45:45.7545735 401 : [{"timestamp":"2022-06-18T01:45:45.753+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/account/balancebyuserid"}]
+2022-06-17T20:45:59.8140949 500 : [{"timestamp":"2022-06-18T01:45:59.813+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T20:51:12.1906285 500 : [{"timestamp":"2022-06-18T01:51:12.175+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T20:51:14.2879105 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T20:51:20.6938073 401 : [{"timestamp":"2022-06-18T01:51:20.686+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/account/balancebyuserid"}]
+2022-06-17T20:51:29.8841579 500 : [{"timestamp":"2022-06-18T01:51:29.883+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T20:51:29.8941309 500 : [{"timestamp":"2022-06-18T01:51:29.893+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T20:56:15.1180856 500 : [{"timestamp":"2022-06-18T01:56:15.111+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T20:56:15.1291409 500 : [{"timestamp":"2022-06-18T01:56:15.128+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:42:08.2798874 500 : [{"timestamp":"2022-06-18T02:42:08.266+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:42:08.2918549 500 : [{"timestamp":"2022-06-18T02:42:08.290+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:42:10.3581337 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T21:42:21.6264854 500 : [{"timestamp":"2022-06-18T02:42:21.625+00:00","status":500,"error":"Internal Server Error","message":"Invalid Request - Cannot request from self","path":"/transfer/request"}]
+2022-06-17T21:42:24.0609043 500 : [{"timestamp":"2022-06-18T02:42:24.059+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:42:24.0720053 500 : [{"timestamp":"2022-06-18T02:42:24.071+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:43:14.2564208 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T21:43:31.150727 500 : [{"timestamp":"2022-06-18T02:43:31.146+00:00","status":500,"error":"Internal Server Error","message":"Invalid Request - Cannot request from self","path":"/transfer/request"}]
+2022-06-17T21:43:34.6458572 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T21:43:45.1277117 500 : [{"timestamp":"2022-06-18T02:43:45.125+00:00","status":500,"error":"Internal Server Error","message":"Cannot send money to self","path":"/transfer/transferfunds"}]
+2022-06-17T21:52:25.5893816 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T21:53:05.9552188 500 : [{"timestamp":"2022-06-18T02:53:05.943+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:53:05.970273 500 : [{"timestamp":"2022-06-18T02:53:05.968+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:53:06.7599135 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T21:53:23.1242834 500 : [{"timestamp":"2022-06-18T02:53:23.123+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:53:23.13326 500 : [{"timestamp":"2022-06-18T02:53:23.132+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:55:35.104231 500 : [{"timestamp":"2022-06-18T02:55:35.097+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:55:35.1162667 500 : [{"timestamp":"2022-06-18T02:55:35.115+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:59:53.7529781 500 : [{"timestamp":"2022-06-18T02:59:53.751+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T21:59:53.7639049 500 : [{"timestamp":"2022-06-18T02:59:53.762+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T22:05:51.469201 500 : [{"timestamp":"2022-06-18T03:05:51.459+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T22:05:51.480322 500 : [{"timestamp":"2022-06-18T03:05:51.479+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T22:06:00.2202549 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T22:06:06.6195406 500 : [{"timestamp":"2022-06-18T03:06:06.618+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T22:06:06.6296711 500 : [{"timestamp":"2022-06-18T03:06:06.627+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T22:07:16.6880051 500 : [{"timestamp":"2022-06-18T03:07:16.687+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T22:07:16.6981366 500 : [{"timestamp":"2022-06-18T03:07:16.697+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T22:12:46.4648705 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T22:12:49.5134812 500 : [{"timestamp":"2022-06-18T03:12:49.512+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T22:12:49.5234556 500 : [{"timestamp":"2022-06-18T03:12:49.522+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-06-17T22:13:49.9144969 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T22:25:08.6230161 400 : [{"timestamp":"2022-06-18T03:25:08.606+00:00","status":400,"error":"Bad Request","message":"User registration failed.","path":"/register"}]
+2022-06-17T22:25:48.1333378 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T22:29:36.2957815 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T22:33:02.9109942 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-17T22:33:27.8331954 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-//@PreAuthorize("hasRole('ROLE_ADMIN') or #username == authentication.principal.username")
-
+//
+// @PreAuthorize("hasRole('ROLE_USER') or #username == authentication.principal.username")
 @PreAuthorize("isAuthenticated()")
 @RequestMapping("/user")
 public class UserController {
@@ -31,13 +31,13 @@ public class UserController {
         return dao.findAll();
     }
 
-    // endpoint is /user/"name?username="
+    // endpoint is /user/"name?username="  Finds users id by their name
     @GetMapping("/name")
     public int findIdByUsername(String username){
         return dao.findIdByUsername(username);
     }
 
-    // endpoint is /user/"recipients?username="
+    // endpoint is /user/recipients?username="
     @GetMapping("/recipients")
     public List<User> getAllAvailableRecipients(String username){
     return dao.findTransferList(username);

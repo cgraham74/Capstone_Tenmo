@@ -1,0 +1,33 @@
+2022-06-18T07:39:53.0089014 Cannot invoke "com.techelevator.tenmo.model.Transfer.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T17:12:41.2096446 401 : [no body]
+2022-06-18T19:56:27.3763611 404 : [{"timestamp":"2022-06-19T00:56:27.358+00:00","status":404,"error":"Not Found","message":"No message available","path":"/history"}]
+2022-06-18T19:56:35.1027635 404 : [{"timestamp":"2022-06-19T00:56:35.101+00:00","status":404,"error":"Not Found","message":"No message available","path":"/history"}]
+2022-06-18T20:02:50.8875125 404 : [{"timestamp":"2022-06-19T01:02:50.875+00:00","status":404,"error":"Not Found","message":"No message available","path":"/history"}]
+2022-06-18T20:03:24.2540901 404 : [{"timestamp":"2022-06-19T01:03:24.241+00:00","status":404,"error":"Not Found","message":"No message available","path":"/history"}]
+2022-06-18T20:03:54.9567562 404 : [{"timestamp":"2022-06-19T01:03:54.943+00:00","status":404,"error":"Not Found","message":"No message available","path":"/history"}]
+2022-06-18T20:05:17.6729195 404 : [{"timestamp":"2022-06-19T01:05:17.659+00:00","status":404,"error":"Not Found","message":"No message available","path":"/history"}]
+2022-06-18T20:34:34.8215792 401 : [no body]
+2022-06-18T20:35:01.5610074 500 : [{"timestamp":"2022-06-19T01:35:01.557+00:00","status":500,"error":"Internal Server Error","message":"HV000030: No validator could be found for constraint 'javax.validation.constraints.NotBlank' validating type 'java.lang.Integer'. Check configuration for 'accountfrom'","path":"/transfer/request"}]
+2022-06-18T20:36:33.9929407 500 : [{"timestamp":"2022-06-19T01:36:33.979+00:00","status":500,"error":"Internal Server Error","message":"HV000030: No validator could be found for constraint 'javax.validation.constraints.NotBlank' validating type 'java.lang.Integer'. Check configuration for 'accountfrom'","path":"/transfer/transferfunds"}]
+2022-06-18T20:48:56.2961219 500 : [{"timestamp":"2022-06-19T01:48:56.283+00:00","status":500,"error":"Internal Server Error","message":"HV000030: No validator could be found for constraint 'javax.validation.constraints.NotBlank' validating type 'java.lang.Integer'. Check configuration for 'accountfrom'","path":"/transfer/transferfunds"}]
+2022-06-18T21:08:39.8933847 500 : [{"timestamp":"2022-06-19T02:08:39.882+00:00","status":500,"error":"Internal Server Error","message":"HV000030: No validator could be found for constraint 'javax.validation.constraints.NotBlank' validating type 'java.lang.Integer'. Check configuration for 'accountfrom'","path":"/transfer/transferfunds"}]
+2022-06-18T21:10:10.7840557 500 : [{"timestamp":"2022-06-19T02:10:10.783+00:00","status":500,"error":"Internal Server Error","message":"HV000030: No validator could be found for constraint 'javax.validation.constraints.NotBlank' validating type 'java.lang.Integer'. Check configuration for 'accountfrom'","path":"/transfer/transferfunds"}]
+2022-06-18T21:20:31.2799667 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T21:20:41.8543821 401 : [no body]
+2022-06-18T21:21:49.3428859 500 : [{"timestamp":"2022-06-19T02:21:49.338+00:00","status":500,"error":"Internal Server Error","message":"HV000030: No validator could be found for constraint 'javax.validation.constraints.NotBlank' validating type 'java.lang.Integer'. Check configuration for 'accountfrom'","path":"/transfer/transferfunds"}]
+2022-06-18T21:42:19.3800046 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T21:49:04.8075824 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T21:55:05.2066472 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T21:59:18.6929103 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T21:59:50.9243341 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:29:14.2165646 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:29:45.9375074 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:30:10.7625472 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:30:49.2465392 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:31:31.0478603 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:31:42.7994355 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:34:24.9345357 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:36:21.2952196 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:39:09.4180137 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-18T22:41:17.8303282 401 : [no body]
+2022-06-18T22:41:32.7998221 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
