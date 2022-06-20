@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="actions.js"></script>
     <meta charset="UTF-8">
-    <title>User page</title>
+    <title>TEnmo Payment</title>
 </head>
 <body>
 
@@ -88,6 +88,11 @@
     <input type="number" id="amountx" name="amount" step=".01"/> <br />
     <input type="submit" value="Submit" />
 </form>
+
+<footer>
+    <p>2022 Copyright &copy; Graham & Harper</p>
+</footer>
+
 <span th:text="'Currently logged in as: ' + ${#authentication.getPrincipal().getUsername()}"></span>
 </body>
 </html>
