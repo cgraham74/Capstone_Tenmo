@@ -1,25 +1,20 @@
 package com.techelevator.tenmo.controller.webcontrollers;
 
-
 import com.techelevator.tenmo.model.*;
 import com.techelevator.tenmo.security.jwt.TokenProvider;
 import com.techelevator.tenmo.services.AccountService;
-import com.techelevator.tenmo.services.JdbcUserDao;
 import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.tenmo.services.UserDao;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.server.ResponseStatusException;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -30,16 +25,16 @@ public class WebAuthController {
     private UserDao userDao;
     private AccountService accountService;
     private TransferService transferService;
-    private JdbcUserDao jdbcUserDao;
+
 
     public WebAuthController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder,
-                             UserDao userDao, AccountService accountService, TransferService transferService, JdbcUserDao jdbcUserDao) {
+                             UserDao userDao, AccountService accountService, TransferService transferService) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;
         this.accountService = accountService;
         this.transferService = transferService;
-        this.jdbcUserDao = jdbcUserDao;
+
     }
 
     @RequestMapping(value = "/weblogin", method = RequestMethod.POST)
@@ -56,23 +51,51 @@ public class WebAuthController {
         WebAuthController.LoginResponse loginResponse =  new WebAuthController.LoginResponse(jwt, user);
         Account account = accountService.findAccountByuserid(Math.toIntExact(user.getId()));
         List<Transfer> transferList = transferService.getAllToAndFromAccount(account.getAccountid());
-        List<User>userList = jdbcUserDao.findTransferList(user.getUsername());
+        List<Transfer> pendingList = transferService.findAllBystatus(account.getAccountid());
 
-        model.addAttribute("Users", userList);
+        model.addAttribute("pendingtransfers", pendingList);
         model.addAttribute("user", user);
         model.addAttribute("loginresponse", loginResponse);
         model.addAttribute("account", account);
         model.addAttribute("transfer", transferList);
+
         return "authuser";
     }
-//
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public void register(@Valid @RequestBody RegisterUserDTO newUser) {
-//        if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
-//        }
-//    }
+
+    @PostMapping("/approve")
+    public String approveTransfer(Transfer transfer, Model model) {
+        transferService.transferBalance(transfer);
+        transferService.update(transfer.getTransferstatusid(), transfer.getId());
+
+        User user = userDao.findUserByAccountid(transfer.getAccountfrom());
+        Account account = accountService.findAccountByuserid(Math.toIntExact(user.getId()));
+        List<Transfer> transferList = transferService.getAllToAndFromAccount(account.getAccountid());
+        List<Transfer> pendingList = transferService.findAllBystatus(account.getAccountid());
+
+        model.addAttribute("pendingtransfers", pendingList);
+        model.addAttribute("user", user);
+        model.addAttribute("account", account);
+        model.addAttribute("transfer", transferList);
+
+        return "authusernew";
+    }
+
+    @PostMapping("/reject")
+    public String rejectTransfer(Transfer transfer, Model model) {
+        transferService.update(transfer.getTransferstatusid(), transfer.getId());
+
+        User user = userDao.findUserByAccountid(transfer.getAccountfrom());
+        Account account = accountService.findAccountByuserid(Math.toIntExact(user.getId()));
+        List<Transfer> transferList = transferService.getAllToAndFromAccount(account.getAccountid());
+        List<Transfer> pendingList = transferService.findAllBystatus(account.getAccountid());
+
+        model.addAttribute("pendingtransfers", pendingList);
+        model.addAttribute("user", user);
+        model.addAttribute("account", account);
+        model.addAttribute("transfer", transferList);
+
+        return "authusernew";
+    }
 
     /**
      * Object to return as body in JWT Authentication.
@@ -103,4 +126,13 @@ public class WebAuthController {
             this.user = user;
         }
     }
+
+    //
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(value = "/register", method = RequestMethod.POST)
+//    public void register(@Valid @RequestBody RegisterUserDTO newUser) {
+//        if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
+//        }
+//    }
 }

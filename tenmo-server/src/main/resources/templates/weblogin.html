@@ -6,17 +6,16 @@
 
 </head>
 <body>
+<img src="tenmo.png">
 <h1 th:text="${message}">Login page</h1>
 
 <form th:action="@{/weblogin}" method="post">
     <label for="username">Username</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+    <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
     <label for="password">Password</label>:
-    <input type="password" id="password" name="password" /> <br />
+    <input type="password" id="password" name="password" placeholder="Password..." /> <br />
     <input type="submit" value="Log in" />
 </form>
-
-
 
 </body>
 </html>

@@ -11,12 +11,12 @@
 
 <img src="tenmo.png">
 <div class="container" id="btnGroupContainer">
-    <button onclick="toggle();" type="button" class="button" id="transferButton">Show Transfers</button>
-    <button onclick="pendingToggle()" class="button" id="pendingButton">Show Pending</button>
+    <button onclick="toggle(this);" type="button" class="button" id="transferButton">Show Transfers</button>
+    <button onclick="pendingToggle(this)" class="button" id="pendingButton">Show Pending</button>
     <button th:action="@{/send}" class="button" id="sendButton">Send</button>
     <button type="button" class="button" id="requestButton">Request</button>
 </div>
-<h1 th:text="'Welcome ' + ${loginresponse.user.username}"></h1>
+<h1 th:text="'Welcome ' + ${user.username}"></h1>
 <h2 th:text="'Account Number: ' + ${account.accountid} + ' Current balance: $' + ${account.balance}"></h2>
 <table id="transferTable" hidden>
     <tr>
@@ -58,36 +58,5 @@
         <td><button onclick="toggleApprove()" style="font-size:24px">Approve <i class="fa fa-thumbs-up"></i></button></td>
     </tr>
 </table>
-<form th:action="@{/approve}" method="post" id="approve" hidden>
-    <label for="ID">ID</label>:
-    <input type="number" id="ID" name="id"/> <br />
-    <label for="transferstatusid">TransferStatusID</label>:
-    <input type="number" id="transferstatusid" name="transferstatusid" value="2" readonly/> <br />
-    <label for="transfertypeid">TransferTypeID</label>:
-    <input type="number" id="transfertypeid" name="transfertypeid" value="1" readonly/> <br />
-    <label for="accountto">AccountTo</label>:
-    <input type="number" id="accountto" name="accountto"/> <br />
-    <label for="accountfrom">AccountFrom</label>:
-    <input type="number" id="accountfrom" name="accountfrom"/> <br />
-    <label for="amount">amount</label>:
-    <input type="number" id="amount" name="amount" step=".01"/> <br />
-    <input type="submit" value="Submit" />
-</form>
-<form th:action="@{/reject}" method="POST" id="reject" hidden>
-    <label for="IDx">ID</label>:
-    <input type="number" id="IDx" name="id"/> <br />
-    <label for="transferstatusidx">TransferStatusID</label>:
-    <input type="number" id="transferstatusidx" name="transferstatusid" value="3" readonly/> <br />
-    <label for="transfertypeidx">TransferTypeID</label>:
-    <input type="number" id="transfertypeidx" name="transfertypeid" value="1" readonly/> <br />
-    <label for="accounttox">AccountTo</label>:
-    <input type="number" id="accounttox" name="accountto"/> <br />
-    <label for="accountfromx">AccountFrom</label>:
-    <input type="number" id="accountfromx" name="accountfrom"/> <br />
-    <label for="amountx">amount</label>:
-    <input type="number" id="amountx" name="amount" step=".01"/> <br />
-    <input type="submit" value="Submit" />
-</form>
-<span th:text="'Currently logged in as: ' + ${#authentication.getPrincipal().getUsername()}"></span>
 </body>
 </html>
