@@ -29,6 +29,17 @@ public class AccountService {
         return new HttpEntity<String>(headers);
     }
 
+    public int getAccountIdByUserId(int id) {
+        int accountId = 0;
+        try {
+            ResponseEntity<Integer> response = restTemplate.exchange(API_BASE_URL + "account/accountid?id=" + id, HttpMethod.GET, makeEntity(), Integer.class);
+            accountId = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException e) {
+            BasicLogger.log(e.getMessage());
+        }
+        return accountId;
+    }
+
     public Account getAccount(Long id){
         var account = new Account();
         try{

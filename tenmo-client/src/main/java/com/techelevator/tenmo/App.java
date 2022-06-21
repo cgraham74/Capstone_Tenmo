@@ -228,7 +228,7 @@ public class App {
                     long sendMoneyToUser = userList.get(userSelection - 1).getId();
 
                     Account accountOfCurrentUser = accountService.getAccount(currentUser.getUser().getId());
-                    Account accountofTargetUser = accountService.getAccount(sendMoneyToUser);
+                    int accountofTargetUser = accountService.getAccountIdByUserId((int)sendMoneyToUser);
 
                     System.out.println("Account balance: " + NumberFormat.getCurrencyInstance().format(accountOfCurrentUser.getBalance()));
                     BigDecimal moneyToSend = consoleService.promptForBigDecimal("Enter Your Funds: ");
@@ -240,7 +240,7 @@ public class App {
                         System.out.println((char)27 + "[33m" +  "Must send a positive number more than $0.00"+ (char)27 + "[0m");
                     } else {
                         //Sends money from current user to selected user.
-                        transferService.transferMoney(APPROVED, accountOfCurrentUser.getAccountid(), accountofTargetUser.getAccountid(), moneyToSend);
+                        transferService.transferMoney(APPROVED, accountOfCurrentUser.getAccountid(), accountofTargetUser, moneyToSend);
                         System.out.println("You sent: " + moneyToSend + " TE bucks to " + userList.get(userSelection - 1).getUsername());
                     }
                 }
@@ -256,12 +256,13 @@ public class App {
 		List<User> userList = getAllUsers();
         try {
             int userSelection = consoleService.promptForInt("Select user to request TE bucks from: ");
-            Account accountFromUser = accountService.getAccount(userList.get(userSelection - 1).getId());
+            long sendMoneyToUser = userList.get(userSelection - 1).getId();
+            int accountFromUser = accountService.getAccountIdByUserId((int)sendMoneyToUser);
             Account accountToCurrent = accountService.getAccount(currentUser.getUser().getId());
             BigDecimal amountToRequest = consoleService.promptForBigDecimal("Enter request amount: ");
             //Creating a transfer request from current user - to receive funds from selected user.
             if(amountToRequest.compareTo(BigDecimal.ZERO) > 0) {
-                transferService.requestMoney(amountToRequest, accountToCurrent.getAccountid(), accountFromUser.getAccountid());
+                transferService.requestMoney(amountToRequest, accountToCurrent.getAccountid(), accountFromUser);
             }else{
                 System.out.println((char)27 + "[33m" + "Please enter a positive amount."+ (char)27 + "[0m");
             }

@@ -1,0 +1,11 @@
+2022-06-20T18:09:28.305762 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-20T18:10:43.4421556 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-20T18:11:38.7555773 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-20T18:13:57.2005449 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-20T18:14:09.1789011 401 : [{"timestamp":"2022-06-20T23:14:09.168+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/account/balancebyuserid"}]
+2022-06-20T18:14:13.6229546 500 : [{"timestamp":"2022-06-20T23:14:13.619+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"com.techelevator.tenmo.model.Account.getUserid()\" because \"accountofTargetuser\" is null","path":"/transfer/transferfunds"}]
+2022-06-20T18:24:17.8149463 401 : [{"timestamp":"2022-06-20T23:24:17.808+00:00","status":401,"error":"Unauthorized","message":"Unauthorized","path":"/account/balancebyuserid"}]
+2022-06-20T18:24:21.2545243 500 : [{"timestamp":"2022-06-20T23:24:21.253+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"com.techelevator.tenmo.model.Account.getUserid()\" because \"accountofTargetuser\" is null","path":"/transfer/transferfunds"}]
+2022-06-20T19:53:18.0545627 401 : [no body]
+2022-06-20T19:54:22.3356716 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-06-20T19:55:13.9715041 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
