@@ -4,7 +4,6 @@ import com.techelevator.tenmo.security.jwt.JWTConfigurer;
 import com.techelevator.tenmo.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -42,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * Configure paths and requests that should be ignored by Spring Security
+     *
      * @param web
      */
     public void configure(WebSecurity web) {
@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * Configure com.techelevator.auctions.security settings
+     *
      * @param httpSecurity
      * @throws Exception
      */

@@ -49,15 +49,6 @@ public class ConsoleService {
         System.out.println();
     }
 
-    //Prints list of users to send money to not including current logged-in user
-    public void printUserList(List<User> users) {
-        int userIndex = 1;
-        for(User user : users) {
-            System.out.println(userIndex + ":" + " " + user.getUsername());
-            userIndex++;
-        }
-    }
-
     public UserCredentials promptForCredentials() {
         String username = promptForString("Username: ");
         String password = promptForString("Password: ");

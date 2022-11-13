@@ -16,3 +16,9 @@
 2022-11-12T14:39:01.4983759 500 : [{"timestamp":"2022-11-12T20:39:01.480+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
 2022-11-12T17:24:21.7276353 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
 2022-11-12T18:59:33.6717173 404 : [{"timestamp":"2022-11-13T00:59:33.641+00:00","status":404,"error":"Not Found","message":"No message available","path":"/transfer/history"}]
+2022-11-12T21:28:30.0982267 401 : [{"timestamp":"2022-11-13T03:28:30.070+00:00","status":401,"error":"Unauthorized","message":"Full authentication is required to access this resource","path":"/accounts/balance"}]
+2022-11-12T21:32:08.8041463 401 : [{"timestamp":"2022-11-13T03:32:08.785+00:00","status":401,"error":"Unauthorized","message":"Full authentication is required to access this resource","path":"/accounts/balance"}]
+2022-11-12T22:18:53.1076669 401 : [{"timestamp":"2022-11-13T04:18:53.086+00:00","status":401,"error":"Unauthorized","message":"Full authentication is required to access this resource","path":"/accounts/balance"}]
+2022-11-12T22:30:18.322918 401 : [no body]
+2022-11-12T23:09:30.2009859 404 : [{"timestamp":"2022-11-13T05:09:30.181+00:00","status":404,"error":"Not Found","message":"No message available","path":"/users"}]
+2022-11-12T23:12:15.0245138 500 : [{"timestamp":"2022-11-13T05:12:15.011+00:00","status":500,"error":"Internal Server Error","message":"Invalid Request - Cannot request from self","path":"/transfers/request"}]

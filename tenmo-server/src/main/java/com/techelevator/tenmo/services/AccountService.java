@@ -1,26 +1,26 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountService{
+public class AccountService {
 
     private final AccountRepository accountRepository;
 
 
     @Autowired
-    public AccountService(AccountRepository accountRepository){
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
-    public Account findAccountByuserid(int id){
+
+    public Account findAccountByuserid(int id) {
         return accountRepository.findByuserid(id);
     }
 
-    public Account findAccountById(int id){
+    public Account findAccountById(int id) {
         return accountRepository.findById(id);
     }
 

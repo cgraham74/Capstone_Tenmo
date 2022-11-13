@@ -26,11 +26,11 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    //end point /account/"balance?id=" Will list current user's balance given the User's ID
+    //Will list current user's balance given the User's ID
     @GetMapping("balance")
     public Account getAccount(@RequestParam int id, Principal principal) {
         User user = dao.findById(id);
-        if(user.getUsername().equals(principal.getName())){
+        if (user.getUsername().equals(principal.getName())) {
             return accountService.findAccountByuserid(id);
         }
         throw new UserNotActivatedException("Not Authorized");

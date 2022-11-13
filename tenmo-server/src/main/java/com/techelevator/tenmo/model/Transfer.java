@@ -1,9 +1,11 @@
 package com.techelevator.tenmo.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+
 @Entity
 @Table(name = "transfer")
 public class Transfer {
@@ -34,7 +36,7 @@ public class Transfer {
     private TransferStatus transferStatus;
 
     @Autowired
-    public Transfer(int id, TransferType transferType, TransferStatus transferStatus, int accountto, int accountfrom, BigDecimal amount){
+    public Transfer(int id, TransferType transferType, TransferStatus transferStatus, int accountto, int accountfrom, BigDecimal amount) {
         this.id = id;
         this.transferType = transferType;
         this.transferStatus = transferStatus;

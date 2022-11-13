@@ -19,7 +19,7 @@ public class Account {
     @Column(name = "balance")
     private BigDecimal balance;
 
-    public Account(){
+    public Account() {
 
     }
 

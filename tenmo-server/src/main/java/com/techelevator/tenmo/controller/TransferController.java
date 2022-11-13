@@ -10,6 +10,7 @@ import com.techelevator.tenmo.services.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -34,47 +35,47 @@ public class TransferController {
     }
 
     @GetMapping("history")
-    public List<Transfer> getHistory(@RequestParam int id){
+    public List<Transfer> getHistory(@RequestParam int id) {
         return transferService.getAllToAndFromAccount(id);
     }
 
     @PostMapping("transferbalance")
-    public Transfer createnewtransfer(@RequestBody Transfer transfer){
+    public Transfer createnewtransfer(@RequestBody Transfer transfer) {
         return transferService.save(transfer);
     }
 
     @GetMapping("transfers")
-    public List<Transfer> getAllTransfers(){
+    public List<Transfer> getAllTransfers() {
         return transferService.findAll();
     }
 
     @GetMapping("transfer")
-    public Transfer findById(@RequestParam int id){
+    public Transfer findById(@RequestParam int id) {
         return transferService.findById(id);
     }
 
     @PostMapping("transferfunds")
-    public Transfer create(@RequestBody Transfer transfer){
-      return transferService.transferBalance(transfer);
+    public Transfer create(@RequestBody Transfer transfer) {
+        return transferService.transferBalance(transfer);
     }
 
     @PostMapping("request")
-    public Transfer addNewTransferRequest(@RequestBody Transfer transfer){
+    public Transfer addNewTransferRequest(@RequestBody Transfer transfer) {
         return transferService.requestFundsFromUser(transfer);
     }
 
     @GetMapping("pending")
-    public List<Transfer> findByTransferstatus(@RequestParam int accountfrom){
+    public List<Transfer> findByTransferstatus(@RequestParam int accountfrom) {
         return transferService.findAllBystatus(accountfrom);
     }
 
     @GetMapping("pendingbyid")
-    public Transfer findByTransferId(@RequestParam int id){
+    public Transfer findByTransferId(@RequestParam int id) {
         return transferService.findById(id);
     }
 
     @PutMapping("update")
-    public void updateTransfer(@RequestParam int statusid, @RequestParam int transferid){
+    public void updateTransfer(@RequestParam int statusid, @RequestParam int transferid) {
         transferService.update(statusid, transferid);
     }
 }
