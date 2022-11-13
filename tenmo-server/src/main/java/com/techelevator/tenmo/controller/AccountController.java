@@ -26,7 +26,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    //Will list current user's balance given the User's ID
+    //Will return current user's balance
     @GetMapping("balance")
     public Account getAccount(@RequestParam int id, Principal principal) {
         User user = dao.findById(id);

@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/transfers/")
 @PreAuthorize("isAuthenticated()")
+
 public class TransferController {
 
 
@@ -37,11 +39,6 @@ public class TransferController {
     @GetMapping("history")
     public List<Transfer> getHistory(@RequestParam int id) {
         return transferService.getAllToAndFromAccount(id);
-    }
-
-    @PostMapping("transferbalance")
-    public Transfer createnewtransfer(@RequestBody Transfer transfer) {
-        return transferService.save(transfer);
     }
 
     @GetMapping("transfers")

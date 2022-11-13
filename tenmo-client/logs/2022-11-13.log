@@ -1,0 +1,1 @@
+2022-11-13T15:19:37.1079967 500 : [{"timestamp":"2022-11-13T21:19:37.088+00:00","status":500,"error":"Internal Server Error","message":"PreparedStatementCallback; bad SQL grammar [SELECT user_id, username, password_hash FROM tenmo_user... (445 bytes)]

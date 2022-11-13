@@ -14,7 +14,7 @@ public interface UserDao {
 
     boolean create(String username, String password);
 
-    List<User> findTransferList(String username);
+    List<User> findTransferList();
 
     User findById(int to);
 

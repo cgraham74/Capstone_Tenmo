@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.User;
+import com.techelevator.tenmo.security.SecurityUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -79,11 +80,13 @@ public class JdbcUserDao implements UserDao {
         return true;
     }
 
-    //Returns a list of users excluding current user. Must use current User's name so method knows who to exclude
+    //Returns a list of users excluding current user.
     @Override
-    public List<User> findTransferList(String username) {
+    public List<User> findTransferList() {
+        String username = SecurityUtils.getCurrentUsername().map(Object::toString).orElse("");
         List<User> users = new ArrayList<>();
         String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE username != ?;";
+
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
         while (results.next()) {
             User user = mapRowToUser(results);

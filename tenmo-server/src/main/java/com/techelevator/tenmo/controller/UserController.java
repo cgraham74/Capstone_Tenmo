@@ -35,9 +35,9 @@ public class UserController {
     }
 
     // endpoint is /users/recipients?username="
-    @GetMapping("recipients")
-    public List<User> getAllAvailableRecipients(String username) {
-        return dao.findTransferList(username);
+    @GetMapping("list")
+    public List<User> getAllAvailableRecipients() {
+        return dao.findTransferList();
     }
 
     //endpoint is /users/account?id="

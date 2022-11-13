@@ -79,8 +79,8 @@ public class TransferService {
        return newTransfer;
     }
 
-    //Should get a list of transfers that belong to ONE USER!
-    public List<TransferDTO>getHistory(Long id){
+    //Returns a list record of user transfers!
+    public List<TransferDTO>getTransferRecord(Long id){
         List<TransferDTO>list = new ArrayList<>();
         try{
             ResponseEntity<TransferDTO[]> response = restTemplate.exchange(API_BASE_URL + "transfers/history?id=" + id, HttpMethod.GET, makeEntity(), TransferDTO[].class);

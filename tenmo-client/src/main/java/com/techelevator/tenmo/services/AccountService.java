@@ -51,10 +51,10 @@ public class AccountService {
         return account;
     }
 
-    public List<User> getListOfUsers(String name){
+    public List<User> getListOfUsers(){
         List<User> userList = new ArrayList<>();
         try {
-            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "users/recipients?username=" + name, HttpMethod.GET, makeEntity(), User[].class );
+            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "users/list", HttpMethod.GET, makeEntity(), User[].class );
             userList = Arrays.asList((User[])Objects.requireNonNull((User[])response.getBody()));
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());

@@ -40,5 +40,6 @@ public class SecurityUtils {
         LOG.debug("found username '{}' in com.techelevator.tenmo.security context", username);
 
         return Optional.ofNullable(username);
+
     }
 }
