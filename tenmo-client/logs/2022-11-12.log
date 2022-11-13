@@ -1,0 +1,18 @@
+2022-11-12T08:41:58.1087675 400 : [{"timestamp":"2022-11-12T14:41:58.029+00:00","status":400,"error":"Bad Request","message":"User registration failed.","path":"/register"}]
+2022-11-12T08:42:17.6881186 401 : [no body]
+2022-11-12T12:59:18.1926977 500 : [{"timestamp":"2022-11-12T18:59:18.183+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T12:59:32.4381938 500 : [{"timestamp":"2022-11-12T18:59:32.436+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T13:04:58.387299 500 : [{"timestamp":"2022-11-12T19:04:58.361+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T13:08:17.6214936 500 : [{"timestamp":"2022-11-12T19:08:17.596+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T13:09:13.8738661 500 : [{"timestamp":"2022-11-12T19:09:13.872+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T13:09:19.9406004 500 : [{"timestamp":"2022-11-12T19:09:19.939+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T13:50:21.2086777 500 : [{"timestamp":"2022-11-12T19:50:21.193+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T13:52:38.315247 500 : [{"timestamp":"2022-11-12T19:52:38.313+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T13:54:43.3395257 500 : [{"timestamp":"2022-11-12T19:54:43.331+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T13:58:35.9846454 500 : [{"timestamp":"2022-11-12T19:58:35.983+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T14:30:01.3628114 500 : [{"timestamp":"2022-11-12T20:30:01.345+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T14:30:11.948054 500 : [{"timestamp":"2022-11-12T20:30:11.947+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T14:37:13.6725787 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-11-12T14:39:01.4983759 500 : [{"timestamp":"2022-11-12T20:39:01.480+00:00","status":500,"error":"Internal Server Error","message":"User was not found","path":"/user/accountid"}]
+2022-11-12T17:24:21.7276353 Cannot invoke "com.techelevator.tenmo.model.TransferDTO.getId()" because the return value of "com.techelevator.tenmo.services.TransferService.getTransferById(int)" is null
+2022-11-12T18:59:33.6717173 404 : [{"timestamp":"2022-11-13T00:59:33.641+00:00","status":404,"error":"Not Found","message":"No message available","path":"/transfer/history"}]

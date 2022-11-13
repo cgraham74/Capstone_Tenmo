@@ -32,7 +32,7 @@ public class AccountService {
     public int getAccountIdByUserId(int id) {
         int accountId = 0;
         try {
-            ResponseEntity<Integer> response = restTemplate.exchange(API_BASE_URL + "account/accountid?id=" + id, HttpMethod.GET, makeEntity(), Integer.class);
+            ResponseEntity<Integer> response = restTemplate.exchange(API_BASE_URL + "accounts/account?id=" + id, HttpMethod.GET, makeEntity(), Integer.class);
             accountId = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
@@ -43,7 +43,7 @@ public class AccountService {
     public Account getAccount(Long id){
         var account = new Account();
         try{
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/balancebyuserid?id=" + id, HttpMethod.GET, makeEntity(), Account.class);
+            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "accounts/balance?id=" + id, HttpMethod.GET, makeEntity(), Account.class);
             account = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
@@ -54,7 +54,7 @@ public class AccountService {
     public List<User> getListOfUsers(String name){
         List<User> userList = new ArrayList<>();
         try {
-            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "user/recipients?username=" + name, HttpMethod.GET, makeEntity(), User[].class );
+            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "users/recipients?username=" + name, HttpMethod.GET, makeEntity(), User[].class );
             userList = Arrays.asList((User[])Objects.requireNonNull((User[])response.getBody()));
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
@@ -65,7 +65,7 @@ public class AccountService {
     public User getUserByAccountId(int id){
         User user = new User();
         try {
-            ResponseEntity<User> response = restTemplate.exchange(API_BASE_URL + "user/accountid?id=" + id, HttpMethod.GET, makeEntity(), User.class);
+            ResponseEntity<User> response = restTemplate.exchange(API_BASE_URL + "users/account?id=" + id, HttpMethod.GET, makeEntity(), User.class);
             user = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException ex){
             BasicLogger.log(ex.getMessage());

@@ -54,10 +54,10 @@ public class WebAuthController {
         List<Transfer> pendingList = transferService.findAllBystatus(account.getAccountid());
 
         model.addAttribute("pendingtransfers", pendingList);
-        model.addAttribute("user", user);
+        model.addAttribute("users", user);
         model.addAttribute("loginresponse", loginResponse);
-        model.addAttribute("account", account);
-        model.addAttribute("transfer", transferList);
+        model.addAttribute("accounts", account);
+        model.addAttribute("transfers", transferList);
 
         return "authuser";
     }
@@ -73,9 +73,9 @@ public class WebAuthController {
         List<Transfer> pendingList = transferService.findAllBystatus(account.getAccountid());
 
         model.addAttribute("pendingtransfers", pendingList);
-        model.addAttribute("user", user);
-        model.addAttribute("account", account);
-        model.addAttribute("transfer", transferList);
+        model.addAttribute("users", user);
+        model.addAttribute("accounts", account);
+        model.addAttribute("transfers", transferList);
 
         return "authusernew";
     }
@@ -90,9 +90,9 @@ public class WebAuthController {
         List<Transfer> pendingList = transferService.findAllBystatus(account.getAccountid());
 
         model.addAttribute("pendingtransfers", pendingList);
-        model.addAttribute("user", user);
-        model.addAttribute("account", account);
-        model.addAttribute("transfer", transferList);
+        model.addAttribute("users", user);
+        model.addAttribute("accounts", account);
+        model.addAttribute("transfers", transferList);
 
         return "authusernew";
     }

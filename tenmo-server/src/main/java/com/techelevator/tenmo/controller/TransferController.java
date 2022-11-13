@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/transfer/")
+@RequestMapping("/transfers/")
 @PreAuthorize("isAuthenticated()")
 public class TransferController {
 

@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -17,10 +18,16 @@ public class User {
    private Long id;
    @Column(name = "username")
    private String username;
+
+   @JsonIgnore
    @Column(name = "password_hash")
    private String password;
+
+   @JsonIgnore
    @Transient
    private boolean activated;
+
+   @JsonIgnore
    @Transient
    private Set<Authority> authorities = new HashSet<>();
 
@@ -73,10 +80,10 @@ public class User {
    public Set<Authority> getAuthorities() {
       return authorities;
    }
-
-   public void setAuthorities(Set<Authority> authorities) {
-      this.authorities = authorities;
-   }
+//
+//   public void setAuthorities(Set<Authority> authorities) {
+//      this.authorities = authorities;
+//   }
 
    public void setAuthorities(String authorities) {
       String[] roles = authorities.split(",");

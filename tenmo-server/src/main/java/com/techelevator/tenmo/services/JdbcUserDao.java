@@ -38,7 +38,7 @@ public class JdbcUserDao implements UserDao {
         List<User> users = new ArrayList<>();
         String sql = "SELECT user_id, username, password_hash FROM tenmo_user;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        while(results.next()) {
+        while (results.next()) {
             User user = mapRowToUser(results);
             users.add(user);
         }
@@ -49,7 +49,7 @@ public class JdbcUserDao implements UserDao {
     public User findByUsername(String username) throws UsernameNotFoundException {
         String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE username ILIKE ?;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, username);
-        if (rowSet.next()){
+        if (rowSet.next()) {
             return mapRowToUser(rowSet);
         }
         throw new UsernameNotFoundException("User " + username + " was not found.");
@@ -78,13 +78,14 @@ public class JdbcUserDao implements UserDao {
 
         return true;
     }
+
     //Returns a list of users excluding current user. Must use current User's name so method knows who to exclude
     @Override
     public List<User> findTransferList(String username) {
         List<User> users = new ArrayList<>();
         String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE username != ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
-        while(results.next()) {
+        while (results.next()) {
             User user = mapRowToUser(results);
             users.add(user);
         }
@@ -96,7 +97,7 @@ public class JdbcUserDao implements UserDao {
 
         String sql = "SELECT * FROM tenmo_user WHERE user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, to);
-        if(results.next()){
+        if (results.next()) {
             return mapRowToUser(results);
         }
         throw new RuntimeException("User " + to + " was not found.");
@@ -105,12 +106,13 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User findUserByAccountid(int id) {
-        String sql = "SELECT * FROM tenmo_user\n" +
-                "JOIN account ON\n" +
-                "account.user_id = tenmo_user.user_id WHERE\n" +
-                "account.account_id = ?;";
+        String sql = "SELECT *\n" +
+                "FROM tenmo_user\n" +
+                "JOIN account\n" +
+                "ON account.user_id = tenmo_user.user_id\n" +
+                "WHERE account.account_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-        if(results.next()){
+        if (results.next()) {
             return mapRowToUser(results);
         }
         throw new RuntimeException("User was not found");
