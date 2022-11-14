@@ -96,12 +96,13 @@ public class TransferService{
         throw new RuntimeException("Insufficient Funds for Transfer");
     }
 
-    //Request funds - throws error if requesting from self or if amount is 0
+    //Request funds from a different account. Sets type to request, sets status to pending
     public Transfer requestFundsFromUser(Transfer transfer){
-        transfer.setTransferstatusid(1);
-        transfer.setTransfertypeid(1);
+
         if (transfer.getAccountto() != transfer.getAccountfrom()){
             if(transfer.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                transfer.setTransferstatusid(1);
+                transfer.setTransfertypeid(1);
                 return transferRepository.save(transfer);
             }
             throw new RuntimeException("Request must be larger than 0");
