@@ -254,10 +254,10 @@ public class App {
     }
 
     private void requestBucks() {
-        boolean valid = true;
+        boolean isValid;
 
         do {
-            valid = true;
+            isValid = true;
             List<User> userList = getAllUsers();
             try {
                 int userSelection = consoleService.promptForInt("Select user to request TE bucks from or [0] to exit: ");
@@ -275,15 +275,15 @@ public class App {
                     transferService.requestMoney(amountToRequest, currentUserAccount.getAccountid(), accountFromUser);
                 } else {
                     System.out.println((char) 27 + "[33m" + "Please enter a positive amount." + (char) 27 + "[0m");
-                    valid = false;
+                    isValid = false;
                 }
 
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println((char) 27 + "[33m" + "Please select a valid user." + (char) 27 + "[0m");
-                valid = false;
+                isValid = false;
             }
 
-        } while (!valid);
+        } while (!isValid);
 
     }
 
