@@ -181,7 +181,7 @@ public class App {
             if (input != 0) {
                 if (transactionIds.contains(input)) {
                     Transfer transfer = transferService.singlePendingTransfer((long) input);
-                    System.out.println("Id: " + transfer.getId() + " " + transfer.getAmount() + " " + transfer.getAccountto());
+                    System.out.println("Id: " + transfer.getId() + " $" + transfer.getAmount() + " " + transfer.getAccountto());
                     int choice = 0;
                     while (true) {
                         choice = consoleService.promptForMenuSelection("Approve [1] | Reject [2] | EXIT [0]: ");

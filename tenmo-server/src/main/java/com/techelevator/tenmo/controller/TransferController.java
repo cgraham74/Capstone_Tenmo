@@ -36,22 +36,17 @@ public class TransferController {
         this.accountService = accountService;
     }
 
-    @GetMapping("history")
-    public List<Transfer> getHistory(@RequestParam int id) {
+    @GetMapping("records")
+    public List<Transfer> getRecords(@RequestParam int id) {
         return transferService.getAllToAndFromAccount(id);
     }
 
-    @GetMapping("transfers")
-    public List<Transfer> getAllTransfers() {
-        return transferService.findAll();
-    }
-
     @GetMapping("transfer")
-    public Transfer findById(@RequestParam int id) {
+    public Transfer findTransferById(@RequestParam int id) {
         return transferService.findById(id);
     }
 
-    @PostMapping("transferfunds")
+    @PostMapping("sendmoney")
     public Transfer create(@RequestBody Transfer transfer) {
         return transferService.transferBalance(transfer);
     }
@@ -64,11 +59,6 @@ public class TransferController {
     @GetMapping("pending")
     public List<Transfer> findByTransferstatus(@RequestParam int accountfrom) {
         return transferService.findAllBystatus(accountfrom);
-    }
-
-    @GetMapping("pendingbyid")
-    public Transfer findByTransferId(@RequestParam int id) {
-        return transferService.findById(id);
     }
 
     @PutMapping("update")

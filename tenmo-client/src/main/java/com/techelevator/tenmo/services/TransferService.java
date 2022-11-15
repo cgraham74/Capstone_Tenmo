@@ -71,7 +71,7 @@ public class TransferService {
         Transfer transfer = new Transfer(2, typeid, accountto, accountfrom, amount);
         Transfer newTransfer = null;
         try{
-            newTransfer= restTemplate.postForObject(API_BASE_URL + "transfers/transferfunds", makeEntity(transfer), Transfer.class);
+            newTransfer= restTemplate.postForObject(API_BASE_URL + "transfers/sendmoney", makeEntity(transfer), Transfer.class);
 
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
@@ -83,7 +83,7 @@ public class TransferService {
     public List<TransferDTO>getTransferRecord(Long id){
         List<TransferDTO>list = new ArrayList<>();
         try{
-            ResponseEntity<TransferDTO[]> response = restTemplate.exchange(API_BASE_URL + "transfers/history?id=" + id, HttpMethod.GET, makeEntity(), TransferDTO[].class);
+            ResponseEntity<TransferDTO[]> response = restTemplate.exchange(API_BASE_URL + "transfers/records?id=" + id, HttpMethod.GET, makeEntity(), TransferDTO[].class);
             list = Arrays.asList((TransferDTO[])Objects.requireNonNull((TransferDTO[])response.getBody()));
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
@@ -106,7 +106,7 @@ public class TransferService {
     public Transfer singlePendingTransfer(Long id){
         Transfer transfer = new Transfer();
         try{
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "transfers/pendingbyid?id=" + id, HttpMethod.GET, makeEntity(), Transfer.class);
+            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "transfers/transfer?id=" + id, HttpMethod.GET, makeEntity(), Transfer.class);
             transfer = response.getBody();
         }catch (RestClientResponseException | ResourceAccessException ex){
             BasicLogger.log(ex.getMessage());
@@ -117,7 +117,7 @@ public class TransferService {
     public boolean update(Transfer transfer) {
         boolean success = false;
         try{
-            restTemplate.put(API_BASE_URL + "transfers/update?statusid=" + transfer.getTransferstatusid() + "&transferid=" + transfer.getId(), makeEntity(transfer));
+            restTemplate.put(API_BASE_URL + "transfers/update?statusid=" + transfer + "&transferid=" + transfer.getId(), makeEntity(transfer));
             success = true;
         }catch (RestClientResponseException | ResourceAccessException ex){
             BasicLogger.log(ex.getMessage());

@@ -38,25 +38,10 @@ public class TransferService{
        return transferRepository.save(transfer);
    }
 
-    public List<Transfer> findAll() {
-       return transferRepository.findAll();
-    }
-
-    public List<Transfer> findAllByAccountfrom(int id) {
-       return transferRepository.findAllByAccountfrom(id);
-    }
-
-    public List<Transfer> findAllByAccountto(int id) {
-       return transferRepository.findAllByAccountto(id);
-    }
-
     public Transfer findById(int id) {
        return transferRepository.findById(id);
     }
 
-    public Object findByIdDesc(int id) {
-        return transferRepository.findByIdDesc(id);
-    }
     //Transactional annotation being used for the balance transfer transaction so that if any methods in here fail to add *AND* subtract
     // then they both fail and balances are not updated
     @ResponseStatus(HttpStatus.CREATED)
