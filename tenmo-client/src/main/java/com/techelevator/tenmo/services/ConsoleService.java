@@ -1,12 +1,8 @@
 package com.techelevator.tenmo.services;
 
-
-import com.techelevator.tenmo.model.AuthenticatedUser;
-import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -25,9 +21,9 @@ public class ConsoleService {
     }
 
     public void printGreeting() {
-        System.out.println((char)27 + "[35m" + "*********************"+ (char)27 + "[0m");
-        System.out.println((char)27 + "[34m" + "* Welcome to TEnmo! *"+ (char)27 + "[0m");
-        System.out.println((char)27 + "[35m" + "*********************"+ (char)27 + "[0m");
+        System.out.println((char) 27 + "[35m" + "*********************" + (char) 27 + "[0m");
+        System.out.println((char) 27 + "[34m" + "* Welcome to TEnmo! *" + (char) 27 + "[0m");
+        System.out.println((char) 27 + "[35m" + "*********************" + (char) 27 + "[0m");
     }
 
     public void printLoginMenu() {

@@ -18,11 +18,12 @@ public class AccountService {
     private RestTemplate restTemplate = new RestTemplate();
 
     private String authToken = null;
-    public void setAuthToken(String authToken){
+
+    public void setAuthToken(String authToken) {
         this.authToken = authToken;
     }
 
-    public HttpEntity makeEntity(){
+    public HttpEntity makeEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(authToken);
@@ -34,40 +35,40 @@ public class AccountService {
         try {
             ResponseEntity<Integer> response = restTemplate.exchange(API_BASE_URL + "accounts/account?id=" + id, HttpMethod.GET, makeEntity(), Integer.class);
             accountId = response.getBody();
-        } catch (RestClientResponseException | ResourceAccessException e) {
+        } catch (RestClientResponseException | ResourceAccessException | NullPointerException e) {
             BasicLogger.log(e.getMessage());
         }
         return accountId;
     }
 
-    public Account getAccount(Long id){
+    public Account getAccount(Long id) {
         var account = new Account();
-        try{
+        try {
             ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "accounts/balance?id=" + id, HttpMethod.GET, makeEntity(), Account.class);
             account = response.getBody();
-        } catch (RestClientResponseException | ResourceAccessException e){
+        } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
         return account;
     }
 
-    public List<User> getListOfUsers(){
+    public List<User> getListOfUsers() {
         List<User> userList = new ArrayList<>();
         try {
-            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "users/list", HttpMethod.GET, makeEntity(), User[].class );
-            userList = Arrays.asList((User[])Objects.requireNonNull((User[])response.getBody()));
-        } catch (RestClientResponseException | ResourceAccessException e){
+            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "users/list", HttpMethod.GET, makeEntity(), User[].class);
+            userList = Arrays.asList(Objects.requireNonNull(response.getBody()));
+        } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
         return userList;
     }
 
-    public User getUserByAccountId(int id){
+    public User getUserByAccountId(int id) {
         User user = new User();
         try {
             ResponseEntity<User> response = restTemplate.exchange(API_BASE_URL + "users/account?id=" + id, HttpMethod.GET, makeEntity(), User.class);
             user = response.getBody();
-        } catch (RestClientResponseException | ResourceAccessException ex){
+        } catch (RestClientResponseException | ResourceAccessException ex) {
             BasicLogger.log(ex.getMessage());
         }
         return user;
