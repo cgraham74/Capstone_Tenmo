@@ -84,7 +84,7 @@ public class TransferService {
         List<TransferDTO>list = new ArrayList<>();
         try{
             ResponseEntity<TransferDTO[]> response = restTemplate.exchange(API_BASE_URL + "transfers/records?id=" + id, HttpMethod.GET, makeEntity(), TransferDTO[].class);
-            list = Arrays.asList((TransferDTO[])Objects.requireNonNull((TransferDTO[])response.getBody()));
+            list = Arrays.asList(Objects.requireNonNull(response.getBody()));
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
         }
@@ -96,7 +96,7 @@ public class TransferService {
         List<Transfer> list = new ArrayList<>();
         try{
             ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfers/pending?accountfrom=" + id , HttpMethod.GET, makeEntity(), Transfer[].class);
-            list = Arrays.asList((Transfer[])Objects.requireNonNull((Transfer[])response.getBody()));
+            list = Arrays.asList(Objects.requireNonNull(response.getBody()));
         } catch (RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
         }
