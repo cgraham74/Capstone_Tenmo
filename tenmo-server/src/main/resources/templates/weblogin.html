@@ -9,7 +9,7 @@
 <body>
 <img src="TEnmo.jpg" alt="TEnmo logo of people sharing money">
 <h1 th:text="${message}">Login page</h1>
-
+<main id="margin-top">
 <form th:action="@{/weblogin}" method="post">
     <label for="username">Username</label>:
     <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
@@ -17,6 +17,6 @@
     <input type="password" id="password" name="password" placeholder="Password..." /> <br />
     <input type="submit" class="button-group" value="Log in" />
 </form>
-
+</main>
 </body>
 </html>
