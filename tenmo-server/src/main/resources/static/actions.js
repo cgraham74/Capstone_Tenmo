@@ -1,15 +1,9 @@
 let transferToggle = button => {
   let element = document.getElementById("transferTable");
-  let hidden = element.getAttribute("hidden");
-
-  if (hidden) {
-     element.removeAttribute("hidden");
-
-  } else {
-     element.setAttribute("hidden", "hidden");
 
   }
-}
+
+
 
 let pendingToggle = button => {
   let element = document.getElementById("pendingTable");

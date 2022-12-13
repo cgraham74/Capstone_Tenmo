@@ -1,51 +1,58 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="actions.js"></script>
-    <meta charset="UTF-8">
-    <title>TEnmo Payment</title>
-</head>
+
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="main" xmlns:th="http://www.w3.org/1999/xhtml">
+<!--<head>-->
+<!--    <link rel="stylesheet" href="style.css">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<!--    <script src="actions.js"></script>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>TEnmo Payment</title>-->
+<!--</head>-->
+<th:block layout:fragment="script">
+    <script th:src="@{/js/actions.js}"></script>
+</th:block>
 <body>
-<div class="navbar">
-<img src="TEnmo.jpg" alt="TEnmo logo of people sharing money" id="tenmo-logo">
+<div layout:fragment="content">
+<!--<div class="navbar">-->
+<!--<img src="TEnmo.jpg" alt="TEnmo logo of people sharing money" id="tenmo-logo">-->
 
-<div class="container" id="btnGroupContainer">
-    <button onclick="transferToggle();" type="button" class="button-group" id="transferButton">Show Transfers</button>
-    <button onclick="pendingToggle()" class="button-group" id="pendingButton">Show Pending</button>
-    <button th:action="@{/send}" class="button-group" id="sendButton">Send</button>
-    <button th:action="@{/request}" type="button" class="button-group" id="requestButton">Request</button>
-</div>
-</div>
-
-<main id="main-section">
+<!--<div class="container" id="btnGroupContainer">-->
+<!--    <button onclick="transferToggle();" type="button" class="button-group" id="transferButton">Show Transfers</button>-->
+<!--    <button onclick="pendingToggle()" class="button-group" id="pendingButton">Show Pending</button>-->
+<!--    <button th:action="@{/send}" class="button-group" id="sendButton">Send</button>-->
+<!--    <button th:action="@{/request}" type="button" class="button-group" id="requestButton">Request</button>-->
+<!--</div>-->
+<!--</div>-->
     <h1 th:text="'Welcome ' + ${loginresponse.user.username}"></h1>
     <h2 th:text="'Account Number: ' + ${accounts.accountid} + ' Current balance: $' + ${accounts.balance}"></h2>
+<main id="main-section">
 
 
-    <table class="blueTable" id="transferTable" hidden>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>TYPE</th>
-            <th>TO</th>
-            <th>FROM</th>
-            <th>AMOUNT</th>
-            <th>STATUS</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="transfer:${transfers}">
-            <td th:text="${transfer.id}">ID</td>
-            <td th:text="${transfer.transferType.transfertypedesc}">TYPE</td>
-            <td th:text="${transfer.accountto}">TO</td>
-            <td th:text="${transfer.accountfrom}">FROM</td>
-            <td th:text="'$' + ${transfer.amount}">AMOUNT</td>
-            <td th:text="${transfer.transferStatus.transferstatusdesc}">STATUS</td>
-        </tr>
-        </tbody>
-    </table>
+
+<!--    <table class="blueTable" id="transferTable" hidden>-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th>TYPE</th>-->
+<!--            <th>TO</th>-->
+<!--            <th>FROM</th>-->
+<!--            <th>AMOUNT</th>-->
+<!--            <th>STATUS</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="transfer:${transfers}">-->
+<!--            <td th:text="${transfer.id}">ID</td>-->
+<!--            <td th:text="${transfer.transferType.transfertypedesc}">TYPE</td>-->
+<!--            <td th:text="${transfer.accountto}">TO</td>-->
+<!--            <td th:text="${transfer.accountfrom}">FROM</td>-->
+<!--            <td th:text="'$' + ${transfer.amount}">AMOUNT</td>-->
+<!--            <td th:text="${transfer.transferStatus.transferstatusdesc}">STATUS</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
     <table class="blueTable" id="pendingTable" hidden >
         <thead>
         <tr>
@@ -106,11 +113,11 @@
 </main>
 
 
-<footer id="footer">
-    <p>2022 Copyright &copy; Graham & Harper</p>
-    <span th:text="'Currently logged in as: ' + ${#authentication.getPrincipal().getUsername()}"></span>
-</footer>
+<!--<footer id="footer">-->
+<!--    <p>2022 Copyright &copy; Graham & Harper</p>-->
+<!--    <span th:text="'Currently logged in as: ' + ${#authentication.getPrincipal().getUsername()}"></span>-->
+<!--</footer>-->
 
-
+</div>
 </body>
 </html>

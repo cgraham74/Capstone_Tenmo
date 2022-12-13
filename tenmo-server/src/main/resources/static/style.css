@@ -6,7 +6,10 @@ margin-top:200px;
 margin-bottom:70px;
 
 }
-
+#content-container{
+background:#red;
+height:500px
+}
 #tenmo-logo{
 max-height:150px;
 max-width:100%;

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate=~{main} xmlns:th="http://www.w3.org/1999/xhtml">
+<th:block layout:fragment="script">
+    <script th:src="@{/js/actions.js}"></script>
+</th:block>
+<body>
+<div layout:fragment="content">
+    <table class="blueTable" id="transferTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>TYPE</th>
+            <th>TO</th>
+            <th>FROM</th>
+            <th>AMOUNT</th>
+            <th>STATUS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transfer:${transfers}">
+            <td th:text="${transfer.id}">ID</td>
+            <td th:text="${transfer.transferType.transfertypedesc}">TYPE</td>
+            <td th:text="${transfer.accountto}">TO</td>
+            <td th:text="${transfer.accountfrom}">FROM</td>
+            <td th:text="'$' + ${transfer.amount}">AMOUNT</td>
+            <td th:text="${transfer.transferStatus.transferstatusdesc}">STATUS</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

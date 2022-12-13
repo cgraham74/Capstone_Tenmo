@@ -21,10 +21,12 @@ public class WebController {
     public WebController() {
     }
 
-    @GetMapping("/weblog")
+    @GetMapping("/log")
     public String getLoggedInUser(Model model){
+        System.out.println("WEBController model at /log : " + model);
         model.addAttribute("message", "Login Page");
-        return "weblogin";
+        System.out.println("WEBController model at /log LOG model assigned : " + model);
+        return "index";
     }
 
 }

@@ -7,13 +7,14 @@ import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.services.JdbcUserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
 
-@PreAuthorize("isAuthenticated()")
-@RestController
+//@PreAuthorize("isAuthenticated()")
+@Controller
 @RequestMapping(path = "/accounts/")
 public class AccountController {
 

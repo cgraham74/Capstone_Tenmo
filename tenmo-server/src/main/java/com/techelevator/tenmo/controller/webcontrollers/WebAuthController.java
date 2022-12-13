@@ -5,17 +5,18 @@ import com.techelevator.tenmo.security.jwt.TokenProvider;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.tenmo.services.UserDao;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import javax.validation.Valid;
 import java.util.List;
 @CrossOrigin
@@ -37,8 +38,8 @@ public class WebAuthController {
         this.transferService = transferService;
 
     }
-
-    @RequestMapping(value = "/weblogin", method = RequestMethod.POST)
+    @PreAuthorize("permitAll()")
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
     public String login(@Valid LoginDTO loginDto, Model model) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -59,8 +60,19 @@ public class WebAuthController {
         model.addAttribute("loginresponse", loginResponse);
         model.addAttribute("accounts", account);
         model.addAttribute("transfers", transferList);
-        return "authuser";
+        return "main";
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/newuser", method = RequestMethod.POST)
+    public String register(@Valid @RequestBody RegisterUserDTO newUser) {
+        if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
+        }
+
+        return "index";
+    }
+
 
     @PostMapping("/approve")
     public String approveTransfer(Transfer transfer, Model model) {

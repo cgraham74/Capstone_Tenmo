@@ -9,14 +9,15 @@ import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.services.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@RestController
+@Controller
 @RequestMapping("/transfers/")
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 
 public class TransferController {
 
