@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="style.css">
 <head>
 
     <title>Login to TEnmo</title>
 
 </head>
 <body>
-<img src="tenmo.png">
+<img src="TEnmo.jpg" alt="TEnmo logo of people sharing money">
 <h1 th:text="${message}">Login page</h1>
 
 <form th:action="@{/weblogin}" method="post">
@@ -14,7 +15,7 @@
     <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
     <label for="password">Password</label>:
     <input type="password" id="password" name="password" placeholder="Password..." /> <br />
-    <input type="submit" value="Log in" />
+    <input type="submit" class="button-group" value="Log in" />
 </form>
 
 </body>

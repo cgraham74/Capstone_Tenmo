@@ -23,7 +23,7 @@ public class Authority {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       Authority authority = (Authority) o;
-      return name == authority.name;
+      return Objects.equals(name, authority.name);
    }
 
    @Override

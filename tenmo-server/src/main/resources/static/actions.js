@@ -1,25 +1,26 @@
-let toggle = button => {
+let transferToggle = button => {
   let element = document.getElementById("transferTable");
   let hidden = element.getAttribute("hidden");
 
   if (hidden) {
      element.removeAttribute("hidden");
-     button.innerText = "Hide Transfers";
+
   } else {
      element.setAttribute("hidden", "hidden");
-     button.innerText = "Show Transfers";
+
   }
 }
+
 let pendingToggle = button => {
-  let element = document.getElementById("pendingtable");
+  let element = document.getElementById("pendingTable");
   let hidden = element.getAttribute("hidden");
 
   if (hidden) {
     element.removeAttribute("hidden");
-    button.innerText = "Hide Pending";
+
   } else {
     element.setAttribute("hidden", "hidden");
-    button.innerText = "Show Pending";
+
   }
 }
 let toggleApprove = button => {

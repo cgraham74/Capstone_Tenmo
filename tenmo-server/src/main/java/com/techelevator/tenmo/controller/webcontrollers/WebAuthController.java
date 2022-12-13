@@ -12,12 +12,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 import java.util.List;
-
+@CrossOrigin
 @Controller
 public class WebAuthController {
     private final TokenProvider tokenProvider;
@@ -58,7 +59,6 @@ public class WebAuthController {
         model.addAttribute("loginresponse", loginResponse);
         model.addAttribute("accounts", account);
         model.addAttribute("transfers", transferList);
-
         return "authuser";
     }
 
@@ -77,7 +77,8 @@ public class WebAuthController {
         model.addAttribute("accounts", account);
         model.addAttribute("transfers", transferList);
 
-        return "authusernew";
+        return "authuser";
+        //  return "authusernew";
     }
 
     @PostMapping("/reject")
@@ -94,7 +95,8 @@ public class WebAuthController {
         model.addAttribute("accounts", account);
         model.addAttribute("transfers", transferList);
 
-        return "authusernew";
+      //  return "authusernew";
+          return "authuser";
     }
 
     /**

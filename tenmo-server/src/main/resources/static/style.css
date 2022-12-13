@@ -1,13 +1,107 @@
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 60%;
+body{
+
+
 }
-td, th {
-  border: 1px solid #222547;
+#tenmo-logo{
+max-height:150px;
+max-width:90%;
+align-self: center;
+justify-self: center;
+
+}
+#btnGroupContainer.container{
+    color: #ffffff !important;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    flex-direction:row;
+    flex-wrap: wrap;
+    background: #1C6EA4;
+    border: 1px 1px 1px 1px solid #444444;
+    border-bottom: 2px solid #444444;
+    position: 3px 2px;
+}
+
+.button-group {
+color: #ffffff !important;
+    background: #1C6EA4;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 3px 10px;
+
+    border: none;
+
+ }
+.button-group:hover {
+    background: #196393;
+}
+.button-group:active {
+    background: #175C89;
+}
+
+#transferTable.blueTable, #pendingTable.blueTable {
+margin-left: auto;
+margin-right: auto;
+justify-self: center;
+}
+table.blueTable {
+  border: 1px solid #1C6EA4;
+  background-color: #FFFFFF;
+  width: 70%;
+
   text-align: left;
-  padding: 8px;
+  border-collapse: collapse;
 }
-tr:nth-child(even) {
-  background-color: #d2e3bc;
+table.blueTable td, table.blueTable th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 17px;
+  color: #041F33;
+}
+table.blueTable tr:nth-child(even) {
+  background: #D0E4F5;
+}
+table.blueTable thead {
+  background: #1C6EA4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
+
+table.blueTable tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D0E4F5;
+  background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  border-top: 2px solid #444444;
+}
+table.blueTable tfoot td {
+  font-size: 14px;
+}
+table.blueTable tfoot .links {
+  text-align: right;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
 }

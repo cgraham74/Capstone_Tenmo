@@ -4,8 +4,9 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.UserDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-
+@CrossOrigin
 @Controller
 public class WebController {
 
