@@ -1,3 +1,9 @@
+Skills used - Java, Spring Boot, RESTful APIs, SQL, PostgreSQL database.
+I completed all use cases including all optional use cases.
+Tested APIs with Postman to ensure only registered users could access appropriate data. Only Principle could access current logged in users balance.
+
+
+Assignment Details:
 # Module 2 Capstone - TEnmo
 
 Congratulations—you've landed a job with TEnmo, whose product is an online payment service for transferring "TE bucks" between friends. However, they don't have a product yet. You've been tasked with writing a RESTful API server and command-line application.
