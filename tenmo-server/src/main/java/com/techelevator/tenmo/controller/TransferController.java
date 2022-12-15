@@ -41,11 +41,14 @@ public class TransferController {
         this.dao = dao;
     }
     //Will need to find the syntax to get a parameter {id} in Thymeleaf
-    @GetMapping({"/transfers/records"})
-    public ModelAndView getRecords(HttpServletRequest request, Model model) {
-       ModelAndView mav = new ModelAndView("history");
-       List<Transfer> records = transferRepository.findAll();
-       mav.addObject("transfers", records);
+    @GetMapping("/records")
+    public ModelAndView getRecords(Model model) {
+        ModelAndView mav = new ModelAndView("history");
+        List<Transfer> transfers =transferRepository.findAll();
+
+        mav.addObject("transfers",transfers );
+     //  model.addAttribute("transfers", transfers);
+       System.out.println("Model: "+model);
         return mav;
     }
 
@@ -54,11 +57,13 @@ public class TransferController {
         return transferService.findById(id);
     }
 
+    //(@ModelAttribute Transfer transfer)
     @PostMapping("/transfers/sendmoney")
     public Transfer create(@RequestBody Transfer transfer) {
         return transferService.transferBalance(transfer);
     }
 
+    //@ModelAttribute Transfer transfer)
     @PostMapping("/transfers/request")
     public Transfer addNewTransferRequest(@RequestBody Transfer transfer) {
         return transferService.requestFundsFromUser(transfer);

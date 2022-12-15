@@ -3,13 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no" />
 
     <title>Layout-Page</title>
     <link href="../static/style.css"  rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="actions.js"></script>
+<!--    <script src="actions.js"></script>-->
 
 </head>
 <body id="main-layer-body">
@@ -18,7 +18,7 @@
         <!--  static use /static/TEnmo.jpg  Dynamic use {TEnmo} -->
         <img src="../static/TEnmo.jpg" th:src="@{TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
         <div class="container" id="btnGroupContainer">
-            <button th:action="@{/records}" type="button" class="button-group" id="transferButton">Show Transfers</button>
+            <a th:href="@{/records}" type="button" class="button-group" id="transferButton" title="Retrieve transfer history">Show Transfers</a>
             <button onclick="pendingToggle()" class="button-group" id="pendingButton">Show Pending</button>
             <button th:action="@{/send}" class="button-group" id="sendButton">Send</button>
             <button th:action="@{/request}" type="button" class="button-group" id="requestButton">Request</button>
@@ -26,10 +26,8 @@
     </div>
 </header>
 
-<!--if not logged in display please log in else get user name-->
-<!--<h1 th:text="'Welcome ' + ${loginresponse.user.username != null? loginresponse.user.username : 'Please log in'}"></h1>-->
-<!--<h2 th:text="'Account Number: ' + ${accounts.accountid} + ' Current balance: $' + ${accounts.balance}"></h2>&ndash;&gt;-->
-<main role="main" class="content" layout:fragment="main-content">
+
+<main role="main" class="main-content" layout:fragment="main-content">
 
         <!--This is where all of the changable content will be kept-->
         <p>This fragment belongs to the base layout</p>

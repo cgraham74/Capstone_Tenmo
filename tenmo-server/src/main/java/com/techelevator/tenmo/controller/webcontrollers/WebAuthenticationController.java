@@ -47,7 +47,7 @@ public class WebAuthenticationController {
             model.addAttribute("users", user);
             model.addAttribute("loginresponse", loginResponse);
 
-            System. out.println("LOGIN RESPONSE" + loginResponse.toString());
+            System. out.println("LOGIN RESPONSE: " + loginResponse.toString());
             System. out.println("USER: " +user);
             return "main";
         }

@@ -4,20 +4,12 @@
 <!--<link href="style.css" th:href="@{style.css}" rel="stylesheet">-->
 <head>
     <meta charset="UTF-8">
-    <title>Login to TEnmo</title>
+    <title>Successful login!</title>
 
 </head>
 <body>
 <div class="content" layout:fragment="main-content">
-
-    <h1 th:text="${message}">Login page</h1>
-    <form th:action="@{/index}" method="post" id="log-in">
-        <label for="username">Username</label>:
-        <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
-        <label for="password">Password</label>:
-        <input type="password" id="password" name="password" placeholder="Password..." /> <br />
-        <input type="submit" class="button-group" value="Log in" />
-    </form>
+    <h1 th:text="'Welcome ' + ${loginresponse.user.username}"></h1>
 
 </div>
 </body>

@@ -1,17 +1,24 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/" layout:decorate="~{layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 
 <head>
     <meta charset="UTF-8">
-    <title>Layout-Main</title>
+    <title>Layout-Log in</title>
 
 </head>
 <body>
 
 <div layout:fragment="main-content">
 
-    <p>This is the main.html page</p>
+    <h1 th:text="${message}">Login page</h1>
+    <form th:action="@{/login}" method="post" id="log-in">
+        <label for="username">Username</label>:
+        <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
+        <label for="password">Password</label>:
+        <input type="password" id="password" name="password" placeholder="Password..." /> <br />
+        <input type="submit" class="button-group" value="Log in" />
+    </form>
 
 </div>
 </body>
