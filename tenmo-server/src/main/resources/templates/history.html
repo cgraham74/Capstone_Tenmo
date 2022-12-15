@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate=~{main} xmlns:th="http://www.w3.org/1999/xhtml">
+      layout:decorate=~{main} xmlns:th="http://www.thymeleaf.org">
 <th:block layout:fragment="script">
     <script th:src="@{/js/actions.js}"></script>
 </th:block>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="main-content">
     <table class="blueTable" id="transferTable">
         <thead>
         <tr>

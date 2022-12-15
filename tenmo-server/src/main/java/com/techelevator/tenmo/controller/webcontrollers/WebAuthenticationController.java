@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.security.Principal;
+
 @CrossOrigin
 @Controller
 public class WebAuthenticationController {
@@ -30,10 +32,9 @@ public class WebAuthenticationController {
             this.authenticationManagerBuilder = authenticationManagerBuilder;
             this.userDao = userDao;
         }
-
-        @RequestMapping(value = "/index", method = RequestMethod.POST)
+        @PostMapping("/login")
         public String login(@Valid LoginDTO loginDto, Model model) {
-            System.out.println("In the REQUEST MAPPING about to return MAIN");
+
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
@@ -42,17 +43,17 @@ public class WebAuthenticationController {
             String jwt = tokenProvider.createToken(authentication, false);
 
             User user = userDao.findByUsername(loginDto.getUsername());
-            WebAuthController.LoginResponse loginResponse =  new WebAuthController.LoginResponse(jwt, user);
+            WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
             model.addAttribute("users", user);
             model.addAttribute("loginresponse", loginResponse);
 
-            System. out.println("LOGIN RESPONSE" + loginResponse);
-            System. out.println("USER? " +user);
+            System. out.println("LOGIN RESPONSE" + loginResponse.toString());
+            System. out.println("USER: " +user);
             return "main";
         }
 
         @ResponseStatus(HttpStatus.CREATED)
-        @RequestMapping(value = "/register", method = RequestMethod.POST)
+        @PostMapping("/register")
         public void register(@Valid @RequestBody RegisterUserDTO newUser) {
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
@@ -86,6 +87,10 @@ public class WebAuthenticationController {
 
             public void setUser(User user) {
                 this.user = user;
+            }
+            @Override
+            public String toString() {
+                return "LoginResponse: [token=" + token + ", user = "+ user+ "] ";
             }
         }
 }

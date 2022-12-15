@@ -1,5 +1,7 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/"
+      layout:decorate=~{main} xmlns:th="http://www.thymeleaf.org">
 <!--<head>-->
 <!--    <link rel="stylesheet" href="style.css">-->
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
@@ -7,7 +9,7 @@
 <!--    <meta charset="UTF-8">-->
 <!--    <title>TEnmo Payment Services</title>-->
 <!--</head>-->
-<!--<body>-->
+<body>
 
 <!--<img src="tenmo.png">-->
 <!--<div class="container" id="btnGroupContainer">-->
@@ -27,6 +29,12 @@
 <!--        <th>AMOUNT</th>-->
 <!--        <th>STATUS</th>-->
 <!--    </tr>-->
+<div layout:fragment="content">
+    <!--This is where all of the changable content will be kept-->
+    <p>Just checking to see if anything even shows up here</p>
+    <p>HELLO</p>
+</div>
+
 <!--    <tr th:each="transfer:${transfers}">-->
 <!--        <td th:text="${transfer.id}">ID</td>-->
 <!--        <td th:text="${transfer.transferType.transfertypedesc}">TYPE</td>-->
@@ -58,5 +66,5 @@
 <!--        <td><button onclick="toggleApprove()" style="font-size:24px">Approve <i class="fa fa-thumbs-up"></i></button></td>-->
 <!--    </tr>-->
 <!--</table>-->
-<!--</body>-->
-<!--</html>-->
+</body>
+</html>

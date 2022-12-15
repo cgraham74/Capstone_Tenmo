@@ -1,14 +1,18 @@
-body{
+#main-layer-body{
 margin:10px auto;
-}
-#main-section{
 margin-top:200px;
-margin-bottom:70px;
 
 }
-#content-container{
-background:#red;
-height:500px
+#main-content{
+margin-top:200px;
+margin-bottom:70px;
+}
+
+#log-in{
+
+}
+#content-container.container{
+
 }
 #tenmo-logo{
 max-height:150px;
@@ -22,7 +26,6 @@ background-color: white;
 position:fixed;
 top:0;
 width:100vw;
-
 
 }
 #btnGroupContainer.container{

@@ -15,7 +15,7 @@ import java.security.Principal;
 
 //@PreAuthorize("isAuthenticated()")
 @Controller
-@RequestMapping(path = "/accounts/")
+
 public class AccountController {
 
     private final JdbcUserDao dao;
@@ -28,7 +28,7 @@ public class AccountController {
     }
 
     //Will return current user's balance
-    @GetMapping("balance")
+    @GetMapping("/accounts/balance")
     public Account getAccount(@RequestParam int id, Principal principal) {
         User user = dao.findById(id);
         if (user.getUsername().equals(principal.getName())) {
@@ -37,7 +37,7 @@ public class AccountController {
         throw new UserNotActivatedException("Not Authorized");
     }
 
-    @GetMapping("account")
+    @GetMapping("/accounts/account")
     public int getAccountIdByUserId(@RequestParam int id) {
         return accountService.findAccountIdByUserId(id);
     }

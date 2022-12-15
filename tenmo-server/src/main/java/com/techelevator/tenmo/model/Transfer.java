@@ -111,4 +111,10 @@ public class Transfer {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "Transfer: " + getAccountto() + " (" + accountto + " accountfrom" +
+                getAccountfrom() + " amount " + amount;
+    }
 }

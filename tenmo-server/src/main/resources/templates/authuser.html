@@ -2,7 +2,7 @@
 
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="main" xmlns:th="http://www.w3.org/1999/xhtml">
+      layout:decorate=~{main} xmlns:th="http://www.thymeleaf.org">
 <!--<head>-->
 <!--    <link rel="stylesheet" href="style.css">-->
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
@@ -25,9 +25,9 @@
 <!--    <button th:action="@{/request}" type="button" class="button-group" id="requestButton">Request</button>-->
 <!--</div>-->
 <!--</div>-->
-    <h1 th:text="'Welcome ' + ${loginresponse.user.username}"></h1>
-    <h2 th:text="'Account Number: ' + ${accounts.accountid} + ' Current balance: $' + ${accounts.balance}"></h2>
-<main id="main-section">
+
+<!--    <h2 th:text="'Account Number: ' + ${accounts.accountid} + ' Current balance: $' + ${accounts.balance}"></h2>-->
+<!--<main id="main-section">-->
 
 
 
@@ -111,12 +111,6 @@
     </form>
 
 </main>
-
-
-<!--<footer id="footer">-->
-<!--    <p>2022 Copyright &copy; Graham & Harper</p>-->
-<!--    <span th:text="'Currently logged in as: ' + ${#authentication.getPrincipal().getUsername()}"></span>-->
-<!--</footer>-->
 
 </div>
 </body>

@@ -1,40 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="https://wwww.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<!--<link href="style.css" th:href="@{style.css}" rel="stylesheet">-->
 <head>
     <meta charset="UTF-8">
-    <title>TEnmo Transfers</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="actions.js"></script>
+    <title>Login to TEnmo</title>
 
 </head>
 <body>
-<div class="navbar">
-    <img src="TEnmo.jpg" alt="TEnmo logo of people sharing money" id="tenmo-logo">
+<div class="content" layout:fragment="main-content">
 
-    <div class="container" id="btnGroupContainer">
-        <button onclick="@{/transfers" type="button" class="button-group" id="transferButton">Show Transfers</button>
-        <button onclick="pendingToggle()" class="button-group" id="pendingButton">Show Pending</button>
-        <button th:action="@{/send}" class="button-group" id="sendButton">Send</button>
-        <button th:action="@{/request}" type="button" class="button-group" id="requestButton">Request</button>
-    </div>
+    <h1 th:text="${message}">Login page</h1>
+    <form th:action="@{/index}" method="post" id="log-in">
+        <label for="username">Username</label>:
+        <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
+        <label for="password">Password</label>:
+        <input type="password" id="password" name="password" placeholder="Password..." /> <br />
+        <input type="submit" class="button-group" value="Log in" />
+    </form>
+
 </div>
-<!--<main id="margin-top">-->
-<!--    <h1 th:text="'Welcome ' + ${loginresponse.user.username}"></h1>-->
-<!--    <h2 th:text="'Account Number: ' + ${accounts.accountid} + ' Current balance: $' + ${accounts.balance}"></h2>-->
-
-    <!--This is where all of the changable content will be kept-->
-    <div class="container" id="content-container">
-        <div layout:fragment="content">
-
-
-        </div>
-    </div>
-<!--</main>-->
-
-<footer id="footer">
-    <p>2022 Copyright &copy; Graham & Harper</p>
-<!--    <span th:text="'Currently logged in as: ' + ${#authentication.getPrincipal().getUsername()}"></span>-->
-</footer>
 </body>
 </html>

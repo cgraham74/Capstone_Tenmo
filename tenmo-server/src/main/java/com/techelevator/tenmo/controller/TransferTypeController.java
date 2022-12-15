@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
+//@RequestMapping("transfertype")
 @Controller
-@RequestMapping("transfertype")
 public class TransferTypeController {
 
    private final TransferTypeService service;
@@ -26,7 +27,7 @@ public class TransferTypeController {
        return service.findAll();
     }
 
-    @GetMapping("type")
+    @GetMapping("/transfertype")
     public TransferType findById(int id) {
        return service.findById(id);
     }

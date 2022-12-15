@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="style.css">
-<head>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/" layout:decorate="~{layout}">
 
-    <title>Login to TEnmo</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Layout-Main</title>
 
 </head>
 <body>
-<img src="TEnmo.jpg" alt="TEnmo logo of people sharing money">
-<h1 th:text="${message}">Login page</h1>
-<main id="margin-top">
-    <form th:action="@{/index}" method="post">
-        <label for="username">Username</label>:
-        <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
-        <label for="password">Password</label>:
-        <input type="password" id="password" name="password" placeholder="Password..." /> <br />
-        <input type="submit" class="button-group" value="Log in" />
-    </form>
-</main>
+
+<div layout:fragment="main-content">
+
+    <p>This is the main.html page</p>
+
+</div>
 </body>
 </html>
+
+
+

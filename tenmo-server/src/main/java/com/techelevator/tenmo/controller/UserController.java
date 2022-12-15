@@ -7,13 +7,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @Controller
 //@PreAuthorize("isAuthenticated()")
-@RequestMapping("/users/")
 public class UserController {
 
     private final UserDao dao;
@@ -24,25 +22,25 @@ public class UserController {
     }
 
     //endpoint /users (is the base endpoint for this call)
-    @GetMapping("")
+    @GetMapping("/users")
     public List<User> list() {
         return dao.findAll();
     }
 
     // endpoint is /users/"name?username="  Finds users id by their name
-    @GetMapping("name")
+    @GetMapping("/users/name")
     public int findIdByUsername(String username) {
         return dao.findIdByUsername(username);
     }
 
     // endpoint is /users/recipients?username="
-    @GetMapping("list")
+    @GetMapping("users/list")
     public List<User> getAllAvailableRecipients() {
         return dao.findTransferList();
     }
 
     //endpoint is /users/account?id="
-    @GetMapping("account")
+    @GetMapping("users/account")
     public User findUserByaccountid(int id) {
         return dao.findUserByAccountid(id);
     }

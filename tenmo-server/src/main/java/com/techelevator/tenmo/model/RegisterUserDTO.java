@@ -1,7 +1,9 @@
 package com.techelevator.tenmo.model;
 
-import javax.validation.constraints.NotEmpty;
+import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+@Data
 public class RegisterUserDTO {
 
     @NotEmpty
