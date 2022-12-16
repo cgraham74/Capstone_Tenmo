@@ -18,10 +18,11 @@
         <!--  static use /static/TEnmo.jpg  Dynamic use {TEnmo} -->
         <img src="../static/TEnmo.jpg" th:src="@{TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
         <div class="container" id="btnGroupContainer">
-            <a th:href="@{/records}" type="button" class="button-group" id="transferButton" title="Retrieve transfer history">Show Transfers</a>
-            <button onclick="pendingToggle()" class="button-group" id="pendingButton">Show Pending</button>
-            <button th:action="@{/send}" class="button-group" id="sendButton">Send</button>
-            <button th:action="@{/request}" type="button" class="button-group" id="requestButton">Request</button>
+            <a th:href="@{/balance}" class="button-group" >Balance</a>
+            <a th:href="@{/transferhistory}" href="../templates/transferhistory" class="button-group" title="Retrieve transfer history">Show Transfers</a>
+<!--            <a th:href="@{/transferspending}" class="button-group" id="pendingButton">Show Pending</a>-->
+            <a th:action="@{/send}" class="button-group" >Send</a>
+            <a th:action="@{/request}" type="button" class="button-group" >Request</a>
         </div>
     </div>
 </header>

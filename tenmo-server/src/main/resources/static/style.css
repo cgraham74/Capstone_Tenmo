@@ -3,17 +3,12 @@ margin:10px auto;
 margin-top:200px;
 
 }
-#main-content{
+.main-content{
 margin-top:200px;
 margin-bottom:70px;
-}
-
-#log-in{
 
 }
-#content-container.container{
 
-}
 #tenmo-logo{
 max-height:150px;
 max-width:100%;
@@ -34,15 +29,22 @@ width:100vw;
     height: 40px;
     display: flex;
     justify-content: center;
+    align-content: center;
     flex-direction:row;
     flex-wrap: wrap;
     background: #1C6EA4;
-    border: 1px 1px 1px 1px solid #444444;
+    border: 1px solid #444444;
     border-bottom: 2px solid #444444;
 
 }
+a{
+text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "arial";
 
-.button-group {
+}
+a.button-group, .button-group {
 color: #ffffff !important;
     background: #1C6EA4;
     font-size: 18px;
@@ -62,12 +64,12 @@ color: #ffffff !important;
 margin-left: auto;
 margin-right: auto;
 justify-self: center;
+height: 100vh;
 }
 table.blueTable {
   border: 1px solid #1C6EA4;
   background-color: #FFFFFF;
   width: 70%;
-
   text-align: left;
   border-collapse: collapse;
 }

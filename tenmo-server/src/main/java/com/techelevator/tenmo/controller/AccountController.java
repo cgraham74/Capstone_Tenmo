@@ -8,14 +8,15 @@ import com.techelevator.tenmo.services.JdbcUserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
 
 //@PreAuthorize("isAuthenticated()")
+@CrossOrigin
 @Controller
-
 public class AccountController {
 
     private final JdbcUserDao dao;
@@ -28,10 +29,11 @@ public class AccountController {
     }
 
     //Will return current user's balance
-    @GetMapping("/accounts/balance")
-    public Account getAccount(@RequestParam int id, Principal principal) {
+    @GetMapping("/balance")
+    public Account getAccount(@RequestParam int id, Principal principal, Model model) {
         User user = dao.findById(id);
         if (user.getUsername().equals(principal.getName())) {
+
             return accountService.findAccountByuserid(id);
         }
         throw new UserNotActivatedException("Not Authorized");

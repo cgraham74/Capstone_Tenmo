@@ -26,6 +26,7 @@ public class WebAuthenticationController {
         private final TokenProvider tokenProvider;
         private final AuthenticationManagerBuilder authenticationManagerBuilder;
         private UserDao userDao;
+        Principal  principal;
 
         public WebAuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao) {
             this.tokenProvider = tokenProvider;
@@ -33,6 +34,7 @@ public class WebAuthenticationController {
             this.userDao = userDao;
         }
         @PostMapping("/login")
+        @ResponseStatus(HttpStatus.OK)
         public String login(@Valid LoginDTO loginDto, Model model) {
 
             UsernamePasswordAuthenticationToken authenticationToken =
@@ -49,15 +51,17 @@ public class WebAuthenticationController {
 
             System. out.println("LOGIN RESPONSE: " + loginResponse.toString());
             System. out.println("USER: " +user);
+
             return "main";
         }
 
         @ResponseStatus(HttpStatus.CREATED)
         @PostMapping("/register")
-        public void register(@Valid @RequestBody RegisterUserDTO newUser) {
+        public String register(@Valid RegisterUserDTO newUser, Model model){
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
             }
+            return "index";
         }
 
         /**
