@@ -41,14 +41,14 @@ public class TransferController {
     }
     //Will need to find the syntax to get a parameter {id} in Thymeleaf
     @GetMapping("/transferhistory")
-    public ModelAndView getRecords(Principal principal) {
+    public ModelAndView getRecords(Principal principal,@RequestParam("id") int userId ) {
 //        public ModelAndView getRecords(@RequestParam("id") int userId, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String user = auth.getName();
         System.out.println("Should be the user: "+user);
         ModelAndView mav = new ModelAndView("history");
 
-       int accountId = accountService.findAccountIdByUserId(1019);
+       int accountId = accountService.findAccountIdByUserId(userId);
         List<Transfer> transfers = transferService.getAllToAndFromAccount(accountId);
         mav.addObject("transfers",transfers );
         return mav;

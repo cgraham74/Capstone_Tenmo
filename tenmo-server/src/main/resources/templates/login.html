@@ -11,6 +11,10 @@
 
 <div layout:fragment="main-content">
     <h1 th:text="${message}">Login page</h1>
+    <div th:if="${param.error}">
+        Invalid username and password.</div>
+    <div th:if="${param.logout}">
+        You have been logged out.</div>
 <!--    <form action="#" th:action="@{/login}" method="POST" th:object="${loginDto}" id="log-in">-->
         <form action="#" th:action="@{/login}" method="POST" id="log-in">
         <label for="username">Username</label>:

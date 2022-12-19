@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @CrossOrigin
 public class IndexController {
     @GetMapping("/")
-    public String index(Model model){
+    public String login(Model model){
         model.addAttribute("message", "Log in");
-        return "index";
+        return "login";
     }
 }
