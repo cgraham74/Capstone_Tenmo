@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
-<!--<link href="style.css" th:href="@{style.css}" rel="stylesheet">-->
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+
 <head>
     <meta charset="UTF-8">
     <title>Successful login!</title>
@@ -9,8 +10,7 @@
 </head>
 <body>
 <div  class="main-content" layout:fragment="main-content">
-    <h1 th:text="'Welcome ' + ${loginresponse.user.username}"></h1>
-    <span th:text="'Currently logged in as: ' + ${#authentication.getName()}"></span>
+<p>this is inside the main.html</p>
 
 </div>
 </body>

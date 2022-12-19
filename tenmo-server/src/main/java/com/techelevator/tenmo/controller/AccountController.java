@@ -30,7 +30,7 @@ public class AccountController {
 
     //Will return current user's balance
     @GetMapping("/balance")
-    public Account getAccount(@RequestParam int id, Principal principal, Model model) {
+    public Account getAccount(@RequestParam int id, Principal principal) {
         User user = dao.findById(id);
         if (user.getUsername().equals(principal.getName())) {
 

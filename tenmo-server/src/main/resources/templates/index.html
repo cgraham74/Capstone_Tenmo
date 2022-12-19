@@ -10,9 +10,9 @@
 <body>
 
 <div layout:fragment="main-content">
-
     <h1 th:text="${message}">Login page</h1>
-    <form th:action="@{/login}" method="post" id="log-in">
+<!--    <form action="#" th:action="@{/login}" method="POST" th:object="${loginDto}" id="log-in">-->
+        <form action="#" th:action="@{/login}" method="POST" id="log-in">
         <label for="username">Username</label>:
         <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
         <label for="password">Password</label>:

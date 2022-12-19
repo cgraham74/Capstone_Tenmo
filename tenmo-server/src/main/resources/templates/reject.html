@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+
+    <form th:action="@{/reject}" method="POST" id="reject" hidden>
+        <label for="IDx">ID</label>:
+        <input type="number" id="IDx" name="id"/> <br />
+        <label for="transferstatusidx">TransferStatusID</label>:
+        <input type="number" id="transferstatusidx" name="transferstatusid" value="3" readonly/> <br />
+        <label for="transfertypeidx">TransferTypeID</label>:
+        <input type="number" id="transfertypeidx" name="transfertypeid" value="1" readonly/> <br />
+        <label for="accounttox">AccountTo</label>:
+        <input type="number" id="accounttox" name="accountto"/> <br />
+        <label for="accountfromx">AccountFrom</label>:
+        <input type="number" id="accountfromx" name="accountfrom"/> <br />
+        <label for="amountx">amount</label>:
+        <input type="number" id="amountx" name="amount" step=".01"/> <br />
+        <input type="submit" value="Submit" />
+    </form>
+    </div>
+</body>
+</html>

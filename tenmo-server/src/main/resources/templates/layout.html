@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no" />
@@ -16,31 +16,29 @@
 <header>
     <div class="navbar">
         <!--  static use /static/TEnmo.jpg  Dynamic use {TEnmo} -->
-        <img src="../static/TEnmo.jpg" th:src="@{TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
+        <img src="../static/TEnmo.jpg" th:src="@{../TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
         <div class="container" id="btnGroupContainer">
             <a th:href="@{/balance}" class="button-group" >Balance</a>
-            <a th:href="@{/transferhistory}" href="../templates/transferhistory" class="button-group" title="Retrieve transfer history">Show Transfers</a>
-<!--            <a th:href="@{/transferspending}" class="button-group" id="pendingButton">Show Pending</a>-->
+            <a th:href="@{/transferhistory(id=${user?.id})}" href="../templates/transferhistory" class="button-group" title="Retrieve transfer history">Transfers</a>
+            <a th:href="@{/transferspending(id=${user?.id})}" href="../templates/transferspending" class="button-group" id="pendingButton">Pending</a>
             <a th:action="@{/send}" class="button-group" >Send</a>
             <a th:action="@{/request}" type="button" class="button-group" >Request</a>
         </div>
     </div>
 </header>
-
-
+<span th:text="${user?.username} ?: 'Not Logged in'"></span></br>
+<span th:text="${user?.id} ?: 'No Id - Not logged in'"></span></br>
 <main role="main" class="main-content" layout:fragment="main-content">
-
         <!--This is where all of the changable content will be kept-->
         <p>This fragment belongs to the base layout</p>
-
 </main>
-
-
 
 <footer id="footer">
     <p>2022 Copyright &copy; Graham & Harper</p>
 <!--    If not logged in display not logged in else display user name-->
-<!--    <span th:text="'Currently logged in as: ' + ${#authentication.getName()? #authentication.getName(): 'Oops! Please log in.'}"></span>-->
+<!--    <span th:text="'Currently logged in as: ' + ${#authentication.getName()}"></span>-->
+    Current user: <span sec:authentication="name"></span>
+<!--    <span sec:authentication="principal.authorities"></span>-->
 </footer>
 </body>
 </html>
