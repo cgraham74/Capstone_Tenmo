@@ -42,15 +42,17 @@ public class WebAuthenticationController {
 
         }
 
-//    @GetMapping("/login")
-//        public String showLoginForm(Model model){
-//            model.addAttribute("user", new User());
-//            return "login";
-//        }
+    @GetMapping("/login")
+        public String showLoginForm(Model model){
+            model.addAttribute("user", new User());
+            return "login";
+        }
 
+        //changed from ModelAndView to LoginResponse method type and returned loginResponse
+        // instead of the currentUser Model
         @PostMapping("/login")
         @ResponseStatus(HttpStatus.OK)
-        public ModelAndView login(@Valid @ModelAttribute LoginDTO loginDto) {
+        public LoginResponse login(@Valid @ModelAttribute LoginDTO loginDto) {
             ModelAndView currentUser = new ModelAndView("layout");
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
@@ -60,7 +62,9 @@ public class WebAuthenticationController {
             User user = userDao.findByUsername(loginDto.getUsername());
             WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
             currentUser.addObject("user", loginResponse.getUser());
-            return currentUser;
+            System.out.println("Current user" + currentUser);
+            System.out.println("Login Response: " + loginResponse);
+            return loginResponse;
         }
 
         @ResponseStatus(HttpStatus.CREATED)
@@ -69,7 +73,7 @@ public class WebAuthenticationController {
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
             }
-            return "index";
+            return "login";
         }
 
         /**

@@ -44,7 +44,7 @@ public class TransferController {
     public ModelAndView getRecords(Principal principal,@RequestParam("id") int userId ) {
 //        public ModelAndView getRecords(@RequestParam("id") int userId, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String user = auth.getName();
+
         System.out.println("Should be the user: "+user);
         ModelAndView mav = new ModelAndView("history");
 
