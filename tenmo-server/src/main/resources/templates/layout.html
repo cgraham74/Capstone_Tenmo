@@ -21,30 +21,22 @@
         <!--  static use /static/TEnmo.jpg  Dynamic use {TEnmo} -->
         <img src="../static/TEnmo.jpg" th:src="@{../TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
         <div class="container" id="btnGroupContainer">
-<!--            <a th:href="@{/balance}" class="button-group"  title="View Balance">Balance</a>-->
-<!--            <a th:href="@{/transferspending(id=${loginResponse?.user?.id})}" href="../templates/transferspending"-->
-<!--               class="button-group" id="pendingButton" title="Pending Transactions">Pending</a>-->
-<!--            <a th:action="@{/send}" class="button-group"  title="Send Money">Send</a>-->
-<!--            <a th:action="@{/request}" type="button" class="button-group"  title="Request Money">Request</a>-->
-<!--&lt;!&ndash;            <a th:href="@{/transferhistory(id=${user?.id})}" href="../templates/transferhistory" class="button-group" title="Retrieve transfer history">Transfers</a>&ndash;&gt;-->
-<!--            <a th:href="@{/transferhistory(id=${1019})}"-->
-<!--               class="button-group" title="Transfer history">Transfers</a>-->
             <a th:href="@{balance}" class="button-group"  title="View Balance">Balance</a>
             <a th:href="@{pending}"
                class="button-group" id="pendingButton" title="Pending Transactions">Pending</a>
-            <a th:action="@{/send}" class="button-group"  title="Send Money">Send</a>
+            <a th:href="@{users}" class="button-group"  title="Send Money">Send</a>
             <a th:action="@{/request}" type="button" class="button-group"  title="Request Money">Request</a>
             <a th:href="@{transfers}"
                class="button-group" title="Transfer history">Transfers</a>
         </div>
     </div>
 </header>
-<span th:text="${session.user?.username} ?: 'Not Logged in'"></span></br>
-<span th:text="${session.user?.id} ?: 'No Id - Not logged in'"></span></br>
+<p>Welcome <span th:text="${session.user?.username}"></span></p>
+<p>Account ID: <span th:text="${session.user?.id}"></span></p>
 <main role="main" class="main-content" layout:fragment="main-content">
     <!--This is where all of the changable content will be kept-->
     <p>Country: <span th:text="${#locale.country}"></span></p>
-<!--    <p>Date: <span th:text="${#calendars.format(today,'dd MMMM yyyy')}"></span></p>-->
+    <!--<p>Date: <span th:text="${#calendars.format(today,'dd MMMM yyyy')}"></span></p>-->
 </main>
 <footer id="footer">
     <p>2022 Copyright &copy; Graham & Harper</p>

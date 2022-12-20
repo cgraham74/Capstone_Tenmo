@@ -83,6 +83,7 @@ public class JdbcUserDao implements UserDao {
     //Returns a list of users excluding current user.
     @Override
     public List<User> findTransferList() {
+
         String username = SecurityUtils.getCurrentUsername().map(Object::toString).orElse("");
         List<User> users = new ArrayList<>();
         String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE username != ?;";

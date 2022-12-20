@@ -42,17 +42,13 @@ public class WebAuthenticationController {
     @GetMapping("/login")
         public String login(Model model){
             model.addAttribute("user", new User());
-            System.out.println("showLoginForm: " + model.toString());
-            return "main";
+            return "login";
         }
 
-        //changed from ModelAndView to LoginResponse method type and returned loginResponse
-        // instead of the currentUser Model
+
         @PostMapping("/login")
         @ResponseStatus(HttpStatus.OK)
-//        public LoginResponse login(@Valid @ModelAttribute LoginDTO loginDto) {
             public ModelAndView login(@Valid @ModelAttribute LoginDTO loginDto, HttpSession session) {
-            System.out.println("/Login Response invoked");
 
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
@@ -63,24 +59,17 @@ public class WebAuthenticationController {
             WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
             ModelAndView currentUser = new ModelAndView("layout");
             currentUser.addObject("loginResponse", loginResponse);
-//
-//            System.out.println("Current user model: " + currentUser);
-//            System.out.println("Returning Login Response: " + loginResponse);
-//           // return loginResponse;
-
             session.setAttribute("user",user);
-
-            System.out.println("session? " + session.getAttribute("user"));
             return currentUser;
         }
 
         @ResponseStatus(HttpStatus.CREATED)
         @PostMapping("/register")
-        public String register(@Valid RegisterUserDTO newUser, Model model){
+        public String register(@Valid @ModelAttribute RegisterUserDTO newUser, Model model){
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
             }
-            return "login";
+            return "redirect:/login";
         }
 
         /**

@@ -12,7 +12,6 @@ public class LoginController {
     @GetMapping("/")
     public String login(Model model){
         model.addAttribute("message", "Log in");
-        System.out.println("Login Controller Invoked");
         return "login";
     }
 }

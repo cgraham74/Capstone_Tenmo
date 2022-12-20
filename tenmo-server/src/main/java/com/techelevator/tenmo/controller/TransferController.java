@@ -1,25 +1,18 @@
 package com.techelevator.tenmo.controller;
 
-
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
+import com.techelevator.tenmo.security.SecurityUtils;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.services.UserDao;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
-import java.util.List;
+
 
 //@PreAuthorize("isAuthenticated()")
 
@@ -63,8 +56,9 @@ public class TransferController {
         int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
         model.addAttribute("transfers", transferService.getAllToAndFromAccount(accountId));
 //        Object user = session.getAttribute("user");
+        String username = SecurityUtils.getCurrentUsername().map(Object::toString).orElse("");
+        System.out.println("SecurityUtils.getCurrentUser: " + username);
 
-        System.out.println("User id is :"+user.getId());
         return "transfers";
     }
 
@@ -84,7 +78,6 @@ public class TransferController {
         user = (User) session.getAttribute("user");
         int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
         model.addAttribute("pending", transferService.findAllBystatus(accountId));
-        System.out.println("accountid?  " + accountId);
         return "pending";
     }
     @GetMapping("/transfers/transfer")

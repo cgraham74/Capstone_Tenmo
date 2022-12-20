@@ -1,7 +1,6 @@
 package com.techelevator.tenmo.controller;
 
 import com.techelevator.tenmo.model.User;
-import com.techelevator.tenmo.security.UserNotActivatedException;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.services.JdbcUserDao;
@@ -10,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.security.Principal;
