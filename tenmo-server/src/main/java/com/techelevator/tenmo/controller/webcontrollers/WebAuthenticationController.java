@@ -65,11 +65,11 @@ public class WebAuthenticationController {
 
         @ResponseStatus(HttpStatus.CREATED)
         @PostMapping("/register")
-        public String register(@Valid @ModelAttribute RegisterUserDTO newUser, Model model){
+        public String register(@Valid @ModelAttribute RegisterUserDTO newUser){
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
             }
-            return "redirect:/login";
+            return "login";
         }
 
         /**

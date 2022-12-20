@@ -10,8 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @CrossOrigin
 public class LoginController {
     @GetMapping("/")
-    public String login(Model model){
+    public String showLogInForm(Model model){
         model.addAttribute("message", "Log in");
         return "login";
+    }
+
+    @GetMapping("/newuser")
+    public String newUserForm(Model model){
+        model.addAttribute("message", "New User Registration");
+        return "newuser";
     }
 }

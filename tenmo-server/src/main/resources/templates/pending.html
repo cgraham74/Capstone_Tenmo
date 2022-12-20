@@ -33,8 +33,8 @@
             <td th:text="${pendingtransfer.accountfrom}">FROM</td>
             <td th:text="'$' + ${pendingtransfer.amount}">AMOUNT</td>
             <td th:text="${pendingtransfer.transferStatus.transferstatusdesc}">STATUS</td>
-            <td><button onclick="toggleApprove()" class="button-group" style="font-size:24px"><i class="fa fa-thumbs-up"></i></button></td>
-            <td><button onclick="toggleReject()" class="button-group" style="font-size:24px"><i class="fa fa-thumbs-down"></i></button></td>
+            <td><button onclick="toggleApprove()" class="button-group" style="font-size:15px"><i class="fa-regular fa-circle-check"></i></button></td>
+            <td><button onclick="toggleReject()" class="button-group" style="font-size:15px"><i class="fa-regular fa-circle-xmark"></i></button></td>
         </tr>
         </tbody>
     </table>
