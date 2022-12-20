@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.security.Principal;
 
 
@@ -21,6 +23,7 @@ public class AccountController {
 
     private final JdbcUserDao dao;
     private final AccountService accountService;
+    private User user;
 
     @Autowired
     public AccountController(AccountService accountService, JdbcUserDao dao) {
@@ -30,13 +33,19 @@ public class AccountController {
 
     //Will return current user's balance
     @GetMapping("/balance")
-    public Account getAccount(@RequestParam int id, Principal principal) {
-        User user = dao.findById(id);
-        if (user.getUsername().equals(principal.getName())) {
-
-            return accountService.findAccountByuserid(id);
-        }
-        throw new UserNotActivatedException("Not Authorized");
+    public String getAccount(Model model, HttpSession session, Principal principal) {
+        user = (User) session.getAttribute("user");
+      //  User user = dao.findById(id);
+        int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
+      //  if (user.getUsername().equals(principal.getName())) {
+        Account account = accountService.findAccountById(accountId);
+       BigDecimal balance = account.getBalance();
+            model.addAttribute("balance", balance);
+            model.addAttribute("accountid", accountId);
+           // return accountService.findAccountByuserid(accountId);
+            return "balance";
+       // }
+       // throw new UserNotActivatedException("Not Authorized");
     }
 
     @GetMapping("/accounts/account")

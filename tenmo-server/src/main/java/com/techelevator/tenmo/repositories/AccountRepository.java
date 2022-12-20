@@ -18,4 +18,10 @@ public interface AccountRepository extends JpaRepository<Account, Integer>{
             "JOIN tenmo_user ON tenmo_user.user_id = account.user_id\n" +
             "WHERE account.user_id = ? ", nativeQuery = true)
     int findAccountIdByUserId(int id);
+
+
+    @Query(value = "SELECT balance FROM account \n" +
+            "JOIN tenmo_user ON tenmo_user.user_id = account.user_id\n" +
+            "WHERE account.user_id = ? ", nativeQuery = true)
+    int findAccountBalanceByUserId(int id);
 }

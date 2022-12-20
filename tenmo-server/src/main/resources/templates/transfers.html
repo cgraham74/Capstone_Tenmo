@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Layout-History</title>
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Layout-History</title>-->
 
-</head>
+<!--</head>-->
 <body>
 <div class="main-content" layout:fragment="main-content">
-    <p>User : <span th:text="${#ctx.user}"></span></p>
+    Current user: <span sec:authentication="name"></span>
     <table class="blueTable" id="transferTable">
         <thead>
         <tr>
@@ -34,5 +35,5 @@
     </table>
 
 </div>
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

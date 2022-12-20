@@ -3,15 +3,16 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layout}">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Successful login!</title>
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Successful login!</title>-->
 
-</head>
+<!--</head>-->
 <body>
 <div  class="main-content" layout:fragment="main-content">
 <p>this is inside the main.html</p>
-
+    <p>Country: <span th:text="${#locale.country}"></span></p>
+    <p>User? : <span th:text="${#ctx.user}"></span></p>
 </div>
 </body>
 </html>

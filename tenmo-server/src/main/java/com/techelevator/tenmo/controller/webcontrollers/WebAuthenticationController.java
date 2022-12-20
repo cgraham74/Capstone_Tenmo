@@ -5,9 +5,7 @@ import com.techelevator.tenmo.model.RegisterUserDTO;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.security.jwt.TokenProvider;
 import com.techelevator.tenmo.services.UserDao;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,10 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.security.Principal;
+
 
 @CrossOrigin
 @Controller
@@ -43,17 +40,20 @@ public class WebAuthenticationController {
         }
 
     @GetMapping("/login")
-        public String showLoginForm(Model model){
+        public String login(Model model){
             model.addAttribute("user", new User());
-            return "login";
+            System.out.println("showLoginForm: " + model.toString());
+            return "main";
         }
 
         //changed from ModelAndView to LoginResponse method type and returned loginResponse
         // instead of the currentUser Model
         @PostMapping("/login")
         @ResponseStatus(HttpStatus.OK)
-        public LoginResponse login(@Valid @ModelAttribute LoginDTO loginDto) {
-            ModelAndView currentUser = new ModelAndView("layout");
+//        public LoginResponse login(@Valid @ModelAttribute LoginDTO loginDto) {
+            public ModelAndView login(@Valid @ModelAttribute LoginDTO loginDto, HttpSession session) {
+            System.out.println("/Login Response invoked");
+
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
@@ -61,10 +61,17 @@ public class WebAuthenticationController {
             String jwt = tokenProvider.createToken(authentication, false);
             User user = userDao.findByUsername(loginDto.getUsername());
             WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
-            currentUser.addObject("user", loginResponse.getUser());
-            System.out.println("Current user" + currentUser);
-            System.out.println("Login Response: " + loginResponse);
-            return loginResponse;
+            ModelAndView currentUser = new ModelAndView("layout");
+            currentUser.addObject("loginResponse", loginResponse);
+//
+//            System.out.println("Current user model: " + currentUser);
+//            System.out.println("Returning Login Response: " + loginResponse);
+//           // return loginResponse;
+
+            session.setAttribute("user",user);
+
+            System.out.println("session? " + session.getAttribute("user"));
+            return currentUser;
         }
 
         @ResponseStatus(HttpStatus.CREATED)

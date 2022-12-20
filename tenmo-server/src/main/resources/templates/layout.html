@@ -2,13 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
-<intercept-url pattern="/login" access="permitAll"></intercept-url>
-<form-login login-page="/login"></form-login>
+<!--<intercept-url pattern="/login" access="permitAll"></intercept-url>-->
+<!--<form-login login-page="/login"></form-login>-->
 <head>
+    <meta name="description" content="TEnmo Transfer Capstone Project"/>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no" />
 
     <title>Layout-Page</title>
+
+    <link rel='canonical' href='@{/layout}' />
     <link href="../static/style.css"  rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!--    <script src="actions.js"></script>-->
@@ -20,21 +23,27 @@
         <!--  static use /static/TEnmo.jpg  Dynamic use {TEnmo} -->
         <img src="../static/TEnmo.jpg" th:src="@{../TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
         <div class="container" id="btnGroupContainer">
-            <a th:href="@{/balance}" class="button-group" >Balance</a>
-            <a th:href="@{/transferspending(id=${user?.id})}" href="../templates/transferspending"
-               class="button-group" id="pendingButton">Pending</a>
-            <a th:action="@{/send}" class="button-group" >Send</a>
-            <a th:action="@{/request}" type="button" class="button-group" >Request</a>
-<!--            <a th:href="@{/transferhistory(id=${user?.id})}" href="../templates/transferhistory" class="button-group" title="Retrieve transfer history">Transfers</a>-->
-            <a th:href="@{/transferhistory(id=${user?.id})}"
-               class="button-group" title="Retrieve transfer history">Transfers</a>
+<!--            <a th:href="@{/balance}" class="button-group"  title="View Balance">Balance</a>-->
+<!--            <a th:href="@{/transferspending(id=${loginResponse?.user?.id})}" href="../templates/transferspending"-->
+<!--               class="button-group" id="pendingButton" title="Pending Transactions">Pending</a>-->
+<!--            <a th:action="@{/send}" class="button-group"  title="Send Money">Send</a>-->
+<!--            <a th:action="@{/request}" type="button" class="button-group"  title="Request Money">Request</a>-->
+<!--&lt;!&ndash;            <a th:href="@{/transferhistory(id=${user?.id})}" href="../templates/transferhistory" class="button-group" title="Retrieve transfer history">Transfers</a>&ndash;&gt;-->
+<!--            <a th:href="@{/transferhistory(id=${1019})}"-->
+<!--               class="button-group" title="Transfer history">Transfers</a>-->
+            <a th:href="@{/balance}" class="button-group"  title="View Balance">Balance</a>
+            <a th:href="@{pending}"
+               class="button-group" id="pendingButton" title="Pending Transactions">Pending</a>
+            <a th:action="@{/send}" class="button-group"  title="Send Money">Send</a>
+            <a th:action="@{/request}" type="button" class="button-group"  title="Request Money">Request</a>
+            <!--            <a th:href="@{/transferhistory(id=${user?.id})}" href="../templates/transferhistory" class="button-group" title="Retrieve transfer history">Transfers</a>-->
+            <a th:href="@{transfers}"
+               class="button-group" title="Transfer history">Transfers</a>
         </div>
     </div>
 </header>
-<span th:text="${user?.username} ?: 'Not Logged in'"></span></br>
-<span th:text="${user?.id} ?: 'No Id - Not logged in'"></span></br>
-<p>User : <span th:text="${#ctx.user}"></span></p>
-
+<span th:text="${loginResponse?.user?.username} ?: 'Not Logged in'"></span></br>
+<span th:text="${loginResponse?.user?.id} ?: 'No Id - Not logged in'"></span></br>
 <main role="main" class="main-content" layout:fragment="main-content">
         <!--This is where all of the changable content will be kept-->
         <p>This fragment belongs to the base layout</p>

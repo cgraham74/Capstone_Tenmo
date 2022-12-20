@@ -21,6 +21,10 @@ public class AccountService {
         return accountRepository.findByuserid(id);
     }
 
+    public int findAccountBalanceByUserId(int id) {
+        return accountRepository.findAccountBalanceByUserId(id);
+    }
+
     public Account findAccountById(int id) {
         return accountRepository.findById(id);
     }

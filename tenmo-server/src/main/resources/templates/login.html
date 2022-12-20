@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Layout-Log in</title>
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Layout-Log in</title>-->
 
-</head>
+<!--</head>-->
 <body>
 
-<div layout:fragment="main-content">
+<div  class="main-content" layout:fragment="main-content">
     <h1 th:text="${message}">Login page</h1>
     <div th:if="${param.error}">
         Invalid username and password.</div>

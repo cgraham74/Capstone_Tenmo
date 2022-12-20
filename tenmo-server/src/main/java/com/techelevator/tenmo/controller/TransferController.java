@@ -8,6 +8,7 @@ import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.services.UserDao;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,28 +41,51 @@ public class TransferController {
 
     }
     //Will need to find the syntax to get a parameter {id} in Thymeleaf
-    @GetMapping("/transferhistory")
-    public ModelAndView getRecords(Principal principal,@RequestParam("id") int userId ) {
+//    @GetMapping("/transferhistory")
+//    public ModelAndView getRecords(HttpSession session,@RequestParam("id") int userId) {
+////        public ModelAndView getRecords(@RequestParam("id") int userId, Model model) {
+////        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//        System.out.println("Should be the user: "+user);
+//        ModelAndView mav = new ModelAndView("history", HttpStatus.valueOf(200));
+//
+//       int accountId = accountService.findAccountIdByUserId(userId);
+//        List<Transfer> transfers = transferService.getAllToAndFromAccount(accountId);
+//        mav.addObject("transfers",transfers );
+//        Object user = session.getAttribute("user");
+//        System.out.println("Object " + user);
+//        return mav;
+//    }
+    @GetMapping("/transfers")
+    public String getRecords(HttpSession session, Model model) {
+        user = (User) session.getAttribute("user");
 //        public ModelAndView getRecords(@RequestParam("id") int userId, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
+        model.addAttribute("transfers", transferService.getAllToAndFromAccount(accountId));
+//        Object user = session.getAttribute("user");
 
-        System.out.println("Should be the user: "+user);
-        ModelAndView mav = new ModelAndView("history");
-
-       int accountId = accountService.findAccountIdByUserId(userId);
-        List<Transfer> transfers = transferService.getAllToAndFromAccount(accountId);
-        mav.addObject("transfers",transfers );
-        return mav;
+        System.out.println("User id is :"+user.getId());
+        return "transfers";
     }
 
-    @GetMapping("/transferspending")
-    public ModelAndView findByTransferstatus(@RequestParam int id, Model model) {
-        ModelAndView mav = new ModelAndView("pending");
-        int accountId = accountService.findAccountIdByUserId(id);
-        List<Transfer> pendingtransfers = transferService.findAllBystatus(accountId);
-        mav.addObject("pendingtransfers", pendingtransfers);
-        model.addAttribute("user", user);
-        return mav;
+//    @GetMapping("/pending")
+//    public ModelAndView findByTransferstatus(@RequestParam int id, Model model) {
+//        ModelAndView mav = new ModelAndView("pending");
+//        int accountId = accountService.findAccountIdByUserId(id);
+//        List<Transfer> pendingtransfers = transferService.findAllBystatus(accountId);
+//        mav.addObject("pendingtransfers", pendingtransfers);
+//        model.addAttribute("user", user);
+//        return mav;
+//    }
+
+    @GetMapping("/pending")
+    public String findByTransferstatus(Model model,HttpSession session) {
+//        ModelAndView mav = new ModelAndView("pending");
+        user = (User) session.getAttribute("user");
+        int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
+        model.addAttribute("pending", transferService.findAllBystatus(accountId));
+        System.out.println("accountid?  " + accountId);
+        return "pending";
     }
     @GetMapping("/transfers/transfer")
     public Transfer findTransferById(@RequestParam int id) {
