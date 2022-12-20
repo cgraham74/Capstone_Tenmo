@@ -1,0 +1,54 @@
+
+a	java:S112Ó"FDefine and throw a dedicated exception instead of using a generic one.(£ÉêÏûÿÿÿÿ
+t	java:S135¹"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆžÿÿÿÿÿ
+t	java:S135á"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆžÿÿÿÿÿ
+g	java:S116"SRename this field "APPROVED" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶ „3
+h	java:S116"SRename this field "REJECTED" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸„’‡
+6
+java:S1170"!Make this final field static too.(¶ „3
+7
+java:S1170"!Make this final field static too.(¸„’‡
+S	java:S1063"9Replace this use of System.out or System.err by a logger.(ëÖ²§ýÿÿÿÿ
+N	java:S106:"9Replace this use of System.out or System.err by a logger.(¤ì¹ž
+S	java:S106="9Replace this use of System.out or System.err by a logger.(Ê£¯Öúÿÿÿÿ
+S	java:S106c"9Replace this use of System.out or System.err by a logger.(ëÖ²§ýÿÿÿÿ
+N	java:S106p"9Replace this use of System.out or System.err by a logger.(ÑÜ•
+S	java:S106x"9Replace this use of System.out or System.err by a logger.(é†øûÿÿÿÿ
+N	java:S106y"9Replace this use of System.out or System.err by a logger.(ëØÕ
+M	java:S106z"9Replace this use of System.out or System.err by a logger.(Ê÷Œ2
+m
+java:S3457‚"Q%n should be used in place of \n to produce the platform-specific line separator.(Äáˆùÿÿÿÿ
+T	java:S106‚"9Replace this use of System.out or System.err by a logger.(Äáˆùÿÿÿÿ
+g
+java:S3457„"Q%n should be used in place of \n to produce the platform-specific line separator.(œ–ü
+N	java:S106„"9Replace this use of System.out or System.err by a logger.(œ–ü
+T	java:S106‡"9Replace this use of System.out or System.err by a logger.(é†øûÿÿÿÿ
+O	java:S106"9Replace this use of System.out or System.err by a logger.(±ø±Ö
+T	java:S106“"9Replace this use of System.out or System.err by a logger.(ƒ»¢Ÿüÿÿÿÿ
+U
+java:S1155">Use isEmpty() to check whether the collection is empty or not.(ª‘Æ¢
+T	java:S106¢"9Replace this use of System.out or System.err by a logger.(Ôî Àûÿÿÿÿ
+T	java:S106¥"9Replace this use of System.out or System.err by a logger.(øºÑûúÿÿÿÿ
+T	java:S106§"9Replace this use of System.out or System.err by a logger.(ýÂ—ïøÿÿÿÿ
+T	java:S106ª"9Replace this use of System.out or System.err by a logger.(Þï£Šÿÿÿÿÿ
+i
+java:S3776°"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(æ†¥¼
+S
+java:S1854É"<Remove this useless assignment to local variable "response".(çƒˆï
+O	java:S106·"9Replace this use of System.out or System.err by a logger.(ø„ž²
+D
+java:S1481É"-Remove this unused "response" local variable.(çƒˆï
+O	java:S106ë"9Replace this use of System.out or System.err by a logger.(Þ÷ûý
+T	java:S106ï"9Replace this use of System.out or System.err by a logger.(é”…þþÿÿÿÿ
+T	java:S106ò"9Replace this use of System.out or System.err by a logger.(ü»Í»üÿÿÿÿ
+T	java:S106ö"9Replace this use of System.out or System.err by a logger.(§¥°þÿÿÿÿ
+T	java:S106ü"9Replace this use of System.out or System.err by a logger.(ÑÔ´ýüÿÿÿÿ
+T	java:S106•"9Replace this use of System.out or System.err by a logger.(Ìâ¾éúÿÿÿÿ
+O	java:S106š"9Replace this use of System.out or System.err by a logger.(ñÁ ¿
+T	java:S106§"9Replace this use of System.out or System.err by a logger.(Ë›åêøÿÿÿÿ
+T	java:S106°"9Replace this use of System.out or System.err by a logger.(ÁªŒÙþÿÿÿÿ
+T	java:S106±"9Replace this use of System.out or System.err by a logger.(ãêç…þÿÿÿÿ
+N	java:S106²"9Replace this use of System.out or System.err by a logger.(êÃ§z
+T	java:S106³"9Replace this use of System.out or System.err by a logger.(É¦¼«ýÿÿÿÿ
+T	java:S106´"9Replace this use of System.out or System.err by a logger.(Ÿ¸àŒþÿÿÿÿ
+T	java:S106µ"9Replace this use of System.out or System.err by a logger.(Ÿ—åÔøÿÿÿÿ

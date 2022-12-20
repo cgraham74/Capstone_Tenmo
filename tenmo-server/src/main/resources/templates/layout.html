@@ -8,9 +8,7 @@
     <meta name="description" content="TEnmo Transfer Capstone Project"/>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no" />
-
     <title>Layout-Page</title>
-
     <link rel='canonical' href='@{/layout}' />
     <link href="../static/style.css"  rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -31,35 +29,26 @@
 <!--&lt;!&ndash;            <a th:href="@{/transferhistory(id=${user?.id})}" href="../templates/transferhistory" class="button-group" title="Retrieve transfer history">Transfers</a>&ndash;&gt;-->
 <!--            <a th:href="@{/transferhistory(id=${1019})}"-->
 <!--               class="button-group" title="Transfer history">Transfers</a>-->
-            <a th:href="@{/balance}" class="button-group"  title="View Balance">Balance</a>
+            <a th:href="@{balance}" class="button-group"  title="View Balance">Balance</a>
             <a th:href="@{pending}"
                class="button-group" id="pendingButton" title="Pending Transactions">Pending</a>
             <a th:action="@{/send}" class="button-group"  title="Send Money">Send</a>
             <a th:action="@{/request}" type="button" class="button-group"  title="Request Money">Request</a>
-            <!--            <a th:href="@{/transferhistory(id=${user?.id})}" href="../templates/transferhistory" class="button-group" title="Retrieve transfer history">Transfers</a>-->
             <a th:href="@{transfers}"
                class="button-group" title="Transfer history">Transfers</a>
         </div>
     </div>
 </header>
-<span th:text="${loginResponse?.user?.username} ?: 'Not Logged in'"></span></br>
-<span th:text="${loginResponse?.user?.id} ?: 'No Id - Not logged in'"></span></br>
+<span th:text="${session.user?.username} ?: 'Not Logged in'"></span></br>
+<span th:text="${session.user?.id} ?: 'No Id - Not logged in'"></span></br>
 <main role="main" class="main-content" layout:fragment="main-content">
-        <!--This is where all of the changable content will be kept-->
-        <p>This fragment belongs to the base layout</p>
+    <!--This is where all of the changable content will be kept-->
     <p>Country: <span th:text="${#locale.country}"></span></p>
-    <p>User? : <span th:text="${#ctx}"></span></p>
-<!--    <p>http session? : <span th:text="${#httpSession}"></span></p>-->
 <!--    <p>Date: <span th:text="${#calendars.format(today,'dd MMMM yyyy')}"></span></p>-->
 </main>
-
 <footer id="footer">
     <p>2022 Copyright &copy; Graham & Harper</p>
-<!--    If not logged in display not logged in else display user name-->
-<!--    <span th:text="'Currently logged in as: ' + ${#authentication.getName()}"></span>-->
-    Current user: <span sec:authentication="name"></span>
-
-
+    <p>Logged in as: <span th:text="${session.user?.username}"></span></p>
 </footer>
 </body>
 </html>
