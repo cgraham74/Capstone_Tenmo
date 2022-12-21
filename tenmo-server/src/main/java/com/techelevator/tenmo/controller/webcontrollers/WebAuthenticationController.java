@@ -3,6 +3,7 @@ package com.techelevator.tenmo.controller.webcontrollers;
 import com.techelevator.tenmo.model.LoginDTO;
 import com.techelevator.tenmo.model.RegisterUserDTO;
 import com.techelevator.tenmo.model.User;
+import com.techelevator.tenmo.security.UserNotActivatedException;
 import com.techelevator.tenmo.security.jwt.TokenProvider;
 import com.techelevator.tenmo.services.UserDao;
 import lombok.Data;
@@ -12,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +58,7 @@ public class WebAuthenticationController {
      */
         @PostMapping("/login")
         @ResponseStatus(HttpStatus.OK)
-            public ModelAndView login(@Valid @ModelAttribute LoginDTO loginDto, HttpSession session) {
+            public ModelAndView login(@Valid @ModelAttribute LoginDTO loginDto, HttpSession session) throws UserNotActivatedException {
 
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
@@ -71,7 +73,13 @@ public class WebAuthenticationController {
             return currentUser;
         }
 
-        @ResponseStatus(HttpStatus.CREATED)
+    /**
+     * Register new user function that creates an account. All new accounts start with
+     * $1000 balance.
+     * @param newUser DTO to transfer a new users credentials to the database.
+     * @return Returns the login view to allow a new user to log in.
+     */
+    @ResponseStatus(HttpStatus.CREATED)
         @PostMapping("/register")
         public String register(@Valid @ModelAttribute RegisterUserDTO newUser){
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {

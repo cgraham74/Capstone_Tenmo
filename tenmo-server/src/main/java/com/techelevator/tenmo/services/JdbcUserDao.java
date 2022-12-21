@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.services;
 
+import com.techelevator.tenmo.exceptions.UserNotFoundRuntimeException;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.security.SecurityUtils;
 import org.springframework.dao.DataAccessException;
@@ -24,6 +25,11 @@ public class JdbcUserDao implements UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    /**
+     * Finds the user's id by passing in a username and querying the database.
+     * @param username used as a query parameter
+     * @return if successful, returns the user's id.
+     */
     @Override
     public int findIdByUsername(String username) {
         String sql = "SELECT user_id FROM tenmo_user WHERE username LIKE ?;";
@@ -47,6 +53,12 @@ public class JdbcUserDao implements UserDao {
         return users;
     }
 
+    /**
+     * Queries the database for user based on their username.
+     * @param username is passed in and used as the SQL query parameter
+     * @return If successful, returns the user's id, name, and password.
+     * @throws UsernameNotFoundException
+     */
     @Override
     public User findByUsername(String username) throws UsernameNotFoundException {
         String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE username LIKE ?;";
@@ -57,6 +69,14 @@ public class JdbcUserDao implements UserDao {
         throw new UsernameNotFoundException("User " + username + " was not found.");
     }
 
+    /**
+     * Creates a new user and inserts the username and hashed password into the
+     * mySQL database if successful, also creates an account with a starting
+     * balance of $1000. If either fails, no user and no account is created.
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
     @Modifying
     @Transactional
@@ -79,7 +99,7 @@ public class JdbcUserDao implements UserDao {
         }
         // create account
         sql ="SELECT LAST_INSERT_ID()";
-       String sqlbalance = "INSERT INTO account (user_id, balance) values(?, ?)";
+        String sqlbalance = "INSERT INTO account (user_id, balance) values(?, ?)";
         Integer newUserId = jdbcTemplate.queryForObject(sql, Integer.class);
         try {
             jdbcTemplate.update(sqlbalance, newUserId, STARTING_BALANCE);
@@ -91,9 +111,14 @@ public class JdbcUserDao implements UserDao {
         return true;
     }
 
-    //Returns a list of users excluding current user.
+    /**
+     * A list of users available for the current user to select
+     * a transfer recipient.
+     * @return a list of users excluding the current logged-in user
+     */
     @Override
     public List<User> findTransferList() {
+        //TODO-SecurityUtils is still returning null. Should resolve once Spring security is debugged.
 
         String username = SecurityUtils.getCurrentUsername().map(Object::toString).orElse("");
         List<User> users = new ArrayList<>();
@@ -115,7 +140,7 @@ public class JdbcUserDao implements UserDao {
         if (results.next()) {
             return mapRowToUser(results);
         }
-        throw new RuntimeException("User " + to + " was not found.");
+        throw new UserNotFoundRuntimeException("User " + to + " was not found.");
     }
 
 
@@ -130,7 +155,7 @@ public class JdbcUserDao implements UserDao {
         if (results.next()) {
             return mapRowToUser(results);
         }
-        throw new RuntimeException("User was not found");
+        throw new UserNotFoundRuntimeException("User was not found");
     }
 
     private User mapRowToUser(SqlRowSet rs) {
