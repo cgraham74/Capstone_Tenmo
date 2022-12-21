@@ -17,8 +17,8 @@ public interface TransferRepository extends JpaRepository<Transfer, Integer> {
     List<Transfer> findAllByAccountto(int id);
 
 
-    @Query(value = "SELECT transfer.transfer_id, transfer.transfer_status_id, transfer.transfer_type_id, transfer.accountfrom, \n" +
-            "transfer.accountto, transfer.amount, transfer_status.transfer_status_desc, transfer_type.transfertypedesc \n" +
+    @Query(value = "SELECT transfer.transfer_id, transfer.transfer_status_id, transfer.transfer_type_id, transfer.account_from, \n" +
+            "transfer.account_to, transfer.amount, transfer_status.transfer_status_desc, transfer_type.transfer_type_desc \n" +
             "FROM transfer \n" +
             "LEFT JOIN transfer_type ON transfer_type.transfer_type_id = transfer.transfer_type_id\n" +
             "LEFT JOIN transfer_status ON transfer_status.transfer_status_id = transfer.transfer_status_id\n" +
@@ -27,7 +27,7 @@ public interface TransferRepository extends JpaRepository<Transfer, Integer> {
 
     Transfer findById(int id);
 
-    @Query(value = "SELECT * FROM transfer WHERE transfer_status_id = 1 AND accountfrom = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM transfer WHERE transfer_status_id = 1 AND account_from = ?1", nativeQuery = true)
     List<Transfer> findByStatus(int accountfrom);
 
     @Modifying

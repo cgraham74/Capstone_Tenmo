@@ -9,7 +9,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public int findIdByUsername(String username) {
-        String sql = "SELECT user_id FROM tenmo_user WHERE username ILIKE ?;";
+        String sql = "SELECT user_id FROM tenmo_user WHERE username LIKE ?;";
         Integer id = jdbcTemplate.queryForObject(sql, Integer.class, username);
         if (id != null) {
             return id;
@@ -59,26 +59,33 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     @Modifying
+    @Transactional
     public boolean create(String username, String password) {
 
         // create user
-        String sql = "INSERT INTO tenmo_user (username, password_hash) VALUES (?, PASSWORD(?)) RETURNING user_id";
+        String sql = "INSERT INTO tenmo_user (username, password_hash) VALUES (?, ?);";
         String password_hash = new BCryptPasswordEncoder().encode(password);
-        int newUserId;
+        int rowsAffected;
         try {
-            newUserId = jdbcTemplate.queryForObject(sql, Integer.class, username, password_hash);
+            rowsAffected = jdbcTemplate.update(sql, username, password_hash);
 
         } catch (DataAccessException e) {
-            System.err.println("Failed to create user "+e.getMessage());
-            e.printStackTrace();  // print the full stack trace
+            //TODO - replace System.err with Logger
+            System.err.println("Failed to register new user: "+e.getMessage());
+            return false;
+        }
+        if(rowsAffected == 0){
             return false;
         }
         // create account
-        sql = "INSERT INTO account (user_id, balance) values(?, ?)";
+        sql ="SELECT LAST_INSERT_ID()";
+       String sqlbalance = "INSERT INTO account (user_id, balance) values(?, ?)";
+        Integer newUserId = jdbcTemplate.queryForObject(sql, Integer.class);
         try {
-            jdbcTemplate.update(sql, newUserId, STARTING_BALANCE);
+            jdbcTemplate.update(sqlbalance, newUserId, STARTING_BALANCE);
         } catch (DataAccessException e) {
-            System.err.println("Failed to increase account balance: "+ e.getMessage());
+            //TODO - replace System.err with Logger
+            System.err.println("Failed to initialize account balance: "+ e.getMessage());
             return false;
         }
         return true;

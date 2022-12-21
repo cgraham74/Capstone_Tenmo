@@ -29,12 +29,24 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    //Will return current user's balance
+    /**
+     * This function takes in a Model, HttpSession, and principal
+     * and will check the balance of the current logged in user. It should
+     * only allow the balance to be accessed if the current logged in user
+     * is the authenticated Principal
+     * @param model A Thymeleaf Object used to balance and accountid data
+     * @param session An object used to store user state and activity including
+     *                authentication information to provide a personalized experience.
+     * @param principal An object representing the identity of the of an authenticated
+     *                  user to determine resource access.
+     * @return The current authenticated user's balance.
+     */
     @GetMapping("/balance")
     public String getAccount(Model model, HttpSession session, Principal principal) {
         user = (User) session.getAttribute("user");
-      //  User user = dao.findById(id);
+
         int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
+        //TODO implement Principal functionality
       //  if (user.getUsername().equals(principal.getName())) {
         Account account = accountService.findAccountById(accountId);
        BigDecimal balance = account.getBalance();

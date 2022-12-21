@@ -45,7 +45,15 @@ public class WebAuthenticationController {
             return "login";
         }
 
-
+    /**
+     * When the user enters their username and password in the log in form
+     * The form action calls this endpoint to authenticate the user and
+     * add the user to session storage
+     * @param loginDto a DTO object to store a users credentials
+     * @param session An interface between the user and browser allowing
+     *                storage of user-specific authentication.
+     * @return a Model and View object representing the user and the view
+     */
         @PostMapping("/login")
         @ResponseStatus(HttpStatus.OK)
             public ModelAndView login(@Valid @ModelAttribute LoginDTO loginDto, HttpSession session) {
