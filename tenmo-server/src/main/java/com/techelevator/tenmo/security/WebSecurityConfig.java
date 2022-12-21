@@ -54,17 +54,51 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @param httpSecurity
      * @throws Exception
      */
+//    @Override
+//    protected void configure(HttpSecurity httpSecurity) throws Exception {
+//        httpSecurity
+//                // we don't need CSRF because our token is invulnerable
+//                .csrf().disable()
+//
+//                .exceptionHandling()
+//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+//                .accessDeniedHandler(jwtAccessDeniedHandler)
+//
+//                // create no session
+//                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//
+//                .and()
+//                .apply(securityConfigurerAdapter());
+//    }
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // we don't need CSRF because our token is invulnerable
-                .csrf().disable()
 
+                                // we don't need CSRF because our token is invulnerable
+                .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/")
+                .permitAll()
+                .antMatchers("/layout**")
+                .permitAll()
+                .antMatchers("/login**")
+                .permitAll()
+                .antMatchers("/register**")
+                .permitAll()
+                .antMatchers("/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
 
-                // create no session
+
+
+                // create session
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -72,7 +106,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .apply(securityConfigurerAdapter());
     }
-
     private JWTConfigurer securityConfigurerAdapter() {
         return new JWTConfigurer(tokenProvider);
     }

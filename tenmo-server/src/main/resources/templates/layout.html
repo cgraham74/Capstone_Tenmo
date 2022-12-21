@@ -21,11 +21,11 @@
         <!--  static use /static/TEnmo.jpg  Dynamic use {TEnmo} -->
         <img src="../static/TEnmo.jpg" th:src="@{../TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
         <div class="container" id="btnGroupContainer">
-            <a th:href="@{balance}" class="button-group"  title="View Balance">Balance</a>
+            <a th:href="@{balance}" class="button-group"  title="View Balance">Account</a>
             <a th:href="@{pending}"
                class="button-group" id="pendingButton" title="Pending Transactions">Pending</a>
-            <a th:href="@{users}" class="button-group"  title="Send Money">Send</a>
-            <a th:action="@{/request}" type="button" class="button-group"  title="Request Money">Request</a>
+            <a th:href="@{users}" class="button-group"  title="Send Money">Friends</a>
+<!--            <a th:action="@{/request}" type="button" class="button-group"  title="Request Money">Request</a>-->
             <a th:href="@{transfers}"
                class="button-group" title="Transfer history">Transfers</a>
         </div>

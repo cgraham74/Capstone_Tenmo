@@ -12,15 +12,12 @@
     <table class="blueTable" id="pendingTable">
         <thead>
         <tr>
-
-            <th>ID</th>
             <th>USER</th>
-            <th>ACTION</th>
+            <th>TRANSFERS</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user:${users}">
-            <td th:text="${user.id}"></td>
             <td th:text="${user.username}"></td>
             <td><button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i></button></td>
         </tr>

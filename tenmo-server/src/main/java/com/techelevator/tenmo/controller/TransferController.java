@@ -8,14 +8,13 @@ import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.services.UserDao;
 import lombok.Data;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
-
-//@PreAuthorize("isAuthenticated()")
-
+@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 @CrossOrigin
 @Controller
 @Data

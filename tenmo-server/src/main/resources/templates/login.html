@@ -8,10 +8,6 @@
 <body>
 <div class="main-content" layout:fragment="main-content">
     <h1 th:text="${message}">Login page</h1>
-    <div th:if="${param.error}">
-        Invalid username and password.</div>
-    <div th:if="${param.logout}">
-        You have been logged out.</div>
         <form th:action="@{/login}" method="POST" id="log-in">
         <label for="username">Username</label>:
         <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
@@ -19,6 +15,9 @@
         <input type="password" id="password" name="password" placeholder="Password..." /> <br />
         <input type="submit" class="button-group" value="Log in" />
     </form>
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
     <a th:href="@{newuser}" >Register as a new user</a>
 </div>
 </body>

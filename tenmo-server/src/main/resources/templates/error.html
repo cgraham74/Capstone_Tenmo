@@ -7,9 +7,13 @@
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
+        <div th:if="${param.error}">
+        Invalid username and password.</div>
+        <div th:if="${param.logout}">
+        You have been logged out.</div>
     <H1>OOPS! Something went wrong.</H1>
-    <a th:href="@{/}" >Log in?</a></br>
-    <a th:href="@{newuser}" >Register as a new user?</a>
+    <p><a th:href="@{/}" title="Returns user to log in">Return to log in?</a></p>
+    <p><a th:href="@{newuser}" title="Returns user to register form">Register as a new user?</a></p>
 </div>
 </body>
 </html>
