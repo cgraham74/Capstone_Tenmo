@@ -3,6 +3,7 @@ package com.techelevator.tenmo.services;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.security.SecurityUtils;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -48,7 +49,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User findByUsername(String username) throws UsernameNotFoundException {
-        String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE username ILIKE ?;";
+        String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE username LIKE ?;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, username);
         if (rowSet.next()) {
             return mapRowToUser(rowSet);
@@ -57,26 +58,29 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
+    @Modifying
     public boolean create(String username, String password) {
 
         // create user
-        String sql = "INSERT INTO tenmo_user (username, password_hash) VALUES (?, ?) RETURNING user_id";
+        String sql = "INSERT INTO tenmo_user (username, password_hash) VALUES (?, PASSWORD(?)) RETURNING user_id";
         String password_hash = new BCryptPasswordEncoder().encode(password);
-        Integer newUserId;
+        int newUserId;
         try {
             newUserId = jdbcTemplate.queryForObject(sql, Integer.class, username, password_hash);
+
         } catch (DataAccessException e) {
+            System.err.println("Failed to create user "+e.getMessage());
+            e.printStackTrace();  // print the full stack trace
             return false;
         }
-
         // create account
         sql = "INSERT INTO account (user_id, balance) values(?, ?)";
         try {
             jdbcTemplate.update(sql, newUserId, STARTING_BALANCE);
         } catch (DataAccessException e) {
+            System.err.println("Failed to increase account balance: "+ e.getMessage());
             return false;
         }
-
         return true;
     }
 

@@ -12,7 +12,7 @@ public class TransferType {
     @Column(name = "transfer_type_id")
     private int transfertypeid;
 
-    @Column(name = "transfertypedesc")
+    @Column(name = "transfer_type_desc")
     private String transfertypedesc;
 
 

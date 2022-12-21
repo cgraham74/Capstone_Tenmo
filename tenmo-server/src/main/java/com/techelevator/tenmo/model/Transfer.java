@@ -19,9 +19,9 @@ public class Transfer {
     private int transfertypeid;
     @Column(name = "transfer_status_id")
     private int transferstatusid;
-    @Column(name = "accountfrom")
+    @Column(name = "account_from")
     private int accountfrom;
-    @Column(name = "accountto")
+    @Column(name = "account_to")
     private int accountto;
     @Positive(message = "Amount cannot be negative")
     @Column(name = "amount")
