@@ -6,22 +6,30 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.services.JdbcUserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.security.Principal;
 
-@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+//@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 @CrossOrigin
 @Controller
 public class AccountController {
 
+    @Autowired
     private final JdbcUserDao dao;
+
+    @Autowired
     private final AccountService accountService;
+
+
     private User user;
 
     @Autowired
@@ -43,21 +51,24 @@ public class AccountController {
      * @return The current authenticated user's balance.
      */
     @GetMapping("/balance")
-    public String getAccount(Model model, HttpSession session,@AuthenticationPrincipal Principal principal) {
+    public String getAccount(Model model, HttpSession session,  @AuthenticationPrincipal Principal principal) {
         user = (User) session.getAttribute("user");
+        //TODO still need to implement Security.
         int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
+        System.out.println("/balance user " + user);
 
         Account account = accountService.findAccountById(accountId);
         BigDecimal balance = account.getBalance();
         model.addAttribute("balance", balance);
         model.addAttribute("accountid", accountId);
-        model.addAttribute("Principal", principal);
-            if (user.getUsername().equals(principal.getName())) {
-        System.out.println("Account Principal: " + principal.getName());
-           // return accountService.findAccountByuserid(accountId);
-            return "balance";
-        }
-        throw new UserNotActivatedException("Not Authorized");
+        // model.addAttribute("Principal", principal);
+        //   if (user.getUsername().equals(principal.getName())) {
+        // System.out.println("Account Principal: " + principal.getName());
+        // return accountService.findAccountByuserid(accountId);
+
+                return "balance";
+     //   }
+      //  throw new UserNotActivatedException("Not Authorized");
     }
 
     @GetMapping("/accounts/account")

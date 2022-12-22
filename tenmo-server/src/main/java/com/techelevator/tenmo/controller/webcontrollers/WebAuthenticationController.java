@@ -31,9 +31,12 @@ import java.security.Principal;
 @Data
 public class WebAuthenticationController {
 
-
+        @Autowired
         private final TokenProvider tokenProvider;
+
+        @Autowired
         private final AuthenticationManagerBuilder authenticationManagerBuilder;
+        @Autowired
         private UserDao userDao;
 
         @Autowired
@@ -43,12 +46,17 @@ public class WebAuthenticationController {
             this.userDao = userDao;
 
         }
+    @GetMapping("/")
+    public String showLogInForm(Model model){
+        model.addAttribute("message", "Log in");
+        return "login";
+    }
 
-    @GetMapping("/login")
-        public String login(Model model){
-            model.addAttribute("user", new User());
-            return "login";
-        }
+    @GetMapping("/register")
+    public String newUserForm(Model model){
+        model.addAttribute("message", "New User Registration");
+        return "register";
+    }
 
     /**
      * When the user enters their username and password in the log in form
@@ -61,7 +69,7 @@ public class WebAuthenticationController {
      */
         @PostMapping("/login")
         @ResponseStatus(HttpStatus.OK)
-            public ModelAndView login(@Valid @ModelAttribute LoginDTO loginDto, HttpSession session, @AuthenticationPrincipal Principal principal) throws UserNotActivatedException {
+            public ModelAndView login(@Valid @ModelAttribute  LoginDTO loginDto, HttpSession session,@AuthenticationPrincipal Principal principal) throws UserNotActivatedException {
 
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
@@ -71,8 +79,12 @@ public class WebAuthenticationController {
             User user = userDao.findByUsername(loginDto.getUsername());
             WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
             ModelAndView currentUser = new ModelAndView("layout");
-            currentUser.addObject("loginResponse", loginResponse);
+            currentUser.addObject("jwt", loginResponse.token);
+            currentUser.addObject("user", user);
             session.setAttribute("user",user);
+            System.out.println("Authentication " + authentication);
+            System.out.println("User: " + user);
+            System.out.println("LoginResponse: " + loginResponse.token);
             System.out.println("Login Principal: " + principal);
             return currentUser;
         }

@@ -12,8 +12,9 @@
     <link rel='canonical' href='@{/layout}' />
     <link href="../static/style.css"  rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!--    <script src="actions.js"></script>-->
+    <script src="actions.js"></script>
     <script src="https://kit.fontawesome.com/46c7c53781.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js"></script>
 </head>
 <body id="main-layer-body">
 <header>
@@ -21,13 +22,12 @@
         <!--  static use /static/TEnmo.jpg  Dynamic use {TEnmo} -->
         <img src="../static/TEnmo.jpg" th:src="@{../TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
         <div class="container" id="btnGroupContainer">
-            <a th:href="@{balance}" class="button-group"  title="View Balance">Account</a>
-            <a th:href="@{pending}"
-               class="button-group" id="pendingButton" title="Pending Transactions">Pending</a>
-            <a th:href="@{users}" class="button-group"  title="Send Money">Friends</a>
+            <a th:href="@{balance}"  class="button-group" id="balance-nav-button" title="View Balance">Account</a>
+            <a th:href="@{pending}" class="button-group" id="pending-nav-button" title="Pending Transactions">Pending</a>
+            <a th:href="@{users}" class="button-group" id="users-nav-button" title="Send Money">Friends</a>
 <!--            <a th:action="@{/request}" type="button" class="button-group"  title="Request Money">Request</a>-->
-            <a th:href="@{transfers}"
-               class="button-group" title="Transfer history">Transfers</a>
+            <a th:href="@{transfers}" id="transfers-nav-button" class="button-group" title="Transfer history">Transfers</a>
+            <input type="hidden" id="jwt-token" th:value="${jwt}" />
         </div>
     </div>
 </header>
