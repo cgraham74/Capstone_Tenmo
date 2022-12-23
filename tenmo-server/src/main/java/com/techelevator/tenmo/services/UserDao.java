@@ -1,7 +1,6 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.User;
-import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.List;
 

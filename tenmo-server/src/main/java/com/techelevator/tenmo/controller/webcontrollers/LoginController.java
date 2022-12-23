@@ -16,9 +16,9 @@
 //        return "login";
 //    }
 //
-//    @GetMapping("/newuser")
-//    public String newUserForm(Model model){
+//    @GetMapping("/register")
+//    public String showRegisterUserForm(Model model){
 //        model.addAttribute("message", "New User Registration");
-//        return "newuser";
+//        return "register";
 //    }
 //}

@@ -118,8 +118,6 @@ public class JdbcUserDao implements UserDao {
      */
     @Override
     public List<User> findTransferList() {
-        //TODO-SecurityUtils is still returning null. Should resolve once Spring security is debugged.
-
         String username = SecurityUtils.getCurrentUsername().map(Object::toString).orElse("");
         List<User> users = new ArrayList<>();
         String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE username != ?;";

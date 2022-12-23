@@ -15,7 +15,7 @@
         <p>Authorization in error.html</p>
     </div>
     <div sec:authorize="!isAuthenticated()">
-        <a th:href="@{login}">Not Authorized in error</a>
+        <a th:href="@{/}">Not Authorized in error</a>
     </div>
 </div>
 </body>

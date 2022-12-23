@@ -54,7 +54,7 @@ public class WebAuthenticationController {
     }
 
     @GetMapping("/register")
-    public String newUserForm(Model model){
+    public String showRegisteredUserForm(Model model){
         model.addAttribute("message", "New User Registration");
         return "register";
     }
@@ -69,7 +69,7 @@ public class WebAuthenticationController {
      * @return a Model and View object representing the user and the view
      */
         @PostMapping("/login")
-        @ResponseStatus(HttpStatus.OK)
+        @ResponseStatus()
             public ModelAndView login(@Valid @ModelAttribute(name ="loginDto") LoginDTO loginDto, HttpSession session) throws UserNotActivatedException {
 
             UsernamePasswordAuthenticationToken authenticationToken =
@@ -86,10 +86,11 @@ public class WebAuthenticationController {
             WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
                 System.err.println("User after authentication " + loginResponse.user);
             ModelAndView modelAndView = new ModelAndView("layout");
-            modelAndView.addObject("jwt", loginResponse.token);
+            modelAndView.addObject("jwt", jwt);
             modelAndView.addObject("user", user);
             session.setAttribute("user",user);
-            System.err.println("User before authentication " + user);
+            System.err.println("User authentication: " + user);
+            System.err.println("jwt authentication: " + jwt);
             return modelAndView;
         }
 
@@ -102,6 +103,7 @@ public class WebAuthenticationController {
     @ResponseStatus(HttpStatus.CREATED)
         @PostMapping("/register")
         public String register(@Valid @ModelAttribute(name ="registerUserDTO") RegisterUserDTO newUser){
+
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
             }

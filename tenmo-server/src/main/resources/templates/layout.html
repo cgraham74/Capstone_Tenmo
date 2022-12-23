@@ -37,7 +37,7 @@
 
 <p>layout : <span th:text="${#authentication.name}"></span></p>
 <div sec:authorize="!isAuthenticated()">
-    <a th:href="@{/login}">Not Authenticated/Authorized</a>
+    <a th:href="@{/}">Not Authenticated/Authorized</a>
 </div>
 <div sec:authorize="isAuthenticated()">
     <p>is Authenticated!</p>
