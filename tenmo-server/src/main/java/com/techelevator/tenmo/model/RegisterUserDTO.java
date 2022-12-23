@@ -34,6 +34,7 @@ public class RegisterUserDTO {
     public String getPasswordConfirmation() {
         return passwordConfirmation;
     }
+
     public void setPasswordConfirmation(String passwordConfirmation) {
         this.passwordConfirmation = passwordConfirmation;
     }

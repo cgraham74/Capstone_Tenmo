@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
-    <h1 th:text="${message}">Create a new account</h1>
+    <h1 th:text="${message}"></h1>
     <form th:action="@{/register}" th:object="${registerUserDTO}" method="POST" id="log-in">
         <label for="username">Username</label>:
         <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />

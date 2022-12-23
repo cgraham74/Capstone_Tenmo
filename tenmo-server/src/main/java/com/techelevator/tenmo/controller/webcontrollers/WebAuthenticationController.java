@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.controller.webcontrollers;
 
+
 import com.techelevator.tenmo.model.LoginDTO;
 import com.techelevator.tenmo.model.RegisterUserDTO;
 import com.techelevator.tenmo.model.User;
@@ -13,9 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.security.Principal;
+
 
 @PreAuthorize("permitAll()")
 @CrossOrigin
@@ -102,8 +101,11 @@ public class WebAuthenticationController {
      */
     @ResponseStatus(HttpStatus.CREATED)
         @PostMapping("/register")
-        public String register(@Valid @ModelAttribute(name ="registerUserDTO") RegisterUserDTO newUser){
-
+        public String register(@Valid @ModelAttribute(name ="registerUserDTO") RegisterUserDTO newUser, Model model){
+            if (!newUser.getPassword().equals(newUser.getPasswordConfirmation())){
+                model.addAttribute("message", "Passwords do not match");
+               return "register";
+            }
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
             }
