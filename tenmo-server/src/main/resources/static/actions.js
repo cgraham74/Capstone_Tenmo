@@ -1,12 +1,11 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-console.log('jwt: '+ jwt);
+//console.log({jwt});
 document.querySelector('#balance-nav-button').addEventListener('click', (event) => {
-  event.preventDefault();
-//
-  const jwt = document.querySelector('#jwt-token').value;
-  const url = event.target.getAttribute('/balance');
+ // event.preventDefault();
 
+  const jwt = document.querySelector('#jwt-token').value;
+  const url = event.target.getAttribute('balance');
+console.log(jwt);
   axios.get(url, {
     headers: {
       'Authorization': `Bearer ${jwt}`,
@@ -15,6 +14,7 @@ document.querySelector('#balance-nav-button').addEventListener('click', (event) 
   .then((response) => {
     const data = response.data;
     console.log('data: '+ JSON.stringify(data));
+    console.log('data: '+ response.data);
   })
   .catch((error) => {
         if(error.response){
@@ -28,10 +28,10 @@ document.querySelector('#balance-nav-button').addEventListener('click', (event) 
 });
 
 document.querySelector('#pending-nav-button').addEventListener('click', (event) => {
-  event.preventDefault();
+  //event.preventDefault();
 
 const jwt = document.querySelector('#jwt-token').value;
-  const url = event.target.getAttribute('/pending');
+  const url = event.target.getAttribute('pending');
 
   axios.get(url, {
     headers: {
@@ -53,10 +53,10 @@ const jwt = document.querySelector('#jwt-token').value;
 });
 
 document.querySelector('#users-nav-button').addEventListener('click', (event) => {
-  event.preventDefault();
+  //event.preventDefault();
 
 const jwt = document.querySelector('#jwt-token').value;
-  const url = event.target.getAttribute('/users');
+  const url = event.target.getAttribute('users');
 
   axios.get(url, {
     headers: {
@@ -78,10 +78,10 @@ const jwt = document.querySelector('#jwt-token').value;
 });
 
 document.querySelector('#transfers-nav-button').addEventListener('click', (event) => {
-  event.preventDefault();
-//
+  //event.preventDefault();
+
 const jwt = document.querySelector('#jwt-token').value;
-  const url = event.target.getAttribute('/transfers');
+  const url = event.target.getAttribute('transfers');
 
   axios.get(url, {
     headers: {

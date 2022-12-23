@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+      xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5" xmlns="http://www.w3.org/1999/html">
+<!--xmlns:sec="http://www.thymeleaf.org/extras-spring-security"-->
 <!--<intercept-url pattern="/login" access="permitAll"></intercept-url>-->
 <!--<form-login login-page="/login"></form-login>-->
 <head>
@@ -31,11 +32,19 @@
         </div>
     </div>
 </header>
-<p>Welcome <span th:text="${session.user?.username}"></span></p>
-<p>Account ID: <span th:text="${session.user?.id}"></span></p>
+<p>User in session storage: <span th:text="${session.user?.username}"></span></p>
+<!--<p>Account ID: <span th:text="${session.user?.id}"></span></p>-->
+
+<p>layout : <span th:text="${#authentication.name}"></span></p>
+<div sec:authorize="!isAuthenticated()">
+    <a th:href="@{/login}">Not Authenticated/Authorized</a>
+</div>
+<div sec:authorize="isAuthenticated()">
+    <p>is Authenticated!</p>
+</div>
 <main role="main" class="main-content" layout:fragment="main-content">
     <!--This is where all of the changable content will be kept-->
-    <p>Country: <span th:text="${#locale.country}"></span></p>
+<!--    <p>Country: <span th:text="${#locale.country}"></span></p>-->
     <!--<p>Date: <span th:text="${#calendars.format(today,'dd MMMM yyyy')}"></span></p>-->
 </main>
 <footer id="footer">

@@ -8,6 +8,9 @@ public class LoginDTO {
     private String username;
     private String password;
 
+    public LoginDTO(){
+        super();
+    }
     public String getUsername() {
         return username;
     }

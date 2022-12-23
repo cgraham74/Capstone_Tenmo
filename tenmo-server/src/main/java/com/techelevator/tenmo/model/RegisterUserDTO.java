@@ -11,6 +11,10 @@ public class RegisterUserDTO {
     @NotEmpty
     private String password;
 
+    RegisterUserDTO(){
+        super();
+    }
+
     public String getUsername() {
         return username;
     }

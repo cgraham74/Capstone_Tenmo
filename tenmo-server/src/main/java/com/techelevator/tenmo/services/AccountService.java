@@ -34,7 +34,7 @@ public class AccountService {
     }
 
     public int findAccountIdByUserId(int id) {
-        System.out.println("Service " + id);
+
         return accountRepository.findAccountIdByUserId(id);
     }
 }

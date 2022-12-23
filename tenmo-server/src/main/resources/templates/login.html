@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"  xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Layout-Log in</title>
@@ -8,7 +8,7 @@
 <body>
 <div class="main-content" layout:fragment="main-content">
     <h1 th:text="${message}">Login page</h1>
-        <form th:action="@{/login}" method="POST" id="log-in">
+        <form th:action="@{/login}" th:object="${loginDto}" method="POST" id="log-in">
         <label for="username">Username</label>:
         <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
         <label for="password">Password</label>:
@@ -18,7 +18,7 @@
     <div th:if="${param.error}">
         Invalid username and password.
     </div>
-    <a th:href="@{newuser}" >Register as a new user</a>
+    <a th:href="@{register}" >Register as a new user</a>
 </div>
 </body>
 </html>

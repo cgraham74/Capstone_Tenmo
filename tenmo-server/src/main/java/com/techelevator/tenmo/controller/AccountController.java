@@ -1,10 +1,13 @@
 package com.techelevator.tenmo.controller;
 
+import com.techelevator.tenmo.model.LoginDTO;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.security.UserNotActivatedException;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.services.JdbcUserDao;
+import com.techelevator.tenmo.services.UserDao;
+import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.security.Principal;
 
-//@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 @CrossOrigin
 @Controller
 public class AccountController {
@@ -27,10 +30,10 @@ public class AccountController {
     private final JdbcUserDao dao;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private final AccountService accountService;
-
-
-    private User user;
 
     @Autowired
     public AccountController(AccountService accountService, JdbcUserDao dao) {
@@ -51,28 +54,34 @@ public class AccountController {
      * @return The current authenticated user's balance.
      */
     @GetMapping("/balance")
-    public String getAccount(Model model, HttpSession session,  @AuthenticationPrincipal Principal principal) {
-        user = (User) session.getAttribute("user");
-        //TODO still need to implement Security.
+    public String getAccount(@ModelAttribute("user") LoginDTO loginDTO,
+                             Model model, HttpSession session, @AuthenticationPrincipal Principal principal) {
+        User user = (User) session.getAttribute("user");
+        //TODO implement Security.
+        User balanceUser = userDao.findByUsername(user.getUsername());
         int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
-        System.out.println("/balance user " + user);
 
         Account account = accountService.findAccountById(accountId);
         BigDecimal balance = account.getBalance();
         model.addAttribute("balance", balance);
         model.addAttribute("accountid", accountId);
-        // model.addAttribute("Principal", principal);
+        model.addAttribute("user",user);
+
         //   if (user.getUsername().equals(principal.getName())) {
-        // System.out.println("Account Principal: " + principal.getName());
+
         // return accountService.findAccountByuserid(accountId);
 
-                return "balance";
-     //   }
-      //  throw new UserNotActivatedException("Not Authorized");
-    }
 
+        System.out.println("Value of the Principal : " + principal  );
+        return "balance";
+
+    }
+    //   }
+    //  throw new UserNotActivatedException("Not Authorized");
     @GetMapping("/accounts/account")
     public int getAccountIdByUserId(@RequestParam int id) {
         return accountService.findAccountIdByUserId(id);
+
+
     }
 }

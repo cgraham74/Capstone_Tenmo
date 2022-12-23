@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Error Page</title>
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
-        <div th:if="${param.error}">
-        Invalid username and password.</div>
-        <div th:if="${param.logout}">
-        You have been logged out.</div>
-    <H1>OOPS! Something went wrong.</H1>
-    <p><a th:href="@{/}" title="Returns user to log in">Return to log in?</a></p>
-    <p><a th:href="@{newuser}" title="Returns user to register form">Register as a new user?</a></p>
+    <H1>OOPS! You are not authorized for that resource.</H1>
+    <p><a th:href="@{/}" title="Returns user to log in">Return to log in</a></p>
+    <p><a th:href="@{register}" title="Returns user to register form">Register new account</a></p>
+    <div sec:authorize="isAuthenticated()">
+        <p>Authorization in error.html</p>
+    </div>
+    <div sec:authorize="!isAuthenticated()">
+        <a th:href="@{login}">Not Authorized in error</a>
+    </div>
 </div>
 </body>
 </html>

@@ -8,11 +8,13 @@
 <body>
 <div class="main-content" layout:fragment="main-content">
     <h1 th:text="${message}">Create a new account</h1>
-    <form th:action="@{/register}" method="POST" id="log-in">
+    <form th:action="@{/register}" th:object="${registerUserDTO}" method="POST" id="log-in">
         <label for="username">Username</label>:
         <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
         <label for="password">Password</label>:
         <input type="password" id="password" name="password" placeholder="Password..." /> <br />
+        <label for="password">Password</label>:
+        <input type="password" id="repassword" name="repassword" placeholder="Re-enter Password..." /> <br />
         <input type="submit" class="button-group" value="Log in" />
     </form>
 </div>

@@ -36,6 +36,7 @@ public class WebAuthenticationController {
 
         @Autowired
         private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
         @Autowired
         private UserDao userDao;
 
@@ -69,24 +70,27 @@ public class WebAuthenticationController {
      */
         @PostMapping("/login")
         @ResponseStatus(HttpStatus.OK)
-            public ModelAndView login(@Valid @ModelAttribute  LoginDTO loginDto, HttpSession session,@AuthenticationPrincipal Principal principal) throws UserNotActivatedException {
+            public ModelAndView login(@Valid @ModelAttribute(name ="loginDto") LoginDTO loginDto, HttpSession session) throws UserNotActivatedException {
 
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
             String jwt = tokenProvider.createToken(authentication, false);
             User user = userDao.findByUsername(loginDto.getUsername());
+                System.err.println("User before authentication " + user);
             WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
-            ModelAndView currentUser = new ModelAndView("layout");
-            currentUser.addObject("jwt", loginResponse.token);
-            currentUser.addObject("user", user);
+                System.err.println("User after authentication " + loginResponse.user);
+            ModelAndView modelAndView = new ModelAndView("layout");
+            modelAndView.addObject("jwt", loginResponse.token);
+            modelAndView.addObject("user", user);
             session.setAttribute("user",user);
-            System.out.println("Authentication " + authentication);
-            System.out.println("User: " + user);
-            System.out.println("LoginResponse: " + loginResponse.token);
-            System.out.println("Login Principal: " + principal);
-            return currentUser;
+            System.err.println("User before authentication " + user);
+            return modelAndView;
         }
 
     /**
@@ -97,7 +101,7 @@ public class WebAuthenticationController {
      */
     @ResponseStatus(HttpStatus.CREATED)
         @PostMapping("/register")
-        public String register(@Valid @ModelAttribute RegisterUserDTO newUser){
+        public String register(@Valid @ModelAttribute(name ="registerUserDTO") RegisterUserDTO newUser){
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
             }
