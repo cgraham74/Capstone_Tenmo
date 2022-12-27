@@ -2,9 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5" xmlns="http://www.w3.org/1999/html">
-<!--xmlns:sec="http://www.thymeleaf.org/extras-spring-security"-->
-<!--<intercept-url pattern="/login" access="permitAll"></intercept-url>-->
-<!--<form-login login-page="/login"></form-login>-->
+
 <head>
     <meta name="description" content="TEnmo Transfer Capstone Project"/>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
@@ -23,28 +21,24 @@
         <!--  static use /static/TEnmo.jpg  Dynamic use {TEnmo} -->
         <img src="../static/TEnmo.jpg" th:src="@{../TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
         <div class="container" id="btnGroupContainer">
-            <a th:href="@{balance}"  class="button-group" id="balance-nav-button" title="View Balance">Account</a>
-            <a th:href="@{pending}" class="button-group" id="pending-nav-button" title="Pending Transactions">Pending</a>
-            <a th:href="@{users}" class="button-group" id="users-nav-button" title="Send Money">Friends</a>
-<!--            <a th:action="@{/request}" type="button" class="button-group"  title="Request Money">Request</a>-->
-            <a th:href="@{transfers}" id="transfers-nav-button" class="button-group" title="Transfer history">Transfers</a>
+            <a th:href="@{balance}"  class="button-group" id="balance-nav-button" title="View Balance" sec:authorize="isAuthenticated()">Account</a>
+            <a th:href="@{pending}" class="button-group" id="pending-nav-button" title="Pending Transactions"  sec:authorize="isAuthenticated()">Pending</a>
+            <a th:href="@{users}" class="button-group" id="users-nav-button" title="Send Money" sec:authorize="isAuthenticated()">Friends</a>
+            <a th:href="@{transfers}" id="transfers-nav-button" class="button-group" title="Transfer history" sec:authorize="isAuthenticated()">Transfers</a>
             <input type="hidden" id="jwt-token" th:value="${jwt}" />
         </div>
     </div>
 </header>
-<p>User in session storage: <span th:text="${session.user?.username}"></span></p>
-<!--<p>Account ID: <span th:text="${session.user?.id}"></span></p>-->
-
-<p>layout : <span th:text="${#authentication.name}"></span></p>
-<div sec:authorize="!isAuthenticated()">
-    <a th:href="@{/}">Not Authenticated/Authorized</a>
-</div>
 <div sec:authorize="isAuthenticated()">
-    <p>is Authenticated!</p>
+    <h1>Welcome <span th:text="${#authentication.name}"></span></h1>
 </div>
+
+<div sec:authorize="!isAuthenticated()">
+
+</div>
+
 <main role="main" class="main-content" layout:fragment="main-content">
     <!--This is where all of the changable content will be kept-->
-<!--    <p>Country: <span th:text="${#locale.country}"></span></p>-->
     <!--<p>Date: <span th:text="${#calendars.format(today,'dd MMMM yyyy')}"></span></p>-->
 </main>
 <footer id="footer">

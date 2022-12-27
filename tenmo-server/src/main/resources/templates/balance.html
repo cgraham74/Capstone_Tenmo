@@ -8,13 +8,13 @@
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
-    <p>Account : <span th:text="${#authentication.name}"></span></p>
-    <p>Current Balance: <span th:text="${balance}"></span></p>
+    <p>Account Details for : <span th:text="${#authentication.name}"></span></p>
+    <div sec:authorize="isAuthenticated()">
+        <p>Current Balance: <span th:text="'$' +${balance}"></span></p>
+    </div>
+
     <div sec:authorize="!isAuthenticated()">
         <a th:href="@{login}">Please log in to access.</a>
-    </div>
-    <div sec:authorize="isAuthenticated()">
-        <p>Authorization in Balance.html</p>
     </div>
 
 </div>

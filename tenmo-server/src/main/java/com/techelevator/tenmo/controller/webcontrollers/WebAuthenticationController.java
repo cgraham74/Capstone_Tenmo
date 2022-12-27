@@ -68,7 +68,6 @@ public class WebAuthenticationController {
      * @return a Model and View object representing the user and the view
      */
         @PostMapping("/login")
-        @ResponseStatus()
             public ModelAndView login(@Valid @ModelAttribute(name ="loginDto") LoginDTO loginDto, HttpSession session) throws UserNotActivatedException {
 
             UsernamePasswordAuthenticationToken authenticationToken =
@@ -78,18 +77,17 @@ public class WebAuthenticationController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-
             String jwt = tokenProvider.createToken(authentication, false);
             User user = userDao.findByUsername(loginDto.getUsername());
-                System.err.println("User before authentication " + user);
+
             WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
-                System.err.println("User after authentication " + loginResponse.user);
+
             ModelAndView modelAndView = new ModelAndView("layout");
-            modelAndView.addObject("jwt", jwt);
-            modelAndView.addObject("user", user);
+
+            modelAndView.addObject("loginResponse", loginResponse);
+
             session.setAttribute("user",user);
-            System.err.println("User authentication: " + user);
-            System.err.println("jwt authentication: " + jwt);
+
             return modelAndView;
         }
 
