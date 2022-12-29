@@ -58,7 +58,7 @@ color: #ffffff !important;
     background: #175C89;
 }
 
-#transferTable.blueTable, #pendingTable.blueTable {
+#transferTable.blueTable, #pendingTable.blueTable, #userTable.blueTable {
 margin-left: auto;
 margin-right: auto;
 justify-self: center;
@@ -133,4 +133,10 @@ background: #1C6EA4;
 text-align: center;
 position:fixed;
 bottom: 0;
+}
+#user-transfer-table-header{
+width:25%;
+}
+.center-button{
+text-align: center;
 }

@@ -9,17 +9,17 @@
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
-    <table class="blueTable" id="pendingTable">
+    <table class="blueTable" id="userTable">
         <thead>
         <tr>
             <th>USER</th>
-            <th>TRANSFERS</th>
+            <th id="user-transfer-table-header">TRANSFERS</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user:${users}">
             <td th:text="${user.username}"></td>
-            <td><button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i></button></td>
+            <td class="center-button"><button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i></button></td>
         </tr>
         </tbody>
     </table>
