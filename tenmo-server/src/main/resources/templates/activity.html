@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Activity</title>
+</head>
+<body>
+<div class="main-content" layout:fragment="main-content">
+    <div>
+
+        <table class="blueTable" id="pendingTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>TYPE</th>
+                <th>TO</th>
+                <th>FROM</th>
+                <th>AMOUNT</th>
+                <th>STATUS</th>
+                <th>APPROVE</th>
+                <th>REJECT</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pendingtransfer:${pending}">
+                <td th:text="${pendingtransfer.id}">ID</td>
+                <td th:text="${pendingtransfer.transferType.transfertypedesc}">TYPE</td>
+                <td th:text="${pendingtransfer.accountto}">TO</td>
+                <td th:text="${pendingtransfer.accountfrom}">FROM</td>
+                <td th:text="'$' + ${pendingtransfer.amount}">AMOUNT</td>
+                <td th:text="${pendingtransfer.transferStatus.transferstatusdesc}">STATUS</td>
+                <td><button onclick="toggleApprove()" class="button-group" style="font-size:15px"><i class="fa-regular fa-circle-check"></i></button></td>
+                <td><button onclick="toggleReject()" class="button-group" style="font-size:15px"><i class="fa-regular fa-circle-xmark"></i></button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+<div>
+
+    <table class="blueTable" id="transferTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>TYPE</th>
+            <th>TO</th>
+            <th>FROM</th>
+            <th>AMOUNT</th>
+            <th>STATUS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transfer:${transfers}">
+            <td th:text="${transfer.id}">ID</td>
+            <td th:text="${transfer.transferType.transfertypedesc}">TYPE</td>
+            <td th:text="${transfer.accountto}">TO</td>
+            <td th:text="${transfer.accountfrom}">FROM</td>
+            <td th:text="'$' + ${transfer.amount}">AMOUNT</td>
+            <td th:text="${transfer.transferStatus.transferstatusdesc}">STATUS</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+</body>
+</html>

@@ -76,7 +76,7 @@ table.blueTable td, table.blueTable th {
   padding: 3px 2px;
 }
 table.blueTable tbody td {
-  font-size: 17px;
+  font-size: 20px;
   color: #041F33;
 }
 table.blueTable tr:nth-child(even) {
@@ -90,7 +90,7 @@ table.blueTable thead {
   border-bottom: 2px solid #444444;
 }
 table.blueTable thead th {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #FFFFFF;
   text-align: center;
@@ -134,7 +134,7 @@ text-align: center;
 position:fixed;
 bottom: 0;
 }
-#user-transfer-table-header{
+#user-send-header, #user-request-header {
 width:25%;
 }
 .center-button{

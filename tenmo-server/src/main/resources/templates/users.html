@@ -13,13 +13,15 @@
         <thead>
         <tr>
             <th>USER</th>
-            <th id="user-transfer-table-header">TRANSFERS</th>
+            <th id="user-send-header">Send</th>
+            <th id="user-request-header">Request</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user:${users}">
             <td th:text="${user.username}"></td>
-            <td class="center-button"><button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i></button></td>
+            <td class="center-button"><button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i>Send</button></td>
+            <td class="center-button"><button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i>Request</button></td>
         </tr>
         </tbody>
     </table>

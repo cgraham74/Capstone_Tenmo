@@ -32,53 +32,39 @@ public class TransferController {
         this.accountService = accountService;
 
     }
-    //Will need to find the syntax to get a parameter {id} in Thymeleaf
-//    @GetMapping("/transferhistory")
-//    public ModelAndView getRecords(HttpSession session,@RequestParam("id") int userId) {
+
+//    @GetMapping("/transfers")
+//    public String getRecords(HttpSession session, Model model) {
+//        user = (User) session.getAttribute("user");
 ////        public ModelAndView getRecords(@RequestParam("id") int userId, Model model) {
-////        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
+//        model.addAttribute("transfers", transferService.getAllToAndFromAccount(accountId));
+////        Object user = session.getAttribute("user");
+//        String username = SecurityUtils.getCurrentUsername().map(Object::toString).orElse("");
+//        System.out.println("SecurityUtils.getCurrentUser: " + username);
 //
-//        System.out.println("Should be the user: "+user);
-//        ModelAndView mav = new ModelAndView("history", HttpStatus.valueOf(200));
-//
-//       int accountId = accountService.findAccountIdByUserId(userId);
-//        List<Transfer> transfers = transferService.getAllToAndFromAccount(accountId);
-//        mav.addObject("transfers",transfers );
-//        Object user = session.getAttribute("user");
-//        System.out.println("Object " + user);
-//        return mav;
+//        return "transfers";
 //    }
-    @GetMapping("/transfers")
-    public String getRecords(HttpSession session, Model model) {
-        user = (User) session.getAttribute("user");
-//        public ModelAndView getRecords(@RequestParam("id") int userId, Model model) {
-        int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
-        model.addAttribute("transfers", transferService.getAllToAndFromAccount(accountId));
-//        Object user = session.getAttribute("user");
-        String username = SecurityUtils.getCurrentUsername().map(Object::toString).orElse("");
-        System.out.println("SecurityUtils.getCurrentUser: " + username);
-
-        return "transfers";
-    }
-
+//
+//
 //    @GetMapping("/pending")
-//    public ModelAndView findByTransferstatus(@RequestParam int id, Model model) {
-//        ModelAndView mav = new ModelAndView("pending");
-//        int accountId = accountService.findAccountIdByUserId(id);
-//        List<Transfer> pendingtransfers = transferService.findAllBystatus(accountId);
-//        mav.addObject("pendingtransfers", pendingtransfers);
-//        model.addAttribute("user", user);
-//        return mav;
+//    public String findByTransferstatus(Model model,HttpSession session) {
+////        ModelAndView mav = new ModelAndView("pending");
+//        user = (User) session.getAttribute("user");
+//        int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
+//        model.addAttribute("pending", transferService.findAllBystatus(accountId));
+//        return "pending";
 //    }
 
-    @GetMapping("/pending")
-    public String findByTransferstatus(Model model,HttpSession session) {
-//        ModelAndView mav = new ModelAndView("pending");
+    @GetMapping("/activity")
+    public String findByActivity(Model model,HttpSession session) {
         user = (User) session.getAttribute("user");
         int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
         model.addAttribute("pending", transferService.findAllBystatus(accountId));
-        return "pending";
+        model.addAttribute("transfers", transferService.getAllToAndFromAccount(accountId));
+        return "activity";
     }
+
     @GetMapping("/transfers/transfer")
     public Transfer findTransferById(@RequestParam int id) {
         return transferService.findById(id);
