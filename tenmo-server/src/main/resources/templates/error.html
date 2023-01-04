@@ -8,7 +8,10 @@
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
-    <H1>OOPS! You are not authorized for that resource.</H1>
+    <h1>Oops! Something went wrong</h1>
+    <p>We're sorry, but an error occurred while processing your request. The error message is:</p>
+    <p th:text="${errorMessage}"></p>
+    <p>Please try again later or contact support for assistance.</p>
     <p><a th:href="@{/}" title="Returns user to log in">Return to log in</a></p>
     <p><a th:href="@{register}" title="Returns user to register form">Register new account</a></p>
     <div sec:authorize="isAuthenticated()">

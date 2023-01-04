@@ -69,26 +69,34 @@ public class WebAuthenticationController {
      */
         @PostMapping("/login")
             public ModelAndView login(@Valid @ModelAttribute(name ="loginDto") LoginDTO loginDto, HttpSession session) throws UserNotActivatedException {
+            try{
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
-            UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+                Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                String jwt = tokenProvider.createToken(authentication, false);
+                User user = userDao.findByUsername(loginDto.getUsername());
 
-            String jwt = tokenProvider.createToken(authentication, false);
-            User user = userDao.findByUsername(loginDto.getUsername());
+                WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
+                ModelAndView modelAndView = new ModelAndView("layout");
 
-            WebAuthenticationController.LoginResponse loginResponse =  new WebAuthenticationController.LoginResponse(jwt, user);
+                modelAndView.addObject("loginResponse", loginResponse);
+                session.setAttribute("user",user);
+                return modelAndView;
+            } catch (UserNotActivatedException e) {
+                ModelAndView modelAndView = new ModelAndView("error");
+                modelAndView.addObject("errorMessage", e.getMessage());
+                return modelAndView;
+            } catch(Exception e){
+                ModelAndView modelAndView = new ModelAndView("error");
+                modelAndView.addObject("errorMessage", "Invalid username or password.");
+                return modelAndView;
+            }
 
-            ModelAndView modelAndView = new ModelAndView("layout");
 
-            modelAndView.addObject("loginResponse", loginResponse);
-
-            session.setAttribute("user",user);
-
-            return modelAndView;
         }
 
     /**
@@ -109,6 +117,13 @@ public class WebAuthenticationController {
             }
             return "login";
         }
+
+
+//        @GetMapping("/error")
+//        public String handleError(Model model){
+//            model.addAttribute("errorMessage", "Invalid username or password");
+//        return "error";
+//            }
 
         /**
          * Object to return as body in JWT Authentication.
