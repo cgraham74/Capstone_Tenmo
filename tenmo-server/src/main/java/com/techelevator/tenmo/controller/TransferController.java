@@ -33,12 +33,26 @@ public class TransferController {
 
     }
 
+    /**
+     * Handles an HTTP GET request to the activity endpoint.
+     * @param model a Model object used to store data for the view.
+     * @param session an HttpSession object used to store the data in the
+     *                user' session.
+     * @return The name of the view to be rendered in response to the GET request.
+     */
     @GetMapping("/activity")
     public String findByActivity(Model model,HttpSession session) {
+        //Retrieves the user object from the session
         user = (User) session.getAttribute("user");
+
+        //Find the account ID for the user
         int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
+
+        //Add the pending and completed transfers for the user's account to the model.
         model.addAttribute("pending", transferService.findAllBystatus(accountId));
         model.addAttribute("transfers", transferService.getAllToAndFromAccount(accountId));
+
+        //returns the name of the view to be rendered
         return "activity";
     }
 
