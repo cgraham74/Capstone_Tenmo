@@ -33,29 +33,6 @@ public class TransferController {
 
     }
 
-//    @GetMapping("/transfers")
-//    public String getRecords(HttpSession session, Model model) {
-//        user = (User) session.getAttribute("user");
-////        public ModelAndView getRecords(@RequestParam("id") int userId, Model model) {
-//        int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
-//        model.addAttribute("transfers", transferService.getAllToAndFromAccount(accountId));
-////        Object user = session.getAttribute("user");
-//        String username = SecurityUtils.getCurrentUsername().map(Object::toString).orElse("");
-//        System.out.println("SecurityUtils.getCurrentUser: " + username);
-//
-//        return "transfers";
-//    }
-//
-//
-//    @GetMapping("/pending")
-//    public String findByTransferstatus(Model model,HttpSession session) {
-////        ModelAndView mav = new ModelAndView("pending");
-//        user = (User) session.getAttribute("user");
-//        int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
-//        model.addAttribute("pending", transferService.findAllBystatus(accountId));
-//        return "pending";
-//    }
-
     @GetMapping("/activity")
     public String findByActivity(Model model,HttpSession session) {
         user = (User) session.getAttribute("user");
@@ -77,7 +54,7 @@ public class TransferController {
     }
 
     //@ModelAttribute Transfer transfer)
-    @PostMapping("/transfers/request")
+    @PostMapping("/request")
     public Transfer addNewTransferRequest(@RequestBody Transfer transfer) {
         return transferService.requestFundsFromUser(transfer);
     }

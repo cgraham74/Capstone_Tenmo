@@ -25,8 +25,6 @@
             <a th:href="@{transfers}" id="send-nav-button" class="button-group" title="Send money" sec:authorize="isAuthenticated()">Send</a>
             <a th:href="@{transfers}" id="request-nav-button" class="button-group" title="Request money" sec:authorize="isAuthenticated()">Request</a>
             <a th:href="@{users}" class="button-group" id="users-nav-button" title="Send Money" sec:authorize="isAuthenticated()">Users</a>
-            <a th:href="@{pending}" class="button-group" id="pending-nav-button" title="Pending Transactions"  sec:authorize="isAuthenticated()">Pending</a>
-            <a th:href="@{transfers}" id="transfers-nav-button" class="button-group" title="Transfer history" sec:authorize="isAuthenticated()">Transfers</a>
             <a th:href="@{activity}" id="activity-nav-button" class="button-group" title="Activity" sec:authorize="isAuthenticated()">Activity</a>
 
             <input type="hidden" id="jwt-token" th:value="${jwt}" />
