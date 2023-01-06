@@ -48,7 +48,7 @@ public class TransferController {
     }
 
     //(@ModelAttribute Transfer transfer)
-    @PostMapping("/transfers/sendmoney")
+    @PostMapping("/send")
     public Transfer create(@RequestBody Transfer transfer) {
         return transferService.transferBalance(transfer);
     }
