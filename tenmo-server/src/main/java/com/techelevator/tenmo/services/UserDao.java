@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.services;
 
+import com.techelevator.tenmo.exceptions.UserNotFoundException;
 import com.techelevator.tenmo.model.User;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public interface UserDao {
 
     List<User> findTransferList();
 
-    User findById(int to);
+    User findById(int to) throws UserNotFoundException;
 
-    User findUserByAccountid(int id);
+    User findUserByAccountId(int id) throws UserNotFoundException;
 
 }

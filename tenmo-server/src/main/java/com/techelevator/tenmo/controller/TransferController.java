@@ -41,7 +41,7 @@ public class TransferController {
      * @return The name of the view to be rendered in response to the GET request.
      */
     @GetMapping("/activity")
-    public String findByActivity(Model model,HttpSession session) {
+    public String findActivity(Model model,HttpSession session) {
         //Retrieves the user object from the session
         user = (User) session.getAttribute("user");
 

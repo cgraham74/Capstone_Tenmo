@@ -1,6 +1,6 @@
 package com.techelevator.tenmo.services;
 
-import com.techelevator.tenmo.exceptions.UserNotFoundRuntimeException;
+import com.techelevator.tenmo.exceptions.UserNotFoundException;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.security.SecurityUtils;
 import org.springframework.dao.DataAccessException;
@@ -131,19 +131,19 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public User findById(int to) {
+    public User findById(int to) throws UserNotFoundException{
 
         String sql = "SELECT * FROM tenmo_user WHERE user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, to);
         if (results.next()) {
             return mapRowToUser(results);
         }
-        throw new UserNotFoundRuntimeException("User " + to + " was not found.");
+        throw new UserNotFoundException("User " + to + " was not found.");
     }
 
 
     @Override
-    public User findUserByAccountid(int id) {
+    public User findUserByAccountId(int id) throws UserNotFoundException {
         String sql = "SELECT *\n" +
                 "FROM tenmo_user\n" +
                 "JOIN account\n" +
@@ -153,7 +153,7 @@ public class JdbcUserDao implements UserDao {
         if (results.next()) {
             return mapRowToUser(results);
         }
-        throw new UserNotFoundRuntimeException("User was not found");
+        throw new UserNotFoundException("User was not found");
     }
 
     private User mapRowToUser(SqlRowSet rs) {
