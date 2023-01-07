@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Request</title>
+</head>
+<body>
+<div class="main-content" layout:fragment="main-content">
+    <table class="blueTable" id="userTable">
+        <thead>
+        <tr>
+            <th>USER</th>
+            <th id="user-request-header">Request</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${users}">
+            <td th:text="${user.username}"></td>
+            <td class="center-button"><button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i>Request</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

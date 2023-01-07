@@ -53,21 +53,21 @@ public class TransferService{
 
         // Getting the id of both the Current user (sender) and Target user (recipient)
         Account accountOfCurrentUser = accountService.findAccountById(transfer.getAccountfrom());
-        Account accountofTargetuser = accountService.findAccountById(transfer.getAccountto());
+        Account accountOfTargetUser = accountService.findAccountById(transfer.getAccountto());
 
         //Updates the balances of from and to users with transfer transaction
         if (moneyToSend.compareTo(accountOfCurrentUser.getBalance()) <= 0 && moneyToSend.compareTo(BigDecimal.ZERO) > 0){
 
             //Verifying user and recipient differs - else throwing an exception with personalized message
-            if(accountOfCurrentUser.getUserid() != accountofTargetuser.getUserid()) {
+            if(accountOfCurrentUser.getUserid() != accountOfTargetUser.getUserid()) {
 
                 //Adding the amount to one account and subtracting from another
                 accountOfCurrentUser.setBalance(accountOfCurrentUser.getBalance().subtract(moneyToSend));
-                accountofTargetuser.setBalance(accountofTargetuser.getBalance().add(moneyToSend));
+                accountOfTargetUser.setBalance(accountOfTargetUser.getBalance().add(moneyToSend));
 
                 //Saving new balances to the repository
                 accountRepository.save(accountOfCurrentUser);
-                accountRepository.save(accountofTargetuser);
+                accountRepository.save(accountOfTargetUser);
 
                 //Saving a new transaction of the transfer only if it is a send request
                 if(transfer.getTransfertypeid() == SEND) {

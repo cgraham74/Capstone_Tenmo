@@ -24,7 +24,6 @@ public class UserController {
     //endpoint /users (is the base endpoint for this call)
     @GetMapping("/users")
     public String list(Model model) {
-//--TODO Exclude current user
         model.addAttribute("users", userDao.findTransferList());
         return "users";
     }
