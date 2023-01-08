@@ -18,7 +18,11 @@
         <tbody>
         <tr th:each="user:${users}">
             <td th:text="${user.username}"></td>
-            <td class="center-button"><button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i>Request</button></td>
+            <td class="center-button">
+                <form th:action="@{/request}" method="POST" id="request-money">
+                <input type="hidden" style="display:hidden" name="user" th:value="${user.username}">
+                <input type="text" id="amount" name="amount" placeholder="Enter amount to send..."/>
+                <button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i></button></form></td>
         </tr>
         </tbody>
     </table>

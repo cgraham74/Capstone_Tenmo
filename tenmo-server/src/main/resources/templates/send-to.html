@@ -11,7 +11,7 @@
     <table class="blueTable" id="userTable">
         <thead>
         <tr>
-            <th>USER</th>
+            <th  id="user-name-header">USER</th>
             <th id="user-send-header">Send</th>
 
         </tr>
@@ -19,7 +19,11 @@
         <tbody>
         <tr th:each="user:${users}">
             <td th:text="${user.username}"></td>
-            <td class="center-button"><button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i>Send</button></td>
+            <td class="center-button">
+                <form th:action="@{/send}"  method="POST" id="send-money">
+                    <input type="hidden" style="display:hidden" name="user" th:value="${user.username}">
+                    <input type="text" id="amount" name="amount" placeholder="Enter amount to send..."/>
+                    <button class="button-group" style="font-size:15px" type="submit"><i class="fa-solid fa-money-bill-transfer"></i></button></form></td>
 
         </tr>
         </tbody>

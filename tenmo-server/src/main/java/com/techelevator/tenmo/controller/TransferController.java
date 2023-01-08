@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.controller;
 
+import com.techelevator.tenmo.exceptions.UserNotFoundException;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.services.AccountService;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.security.Principal;
 
 @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
@@ -53,7 +55,7 @@ public class TransferController {
             int accountId = accountService.findAccountIdByUserId(Math.toIntExact(user.getId()));
 
             //Add the pending and completed transfers for the user's account to the model.
-            model.addAttribute("pending", transferService.findAllBystatus(accountId));
+
             model.addAttribute("transfers", transferService.getAllToAndFromAccount(accountId));
 
             //returns the name of the view to be rendered if authorized or error.
@@ -63,35 +65,62 @@ public class TransferController {
         }
     }
 
+    @GetMapping("/pending")
+    public String getPending(Model model, Principal principal) {
+        int accountId = userDao.findIdByUsername(principal.getName());
+        model.addAttribute("pending", transferService.findAllBystatus(accountId));
+        return "pending";
+    }
+
     @GetMapping("/transfers/transfer")
     public Transfer findTransferById(@RequestParam int id) {
         return transferService.findById(id);
     }
 
-    @GetMapping("send-to")
+    @GetMapping("/send-to")
     public String sendTo(Model model) {
         model.addAttribute("users", userDao.findTransferList());
         return "send-to";
     }
 
-    @GetMapping("request-from")
+    @GetMapping("/request-from")
     public String requestFrom(Model model) {
         model.addAttribute("users", userDao.findTransferList());
         return "request-from";
     }
+
+//    //(@ModelAttribute Transfer transfer)
+//    @PostMapping("/send")
+//    public Transfer create(@RequestBody Transfer transfer) {
+//        //Get all of the sendto user's information
+//        //Get the amount to transfer
+//        return transferService.transferBalance(transfer);
+//    }
+
     //(@ModelAttribute Transfer transfer)
     @PostMapping("/send")
-    public Transfer create(@RequestBody Transfer transfer) {
-        //Get all of the sendto user's information
-        //Get the amount to transfer
-        return transferService.transferBalance(transfer);
+    public String create(@RequestParam("user")String username,@RequestParam("amount") BigDecimal amountToTransfer, Principal principal) throws UserNotFoundException {
+        int userId = userDao.findIdByUsername(username);
+        Transfer transfer = new Transfer();
+        transfer.setAccountfrom(accountService.findAccountIdByUserId(userDao.findIdByUsername(principal.getName())));
+        transfer.setTransfertypeid(2);
+        transfer.setTransferstatusid(2);
+        transfer.setAccountto(accountService.findAccountIdByUserId(userId));
+        transfer.setAmount(amountToTransfer);
+        transferService.transferBalance(transfer);
+        return "redirect:/send-to";
     }
-
 
     //@ModelAttribute Transfer transfer)
     @PostMapping("/request")
-    public Transfer addNewTransferRequest(@RequestBody Transfer transfer) {
-        return transferService.requestFundsFromUser(transfer);
+    public String addNewTransferRequest(@RequestParam("user")String username,@RequestParam("amount") BigDecimal amountToTransfer, Principal principal) {
+        int userId = userDao.findIdByUsername(username);
+        Transfer transfer = new Transfer();
+        transfer.setAccountto(accountService.findAccountIdByUserId(userDao.findIdByUsername(principal.getName())));
+        transfer.setAccountfrom(accountService.findAccountIdByUserId(userId));
+        transfer.setAmount(amountToTransfer);
+        transferService.requestFundsFromUser(transfer);
+        return "redirect:/request-from";
     }
 
     @PutMapping("/transfers/update")
