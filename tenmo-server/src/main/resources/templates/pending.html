@@ -33,8 +33,16 @@
             <td th:text="${pendingtransfer.accountfrom}">FROM</td>
             <td th:text="'$' + ${pendingtransfer.amount}">AMOUNT</td>
             <td th:text="${pendingtransfer.transferStatus.transferstatusdesc}">STATUS</td>
-            <td><button onclick="toggleApprove()" class="button-group" style="font-size:15px"><i class="fa-regular fa-circle-check"></i></button></td>
-            <td><button onclick="toggleReject()" class="button-group" style="font-size:15px"><i class="fa-regular fa-circle-xmark"></i></button></td>
+            <td>
+                <form th:action="@{/approve}" method="POST" id="transfer-approve">
+                    <input type="hidden" name="transferid" th:value="${pendingtransfer.id}">
+                    <input type="hidden" name="transferstatusid" th:value="2">
+                <button class="button-group" style="font-size:15px" type="submit"><i class="fa-regular fa-circle-check"></i></button></form></td>
+            <td>
+                <form th:action="@{/reject}" method="POST" id="transfer-reject">
+                    <input type="hidden" name="transferid" th:value="${pendingtransfer.id}">
+                    <input type="hidden" name="transferstatusid" th:value="3">
+                    <button class="button-group" style="font-size:15px"><i class="fa-regular fa-circle-xmark"></i></button></form></td>
         </tr>
         </tbody>
     </table>

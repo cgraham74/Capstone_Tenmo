@@ -18,8 +18,11 @@ import java.util.stream.Stream;
 @Service
 public class TransferService{
 
+    private final int REQUEST = 1;
     private final int SEND = 2;
     private final int RECEIVE = 1;
+    private final int APPROVED = 2;
+    private final int PENDING = 1;
     private final AccountService accountService;
     private final TransferRepository transferRepository;
     private final AccountRepository accountRepository;
@@ -38,12 +41,22 @@ public class TransferService{
        return transferRepository.save(transfer);
    }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Transfer findById(int id) {
        return transferRepository.findById(id);
     }
 
-    //Transactional annotation being used for the balance transfer transaction so that if any methods in here fail to add *AND* subtract
-    // then they both fail and balances are not updated
+    /**
+     * Handles Transfers from one account to another
+     * If the transfer fails on one account, the transfer
+     * will not happen for either account
+     * @param transfer
+     * @return
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public Transfer transferBalance(Transfer transfer) {
@@ -69,10 +82,6 @@ public class TransferService{
                 accountRepository.save(accountOfCurrentUser);
                 accountRepository.save(accountOfTargetUser);
 
-                //Saving a new transaction of the transfer only if it is a send request
-                if(transfer.getTransfertypeid() == SEND) {
-                    transferRepository.save(transfer);
-                }
                 return transfer;
             }
 
@@ -81,13 +90,37 @@ public class TransferService{
         throw new RuntimeException("Insufficient Funds for Transfer");
     }
 
-    //Request funds from a different account. Sets type to request, sets status to pending
+    /**
+     * Calls the transferBalance method to transfer
+     * money from one account to another within a database transaction
+     * Saves the details of the transfer to the repository
+     * @param moneyToSend BigDecimal amount to transfer
+     * @param toUser Integer representing the user to whom the money will be sent
+     * @param fromUser Integer representing the user who is sending the money
+     */
+    @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
+    public void sendMoney(BigDecimal moneyToSend, int toUser, int fromUser ) {
+        Transfer transfer = new Transfer();
+            transfer.setAccountfrom(fromUser);
+            transfer.setAccountto(toUser);
+            transfer.setAmount(moneyToSend);
+            transfer.setTransfertypeid(SEND);
+            transfer.setTransferstatusid(APPROVED);
+            transferRepository.save(transferBalance(transfer));
+    }
+
+    /**
+     *
+     * @param transfer
+     * @return
+     */
     public Transfer requestFundsFromUser(Transfer transfer){
 
         if (transfer.getAccountto() != transfer.getAccountfrom()){
             if(transfer.getAmount().compareTo(BigDecimal.ZERO) > 0) {
-                transfer.setTransferstatusid(1);
-                transfer.setTransfertypeid(1);
+                transfer.setTransferstatusid(PENDING);
+                transfer.setTransfertypeid(REQUEST);
                 return transferRepository.save(transfer);
             }
             throw new RuntimeException("Request must be larger than 0");
@@ -95,21 +128,42 @@ public class TransferService{
         throw new RuntimeException("Invalid Request - Cannot request from self");
     }
 
+    /**
+     *
+     * @param accountfrom
+     * @return
+     */
     public List<Transfer> findAllBystatus(int accountfrom) {
         return transferRepository.findByStatus(accountfrom);
     }
+//
+//    public Transfer saveUpdate(Transfer transfer) {
+//        return transferRepository.save(transfer);
+//    }
 
-    public Transfer saveUpdate(Transfer transfer) {
-        return transferRepository.save(transfer);
+    /**
+     *
+     * @param statusid
+     * @param transferid
+     */
+    @Transactional
+    public void update(int statusid, int transferid) {
+        Transfer transfer = transferRepository.findById(transferid);
+        if(statusid == APPROVED){
+            transferBalance(transfer);
+        }
+        transferRepository.update(statusid,transferid);
     }
 
-    public void update(int usid, int transferid) {
-        transferRepository.update(usid,transferid);
-    }
-
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<Transfer> getAllToAndFromAccount(int id){
         List<Transfer>from = transferRepository.findAllByAccountfrom(id);
         List<Transfer>to = transferRepository.findAllByAccountto(id);
+
         List<Transfer> list = new ArrayList<>();
         Stream.of(from, to).forEach(list::addAll);
         return list;

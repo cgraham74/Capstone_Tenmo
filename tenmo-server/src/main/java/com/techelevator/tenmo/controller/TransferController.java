@@ -1,6 +1,5 @@
 package com.techelevator.tenmo.controller;
 
-import com.techelevator.tenmo.exceptions.UserNotFoundException;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.services.AccountService;
@@ -65,53 +64,69 @@ public class TransferController {
         }
     }
 
+    /**
+     *
+     * @param model
+     * @param principal
+     * @return
+     */
     @GetMapping("/pending")
     public String getPending(Model model, Principal principal) {
-        int accountId = userDao.findIdByUsername(principal.getName());
+        int userId = userDao.findIdByUsername(principal.getName());
+        int accountId = accountService.findAccountIdByUserId(userId);
         model.addAttribute("pending", transferService.findAllBystatus(accountId));
         return "pending";
     }
 
-    @GetMapping("/transfers/transfer")
-    public Transfer findTransferById(@RequestParam int id) {
-        return transferService.findById(id);
-    }
+//    @GetMapping("/transfers/transfer")
+//    public Transfer findTransferById(@RequestParam int id) {
+//        return transferService.findById(id);
+//    }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/send-to")
     public String sendTo(Model model) {
         model.addAttribute("users", userDao.findTransferList());
         return "send-to";
     }
 
+    /**
+     *
+     * @param model contains a list of users to request money from
+     * @return The view that allows requests for money
+     */
     @GetMapping("/request-from")
     public String requestFrom(Model model) {
         model.addAttribute("users", userDao.findTransferList());
         return "request-from";
     }
 
-//    //(@ModelAttribute Transfer transfer)
-//    @PostMapping("/send")
-//    public Transfer create(@RequestBody Transfer transfer) {
-//        //Get all of the sendto user's information
-//        //Get the amount to transfer
-//        return transferService.transferBalance(transfer);
-//    }
-
-    //(@ModelAttribute Transfer transfer)
+    /**
+     *
+     * @param username
+     * @param amountToTransfer
+     * @param principal
+     * @return Redirects the view to the send-to list.
+     */
     @PostMapping("/send")
-    public String create(@RequestParam("user")String username,@RequestParam("amount") BigDecimal amountToTransfer, Principal principal) throws UserNotFoundException {
-        int userId = userDao.findIdByUsername(username);
-        Transfer transfer = new Transfer();
-        transfer.setAccountfrom(accountService.findAccountIdByUserId(userDao.findIdByUsername(principal.getName())));
-        transfer.setTransfertypeid(2);
-        transfer.setTransferstatusid(2);
-        transfer.setAccountto(accountService.findAccountIdByUserId(userId));
-        transfer.setAmount(amountToTransfer);
-        transferService.transferBalance(transfer);
+    public String create(@RequestParam("user")String username,@RequestParam("amount") BigDecimal amountToTransfer, Principal principal) {
+        int sendTo = userDao.findIdByUsername(username);
+        int sendFrom = accountService.findAccountIdByUserId(userDao.findIdByUsername(principal.getName()));
+        transferService.sendMoney(amountToTransfer,sendTo,sendFrom);
         return "redirect:/send-to";
     }
 
-    //@ModelAttribute Transfer transfer)
+    /**
+     *
+     * @param username
+     * @param amountToTransfer
+     * @param principal
+     * @return
+     */
     @PostMapping("/request")
     public String addNewTransferRequest(@RequestParam("user")String username,@RequestParam("amount") BigDecimal amountToTransfer, Principal principal) {
         int userId = userDao.findIdByUsername(username);
@@ -123,8 +138,27 @@ public class TransferController {
         return "redirect:/request-from";
     }
 
-    @PutMapping("/transfers/update")
-    public void updateTransfer(@RequestParam int statusid, @RequestParam int transferid) {
-        transferService.update(statusid, transferid);
+    /**
+     *
+     * @param transferstatusid
+     * @param transferid
+     * @return
+     */
+    @PostMapping("/approve")
+    public String approveTransfer(@RequestParam("transferstatusid") int transferstatusid, @RequestParam ("transferid") int transferid) {
+        transferService.update(transferstatusid,transferid);
+        return "redirect:/pending";
+    }
+
+    /**
+     *
+     * @param transferstatusid
+     * @param transferid
+     * @return
+     */
+    @PostMapping("/reject")
+    public String rejectTransfer(@RequestParam("transferstatusid") int transferstatusid, @RequestParam ("transferid") int transferid) {
+        transferService.update(transferstatusid,transferid);
+        return "redirect:/pending";
     }
 }
