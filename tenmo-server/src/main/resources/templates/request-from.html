@@ -8,6 +8,12 @@
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+    <div th:if="${message}" class="alert alert-success">
+        <p th:text="${message}"></p>
+    </div>
     <table class="blueTable" id="userTable">
         <thead>
         <tr>
