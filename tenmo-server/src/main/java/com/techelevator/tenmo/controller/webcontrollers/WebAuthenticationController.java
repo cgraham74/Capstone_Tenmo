@@ -1,6 +1,5 @@
 package com.techelevator.tenmo.controller.webcontrollers;
 
-
 import com.techelevator.tenmo.model.LoginDTO;
 import com.techelevator.tenmo.model.RegisterUserDTO;
 import com.techelevator.tenmo.model.User;
@@ -15,13 +14,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @PreAuthorize("permitAll()")
@@ -49,6 +52,7 @@ public class WebAuthenticationController {
     @GetMapping("/")
     public String showLogInForm(Model model){
         model.addAttribute("message", "Log in");
+        model.addAttribute("loginDTO", new LoginDTO());
         return "login";
     }
 
@@ -68,8 +72,12 @@ public class WebAuthenticationController {
      * @return a Model and View object representing the user and the view
      */
         @PostMapping("/login")
-            public ModelAndView login(@Valid @ModelAttribute(name ="loginDto") LoginDTO loginDto, HttpSession session) throws UserNotActivatedException {
+            public ModelAndView login(@Valid @ModelAttribute(name ="loginDto") LoginDTO loginDto, HttpSession session, Principal principal) throws UserNotActivatedException {
             try{
+//                LoginDTO loggedInUser = new LoginDTO();
+//                loggedInUser.setUsername(loginDto.getUsername());
+//                loggedInUser.setPassword(loginDto.getPassword());
+                //System.err.println("User: " + loggedInUser.getUsername() + " Pass: "+ loggedInUser.getPassword());
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
@@ -84,7 +92,11 @@ public class WebAuthenticationController {
                 ModelAndView modelAndView = new ModelAndView("layout");
 
                 modelAndView.addObject("loginResponse", loginResponse);
-                session.setAttribute("user",user);
+                modelAndView.addObject("user", user);
+                System.out.println("user " + user);
+                modelAndView.addObject("jwt", jwt);
+                System.out.println("jwt "+ jwt);
+               session.setAttribute("user",user);
                 return modelAndView;
             } catch (UserNotActivatedException e) {
                 ModelAndView modelAndView = new ModelAndView("error");
@@ -118,7 +130,14 @@ public class WebAuthenticationController {
             return "login";
         }
 
-
+        @RequestMapping(value="/logoff", method = {RequestMethod.GET, RequestMethod.POST})
+        public String logout(HttpServletRequest request, HttpServletResponse response){
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null){
+                new SecurityContextLogoutHandler().logout(request, response, auth);
+            }
+            return "redirect:/";
+        }
 //        @GetMapping("/error")
 //        public String handleError(Model model){
 //            model.addAttribute("errorMessage", "Invalid username or password");

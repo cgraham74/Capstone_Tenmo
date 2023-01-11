@@ -140,3 +140,7 @@ width:25%;
 .center-button{
 text-align: center;
 }
+#image-logout-container{
+display:flex;
+justify-content: space-between;
+}

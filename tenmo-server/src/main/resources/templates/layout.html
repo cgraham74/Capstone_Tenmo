@@ -19,20 +19,28 @@
 <header>
     <div class="navbar">
         <!--  static use /static/TEnmo.jpg  Dynamic use {TEnmo} -->
-        <img src="../static/TEnmo.jpg" th:src="@{../TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
+        <div id="image-logout-container">
+            <img src="../static/TEnmo.jpg" th:src="@{../TEnmo.jpg}" alt="TEnmo logo of people sharing money" id="tenmo-logo">
+            <form th:action="@{/logoff}" method="POST" id="log-out">
+                <button id="log-out-nav-button" type="submit" class="button-group"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+            </form>
+
+        </div>
         <div class="container" id="btnGroupContainer">
+
             <a th:href="@{balance}"  class="button-group" id="balance-nav-button" title="Account Details" sec:authorize="isAuthenticated()">Account</a>
             <a th:href="@{send-to}" id="send-nav-button" class="button-group" title="Send money" sec:authorize="isAuthenticated()">Send</a>
             <a th:href="@{request-from}" id="request-nav-button" class="button-group" title="Request money" sec:authorize="isAuthenticated()">Request</a>
             <a th:href="@{pending}" id="pending-nav-button" class="button-group" title="Pending Transfers" sec:authorize="isAuthenticated()">Pending</a>
             <a th:href="@{activity}" id="activity-nav-button" class="button-group" title="Activity" sec:authorize="isAuthenticated()">Activity</a>
-
             <input type="hidden" id="jwt-token" th:value="${jwt}" />
+
         </div>
     </div>
 </header>
 <div sec:authorize="isAuthenticated()">
     <h1>Welcome <span th:text="${#authentication.name}"></span></h1>
+    <p th:text="${jwt}" ></p>
 </div>
 
 <!--<div sec:authorize="!isAuthenticated()">-->
