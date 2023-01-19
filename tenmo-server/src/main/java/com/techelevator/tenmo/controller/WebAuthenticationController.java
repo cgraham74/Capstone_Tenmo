@@ -1,4 +1,4 @@
-package com.techelevator.tenmo.controller.webcontrollers;
+package com.techelevator.tenmo.controller;
 
 import com.techelevator.tenmo.model.LoginDTO;
 import com.techelevator.tenmo.model.RegisterUserDTO;
@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.security.Principal;
 
 
 @PreAuthorize("permitAll()")
@@ -72,12 +71,8 @@ public class WebAuthenticationController {
      * @return a Model and View object representing the user and the view
      */
         @PostMapping("/login")
-            public ModelAndView login(@Valid @ModelAttribute(name ="loginDto") LoginDTO loginDto, HttpSession session, Principal principal) throws UserNotActivatedException {
+            public ModelAndView login(@Valid @ModelAttribute(name ="loginDto") LoginDTO loginDto, HttpSession session) throws UserNotActivatedException {
             try{
-//                LoginDTO loggedInUser = new LoginDTO();
-//                loggedInUser.setUsername(loginDto.getUsername());
-//                loggedInUser.setPassword(loginDto.getPassword());
-                //System.err.println("User: " + loggedInUser.getUsername() + " Pass: "+ loggedInUser.getPassword());
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
@@ -93,9 +88,9 @@ public class WebAuthenticationController {
 
                 modelAndView.addObject("loginResponse", loginResponse);
                 modelAndView.addObject("user", user);
-                System.out.println("user " + user);
-                modelAndView.addObject("jwt", jwt);
-                System.out.println("jwt "+ jwt);
+
+                modelAndView.addObject("jwt", loginResponse.getToken());
+
                session.setAttribute("user",user);
                 return modelAndView;
             } catch (UserNotActivatedException e) {
@@ -138,11 +133,6 @@ public class WebAuthenticationController {
             }
             return "redirect:/";
         }
-//        @GetMapping("/error")
-//        public String handleError(Model model){
-//            model.addAttribute("errorMessage", "Invalid username or password");
-//        return "error";
-//            }
 
         /**
          * Object to return as body in JWT Authentication.
