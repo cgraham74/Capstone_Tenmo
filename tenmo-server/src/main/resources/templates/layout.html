@@ -40,7 +40,7 @@
 </header>
 <div sec:authorize="isAuthenticated()">
     <h1>Welcome <span th:text="${#authentication.name}"></span></h1>
-    <p th:text="${jwt}" ></p>
+
 </div>
 
 <!--<div sec:authorize="!isAuthenticated()">-->

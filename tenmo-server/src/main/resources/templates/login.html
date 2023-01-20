@@ -7,6 +7,9 @@
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
+    <div id="login-page">
+
+
     <div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
     <h1 th:text="${message}">Login page</h1>
         <form th:action="@{/login}" th:object="${loginDto}" method="POST" id="log-in">
@@ -20,6 +23,7 @@
         Invalid username and password.
     </div>
     <a th:href="@{register}" >Register as a new user</a>
+    </div>
 </div>
 </body>
 </html>
