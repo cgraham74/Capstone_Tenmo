@@ -1,10 +1,30 @@
-#main-layer-body{
-margin:10px auto;
-margin-top:200px;
-margin-bottom:86px;
+*{
+--containerAlign: center;
+--containerJustifySelf: center;
+--buttonBackGroundColor: #1C6EA4;
+--buttonHoverColor: #196393;
+--buttonTextColor: #ffffff;
+--buttonActiveColor: #175C89;
+--buttonFontSize: 1.2em;
+--containerWidth: 70%;
+--containerPadding: 30px;
 
 }
-div.main-content{
+#main-layer-body{
+margin: 0 auto;
+}
+
+
+header {
+height: 200px;
+}
+
+.navbar{
+margin-right: auto;
+margin-left: auto;
+
+}
+.main-content{
 margin-bottom:86px;
 }
 
@@ -20,8 +40,9 @@ background-color: white;
 position:fixed;
 top:0;
 width:100vw;
-
+margin-bottom:20px;
 }
+
 #btnGroupContainer.container{
     color: #ffffff !important;
     width:100vw;
@@ -30,10 +51,10 @@ width:100vw;
     justify-content: center;
     align-content: center;
     flex-direction:row;
-
-    background: #1C6EA4;
+    background: var(--buttonBackGroundColor);
     border: 1px solid #444444;
     border-bottom: 2px solid #444444;
+
 
 }
 a{
@@ -49,21 +70,17 @@ text-decoration: none;
 }
 a.button-group, .button-group {
 color: #ffffff !important;
-    background: #1C6EA4;
+    background: var(--buttonBackGroundColor);
     font-size: 18px;
     font-weight: bold;
-
     border: none;
-
-
-        background-color: #1C6EA4;
-        color: white;
-        padding: 14px 20px;
-
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 1.2em;
+    background-color: var(--buttonBackGroundColor);
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2em;
 
 
  }
@@ -83,7 +100,7 @@ justify-self: center;
 table.blueTable {
 border: none;
 background-color: #FFFFFF;
-width: 90%;
+width: var(--containerWidth);
 margin: 0 auto;
 text-align: left;
 font-size: 18px;
@@ -92,7 +109,7 @@ border-collapse: collapse;
 }
 
 table.blueTable th {
-background: #1C6EA4;
+background: var(--buttonBackGroundColor);
 color: #FFFFFF;
 font-weight: bold;
 text-align: left;
@@ -107,12 +124,8 @@ table.blueTable tr:nth-child(even) {
 background: #D0E4F5;
 }
 
-
-
-
-
 table.blueTable thead {
-  background: #1C6EA4;
+  background: var(--buttonBackGroundColor);
   background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
   background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
   background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
@@ -147,7 +160,7 @@ table.blueTable tfoot .links {
 }
 table.blueTable tfoot .links a{
   display: inline-block;
-  background: #1C6EA4;
+  background: var(--buttonBackGroundColor);
   color: #FFFFFF;
   padding: 2px 8px;
   border-radius: 5px;
@@ -175,19 +188,27 @@ justify-content: space-between;
 }
 
 
-#login-page {
+#login-page, #register-new-user, .page-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: var(--containerWidth);
+    padding: var(--containerPadding);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+        margin: 30px auto auto auto;
+        width: 396px;
 }
 
-#log-in {
-    width: 50%;
-    margin: 20px auto;
-    text-align: center;
+#log-in{
+align-items: center;
+justify-content: center;
 }
-
+div#log-in-register{
+display:flex;
+align-items: center;
+justify-content: center;
+}
 label {
     font-size: 1.2em;
     margin-bottom: 10px;
@@ -201,7 +222,21 @@ input {
     border: 2px solid #ccc;
     border-radius: 4px;
 }
-
-form#send-money{
-
+.request-send-container{
+display:flex;
+justify-content: space-evenly;
+}
+.center-content{
+display: flex;
+flex-direction:column;
+align-items: center;
+justify-content: center;
+}
+.or-separator{
+overflow: hidden;
+text-align:center;
+margin-bottom: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
+    width: auto;
 }

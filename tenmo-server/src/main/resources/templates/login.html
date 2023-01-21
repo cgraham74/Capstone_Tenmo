@@ -3,27 +3,34 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"  xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>Layout-Log in</title>
+    <title>Log in</title>
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
+
     <div id="login-page">
+        <h1 id="log-in-message" th:text="${message}" ></h1>
+    <div th:if="${param.logout}" class="alert alert-success">
+        You have been logged out.
+    </div>
 
-
-    <div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
-    <h1 th:text="${message}">Login page</h1>
         <form th:action="@{/login}" th:object="${loginDto}" method="POST" id="log-in">
         <label for="username">Username</label>:
         <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
         <label for="password">Password</label>:
         <input type="password" id="password" name="password" placeholder="Password..." /> <br />
         <input type="submit" class="button-group" value="Log in" />
+
     </form>
     <div th:if="${param.error}">
         Invalid username and password.
     </div>
-    <a th:href="@{register}" >Register as a new user</a>
+        <div id="log-in-register">
+            <p class="center-content"> <a th:href="@{register}" >Register as a new user</a></p>
+        </div>
+
     </div>
+
 </div>
 </body>
 </html>

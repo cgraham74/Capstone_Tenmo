@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
+      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Layout-Balance</title>
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
-    <p>Account Details for : <span th:text="${#authentication.name}"></span></p>
-    <div sec:authorize="isAuthenticated()">
-        <p>Current Balance: <span th:text="'$' +${balance}"></span></p>
-    </div>
+    <div class="page-container">
+        <p>Account Details for : <span th:text="${#authentication.name}"></span></p>
+        <div sec:authorize="isAuthenticated()">
+            <p>Current Balance: <span th:text="'$' +${balance}"></span></p>
+        </div>
+        <p>Country: <span th:text="${#locale.country}"></span></p>
+        <p>User? : <span th:text="${#ctx.user}"></span></p>
 
-    <div sec:authorize="!isAuthenticated()">
-        <a th:href="@{login}">Please log in to access.</a>
+        <div sec:authorize="!isAuthenticated()">
+            <a th:href="@{login}">Please log in to access.</a>
+        </div>
     </div>
-
 </div>
 </body>
 </html>

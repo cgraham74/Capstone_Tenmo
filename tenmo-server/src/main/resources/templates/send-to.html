@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
+      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Send</title>
@@ -11,7 +12,7 @@
     <table class="blueTable" id="userTable">
         <thead>
         <tr>
-            <th  id="user-name-header">USER</th>
+            <th id="user-name-header">USER</th>
             <th id="user-send-header">Send</th>
 
         </tr>
@@ -20,10 +21,15 @@
         <tr th:each="user:${users}">
             <td th:text="${user.username}"></td>
             <td class="center-button">
-                <form th:action="@{/send}"  method="POST" id="send-money">
+                <form th:action="@{/send}" method="POST" id="send-money">
                     <input type="hidden" style="display:hidden" name="user" th:value="${user.username}">
-                    <input type="text" id="amount" name="amount" placeholder="Enter amount to send..."/>
-                    <button class="button-group" style="font-size:15px" type="submit"><i class="fa-solid fa-money-bill-transfer"></i></button></form></td>
+                    <div class="request-send-container">
+                        <input type="text" id="amount" name="amount" placeholder="Amount amount"/>
+                        <button class="button-group" type="submit"><i
+                                class="fa-solid fa-money-bill-transfer"></i></button>
+                    </div>
+                </form>
+            </td>
 
         </tr>
         </tbody>

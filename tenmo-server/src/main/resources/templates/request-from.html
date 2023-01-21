@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
+      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Request</title>
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
-    <div th:if="${error}" class="alert alert-danger">
-        <p th:text="${error}"></p>
+    <div class="tables-page-alignment">
+
+        <div th:if="${error}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+        <div th:if="${message}" class="alert alert-success">
+            <p th:text="${message}"></p>
+        </div>
+        <table class="blueTable" id="userTable">
+            <thead>
+            <tr>
+                <th>USER</th>
+                <th id="user-request-header">Request</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user:${users}">
+                <td th:text="${user.username}"></td>
+                <td class="center-button">
+                    <form th:action="@{/request}" method="POST" id="request-money">
+                        <input type="hidden" style="display:hidden" name="user" th:value="${user.username}">
+                        <div class="request-send-container">
+                            <input type="text" id="amount" name="amount" placeholder="Enter amount to send..."/>
+                            <button class="button-group" ><i
+                                    class="fa-solid fa-money-bill-transfer"></i></button>
+                        </div>
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <div th:if="${message}" class="alert alert-success">
-        <p th:text="${message}"></p>
-    </div>
-    <table class="blueTable" id="userTable">
-        <thead>
-        <tr>
-            <th>USER</th>
-            <th id="user-request-header">Request</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user:${users}">
-            <td th:text="${user.username}"></td>
-            <td class="center-button">
-                <form th:action="@{/request}" method="POST" id="request-money">
-                <input type="hidden" style="display:hidden" name="user" th:value="${user.username}">
-                <input type="text" id="amount" name="amount" placeholder="Enter amount to send..."/>
-                <button class="button-group" style="font-size:15px"><i class="fa-solid fa-money-bill-transfer"></i></button></form></td>
-        </tr>
-        </tbody>
-    </table>
 </div>
 </body>
 </html>
