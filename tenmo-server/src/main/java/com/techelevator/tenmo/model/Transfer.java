@@ -112,9 +112,23 @@ public class Transfer {
         this.amount = amount;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Transfer: " + getAccountto() + " (" + accountto + " accountfrom" +
+//                getAccountfrom() + " amount " + amount;
+//    }
+
     @Override
     public String toString() {
-        return "Transfer: " + getAccountto() + " (" + accountto + " accountfrom" +
-                getAccountfrom() + " amount " + amount;
+        return "Transfer{" +
+                "id=" + id +
+                ", transfertypeid=" + transfertypeid +
+                ", transferstatusid=" + transferstatusid +
+                ", accountfrom=" + accountfrom +
+                ", accountto=" + accountto +
+                ", amount=" + amount +
+                ", transferType=" + transferType +
+                ", transferStatus=" + transferStatus +
+                '}';
     }
 }

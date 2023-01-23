@@ -1,46 +1,45 @@
 *{
---containerAlign: center;
---containerJustifySelf: center;
---buttonBackGroundColor: #1C6EA4;
---buttonHoverColor: #196393;
---buttonTextColor: #ffffff;
---buttonActiveColor: #175C89;
---buttonFontSize: 1.2em;
---containerWidth: 70%;
---containerPadding: 30px;
-
+    --containerAlign: center;
+    --containerJustifySelf: center;
+    --buttonBackGroundColor: #1C6EA4;
+    --buttonHoverColor: #196393;
+    --buttonTextColor: #ffffff;
+    --buttonActiveColor: #175C89;
+    --buttonFontSize: 1.2em;
+    --containerWidth: 70%;
+    --containerPadding: 30px;
 }
+
 #main-layer-body{
-margin: 0 auto;
+    margin: 0 auto;
 }
-
 
 header {
-height: 200px;
+    height: 200px;
 }
 
 .navbar{
-margin-right: auto;
-margin-left: auto;
-
+    margin-right: auto;
+    margin-left: auto;
 }
+
 .main-content{
-margin-bottom:86px;
+    margin-bottom:86px;
 }
 
 #tenmo-logo{
-max-height:150px;
-max-width:100%;
-align-self: center;
-justify-self: center;
-
+    max-height:150px;
+    max-width:100%;
+    align-self: center;
+    justify-self: center;
 }
+
 .navbar{
-background-color: white;
-position:fixed;
-top:0;
-width:100vw;
-margin-bottom:20px;
+    background-color: white;
+    position:fixed;
+    top:0;
+    width:100vw;
+    margin-bottom:20px;
 }
 
 #btnGroupContainer.container{
@@ -54,22 +53,20 @@ margin-bottom:20px;
     background: var(--buttonBackGroundColor);
     border: 1px solid #444444;
     border-bottom: 2px solid #444444;
-
-
 }
+
 a{
 text-decoration: none;
     font-size: 18px;
     font-weight: bold;
     font-family: "arial";
     font-size: 1.2em;
-
     text-decoration: none;
     color: #1C6EA4;
-
 }
+
 a.button-group, .button-group {
-color: #ffffff !important;
+    color: #ffffff !important;
     background: var(--buttonBackGroundColor);
     font-size: 18px;
     font-weight: bold;
@@ -81,47 +78,46 @@ color: #ffffff !important;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1.2em;
-
-
  }
 .button-group:hover {
     background: #196393;
 }
+
 .button-group:active {
     background: #175C89;
 }
 
 #transferTable.blueTable, #pendingTable.blueTable, #userTable.blueTable {
-margin-left: auto;
-margin-right: auto;
-justify-self: center;
-
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
 }
+
 table.blueTable {
-border: none;
-background-color: #FFFFFF;
-width: var(--containerWidth);
-margin: 0 auto;
-text-align: left;
-font-size: 18px;
-color: #041F33;
-border-collapse: collapse;
+    border: none;
+    background-color: #FFFFFF;
+    width: var(--containerWidth);
+    margin: 0 auto;
+    text-align: left;
+    font-size: 18px;
+    color: #041F33;
+    border-collapse: collapse;
 }
 
 table.blueTable th {
-background: var(--buttonBackGroundColor);
-color: #FFFFFF;
-font-weight: bold;
-text-align: left;
-padding: 5px;
+    background: var(--buttonBackGroundColor);
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: left;
+    padding: 5px;
 }
 
 table.blueTable td {
-padding: 5px;
+    padding: 5px;
 }
 
 table.blueTable tr:nth-child(even) {
-background: #D0E4F5;
+    background: #D0E4F5;
 }
 
 table.blueTable thead {
@@ -131,6 +127,7 @@ table.blueTable thead {
   background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
   border-bottom: 2px solid #444444;
 }
+
 table.blueTable thead th {
   font-size: 20px;
   font-weight: bold;
@@ -138,6 +135,7 @@ table.blueTable thead th {
   text-align: center;
   border-left: 2px solid #D0E4F5;
 }
+
 table.blueTable thead th:first-child {
   border-left: none;
 }
@@ -152,12 +150,15 @@ table.blueTable tfoot {
   background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
   border-top: 2px solid #444444;
 }
+
 table.blueTable tfoot td {
   font-size: 14px;
 }
+
 table.blueTable tfoot .links {
   text-align: right;
 }
+
 table.blueTable tfoot .links a{
   display: inline-block;
   background: var(--buttonBackGroundColor);
@@ -165,26 +166,28 @@ table.blueTable tfoot .links a{
   padding: 2px 8px;
   border-radius: 5px;
 }
+
 #footer {
-height: 86px;
-background: #ffffff;
-color: #444444 !important;
-
-width:100vw;
-
-text-align: center;
-position:fixed;
-bottom: 0;
+    height: 86px;
+    background: #ffffff;
+    color: #444444 !important;
+    width:100vw;
+    text-align: center;
+    position:fixed;
+    bottom: 0;
 }
+
 #user-send-header, #user-request-header {
-width:25%;
+    width:25%;
 }
+
 .center-button{
-text-align: center;
+    text-align: center;
 }
+
 #image-logout-container{
-display:flex;
-justify-content: space-between;
+    display:flex;
+    justify-content: space-between;
 }
 
 
@@ -194,21 +197,23 @@ justify-content: space-between;
     width: var(--containerWidth);
     padding: var(--containerPadding);
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-        margin: 30px auto auto auto;
-        width: 396px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    margin: 30px auto auto auto;
+    width: 396px;
 }
 
 #log-in{
-align-items: center;
-justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
+
 div#log-in-register{
-display:flex;
-align-items: center;
-justify-content: center;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
+
 label {
     font-size: 1.2em;
     margin-bottom: 10px;
@@ -223,19 +228,21 @@ input {
     border-radius: 4px;
 }
 .request-send-container{
-display:flex;
-justify-content: space-evenly;
+    display:flex;
+    justify-content: space-evenly;
 }
+
 .center-content{
-display: flex;
-flex-direction:column;
-align-items: center;
-justify-content: center;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
 }
+
 .or-separator{
-overflow: hidden;
-text-align:center;
-margin-bottom: 10px;
+    overflow: hidden;
+    text-align:center;
+    margin-bottom: 10px;
     margin-left: 8px;
     margin-right: 8px;
     width: auto;

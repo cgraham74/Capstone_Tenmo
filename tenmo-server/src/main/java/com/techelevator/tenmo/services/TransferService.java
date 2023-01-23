@@ -198,11 +198,30 @@ public class TransferService {
      * @return
      */
     public List<Transfer> getAllToAndFromAccount(int userId) {
+        System.out.println("userID " + userId);
         List<Transfer> from = transferRepository.findAllByAccountfrom(userId);
         List<Transfer> to = transferRepository.findAllByAccountto(userId);
+
+        //if I sent money
+        //then get name of whom I sent it to
+        List<Transfer> sentMoneyTo = transferRepository.getAllSendMoneyTo(userId);
+        System.out.println("Sent money to " + sentMoneyTo);
+
+
+        //if I requested money
+        //then get name of whom I requested it from
 
         List<Transfer> list = new ArrayList<>();
         Stream.of(from, to).forEach(list::addAll);
         return list;
     }
-}
+    public List<Transfer> getSendMoneyFrom(int userId) {
+        List<Transfer> sentMoneyTo = transferRepository.getAllSendMoneyTo(userId);
+        return sentMoneyTo;
+    }
+
+    public List<Transfer> requestedMoney(int userId) {
+
+        return transferRepository.findAllByAccountfrom(userId);
+        }
+    }
