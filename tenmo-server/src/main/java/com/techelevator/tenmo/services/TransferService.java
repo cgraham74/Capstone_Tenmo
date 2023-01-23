@@ -1,8 +1,10 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.exceptions.InvalidRequestException;
+import com.techelevator.tenmo.exceptions.UserNotFoundException;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.TransferDTO;
 import com.techelevator.tenmo.repositories.AccountRepository;
 import com.techelevator.tenmo.repositories.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,12 +128,13 @@ public class TransferService {
 
     /**
      * Request funds from a user.
-     * @param requestor The username of the requestor
-     * @param requestee The username of the requestee
+     *
+     * @param requestor       The username of the requestor
+     * @param requestee       The username of the requestee
      * @param amountRequested the amount requested, as a string
      * @return request message to let the user know it was successful
      * @throws InvalidRequestException if the request is invalid(e.g. requesting from self
-     * invalid amount, not a digit)
+     *                                 invalid amount, not a digit)
      */
     public String requestFundsFromUser(String requestor, String requestee, String amountRequested)
             throws InvalidRequestException {
@@ -181,7 +184,8 @@ public class TransferService {
      * If that status id is approved. Then the transferBalance method
      * is called to handle the transfer of money from one account to the other
      * otherwise- the transfer is updated with the id (rejected) from the view
-     * @param statusid The new status id to update the transfer
+     *
+     * @param statusid   The new status id to update the transfer
      * @param transferid the id of a specific transfer to be updated
      */
     @Transactional
@@ -197,7 +201,7 @@ public class TransferService {
      * @param userId
      * @return
      */
-    public List<Transfer> getAllToAndFromAccount(int userId) {
+    public List<Transfer> getAllToAndFromAccount(int userId) throws UserNotFoundException {
         System.out.println("userID " + userId);
         List<Transfer> from = transferRepository.findAllByAccountfrom(userId);
         List<Transfer> to = transferRepository.findAllByAccountto(userId);
@@ -205,8 +209,7 @@ public class TransferService {
         //if I sent money
         //then get name of whom I sent it to
         List<Transfer> sentMoneyTo = transferRepository.getAllSendMoneyTo(userId);
-        System.out.println("Sent money to " + sentMoneyTo);
-
+        System.err.println(getSendMoneyToUser(userId));
 
         //if I requested money
         //then get name of whom I requested it from
@@ -215,13 +218,37 @@ public class TransferService {
         Stream.of(from, to).forEach(list::addAll);
         return list;
     }
-    public List<Transfer> getSendMoneyFrom(int userId) {
+
+    /**
+     * This method returns a list of transfers that are from the currently logged-in user
+     * and has the type "send" and status of "approved"
+     *
+     * @param userId of the currently logged-in user
+     * @return A list of transfers from the current user
+     */
+    public List<TransferDTO> getSendMoneyToUser(int userId) throws UserNotFoundException {
+
         List<Transfer> sentMoneyTo = transferRepository.getAllSendMoneyTo(userId);
-        return sentMoneyTo;
+        List<TransferDTO> sentMoney = new ArrayList<>();
+
+        for (Transfer transfer : sentMoneyTo) {
+            sentMoney.add(createNewTransferDTO(transfer));
+        }
+        return sentMoney;
     }
 
     public List<Transfer> requestedMoney(int userId) {
 
         return transferRepository.findAllByAccountfrom(userId);
-        }
     }
+
+    public TransferDTO createNewTransferDTO(Transfer transfer) throws UserNotFoundException {
+        TransferDTO transferDTO = new TransferDTO();
+        transferDTO.setId(transfer.getId());
+        transferDTO.setTransferstatusid(transfer.getTransferstatusid());
+        transferDTO.setTransfertypeid(transfer.getTransfertypeid());
+        transferDTO.setAccountto(userDao.findUserByAccountId(transfer.getAccountto()).getUsername());
+        transferDTO.setAmount(transfer.getAmount());
+        return transferDTO;
+    }
+}

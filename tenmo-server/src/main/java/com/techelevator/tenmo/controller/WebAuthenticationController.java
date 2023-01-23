@@ -117,10 +117,11 @@ public class WebAuthenticationController {
         public String register(@Valid @ModelAttribute(name ="registerUserDTO") RegisterUserDTO newUser, Model model){
             if (!newUser.getPassword().equals(newUser.getPasswordConfirmation())){
                 model.addAttribute("message", "Passwords do not match");
-               return "register";
+                return "register";
             }
             if (!userDao.create(newUser.getUsername(), newUser.getPassword())) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
+                model.addAttribute("message", "User registration failed");
+                return "register";
             }
             return "login";
         }

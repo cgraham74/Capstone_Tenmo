@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.controller;
 
 import com.techelevator.tenmo.exceptions.InvalidRequestException;
+import com.techelevator.tenmo.exceptions.UserNotFoundException;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.services.AccountService;
@@ -43,7 +44,7 @@ public class TransferController {
      * or an error page if session user isn't the principal.
      */
     @GetMapping("/activity")
-    public String findActivity(Model model, Principal principal) {
+    public String findActivity(Model model, Principal principal) throws UserNotFoundException {
 
         if (principal.getName() != null) {
 
