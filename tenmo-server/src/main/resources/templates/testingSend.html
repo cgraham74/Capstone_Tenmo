@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate=~{layout} xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Activity</title>
+</head>
+<body>
+<div class="main-content" layout:fragment="main-content">
+
+    <table class="blueTable" id="transferTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>TYPE</th>
+            <th>SENT</th>
+            <th>RECEIVED</th>
+            <th>AMOUNT</th>
+            <th>STATUS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transferDTO:${transfers}">
+            <td th:text="${transferDTO.id}">ID</td>
+            <td th:text="${transferDTO.transferType.transfertypedesc}">TYPE</td>
+            <!--            <td th:if="${}" th:text="${transfer.transferType.transfertypedesc} == 'Send'? ${transfer.accountto}: ${transfer.accountfrom}">TO</td>-->
+            <!--            <td th:if="${session.user.id} != ${transfer.accountfrom}" th:text="${transfer.transferType.transfertypedesc} == 'Send'? ${transfer.accountfrom}: ${transfer.accountto}">TO</td>-->
+            <!--            <td th:text="${transferDTO.accountNameto}">TO</td>-->
+            <td th:text="${transferDTO.accountNameto} ? ${transferDTO.accountNameto}:' '">TO</td>
+            <td th:text="${transferDTO.accountnamefrom} ? ${transferDTO.accountnamefrom}:' '">FROM</td>
+            <td th:text="'$' + ${transferDTO.amount}">AMOUNT</td>
+            <td th:text="${transferDTO.transferStatus.transferstatusdesc}">STATUS</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

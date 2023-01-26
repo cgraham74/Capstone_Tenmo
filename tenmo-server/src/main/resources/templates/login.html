@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"  xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+      xmlns:sec="http://org.thymeleaf.extras/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
@@ -9,24 +10,29 @@
 <div class="main-content" layout:fragment="main-content">
 
     <div id="login-page">
-        <h1 id="log-in-message" th:text="${message}" ></h1>
-    <div th:if="${param.logout}" class="alert alert-success">
-        You have been logged out.
-    </div>
-
+        <h1 id="log-in-message" th:text="${message}"></h1>
+        <div th:if="${param.logout}" class="alert alert-success">
+            You have been logged out.
+        </div>
+        <div th:if="${param.error}">
+            <p th:text="${errorMessage}"></p>
+        </div>
         <form th:action="@{/login}" th:object="${loginDto}" method="POST" id="log-in">
-        <label for="username">Username</label>:
-        <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
-        <label for="password">Password</label>:
-        <input type="password" id="password" name="password" placeholder="Password..." /> <br />
-        <input type="submit" class="button-group" value="Log in" />
+            <label for="username">Username</label>:
+            <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..."/> <br/>
+            <label for="password">Password</label>:
+            <input type="password" id="password" name="password" placeholder="Password..."/> <br/>
+            <input type="submit" class="button-group" value="Log in"/>
 
-    </form>
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
+        </form>
+
+        <div class="or-separator">
+        <span class="or-separator">
+        or
+        </span>
+        </div>
         <div id="log-in-register">
-            <p class="center-content"> <a th:href="@{register}" >Register as a new user</a></p>
+            <p class="center-content"><a th:href="@{register}">Create a new account</a></p>
         </div>
 
     </div>

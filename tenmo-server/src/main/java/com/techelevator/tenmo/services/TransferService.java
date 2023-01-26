@@ -237,7 +237,8 @@ public class TransferService {
         return sentMoney;
     }
 
-    public List<Transfer> requestedMoney(int userId) {
+
+    public List<Transfer> receivedMoneyFrom(int userId) {
 
         return transferRepository.findAllByAccountfrom(userId);
     }
@@ -245,10 +246,11 @@ public class TransferService {
     public TransferDTO createNewTransferDTO(Transfer transfer) throws UserNotFoundException {
         TransferDTO transferDTO = new TransferDTO();
         transferDTO.setId(transfer.getId());
-        transferDTO.setTransferstatusid(transfer.getTransferstatusid());
-        transferDTO.setTransfertypeid(transfer.getTransfertypeid());
-        transferDTO.setAccountto(userDao.findUserByAccountId(transfer.getAccountto()).getUsername());
+        transferDTO.setTransferStatus(transfer.getTransferStatus());
+        transferDTO.setTransferType(transfer.getTransferType());
+        transferDTO.setAccountNameto(userDao.findUserByAccountId(transfer.getAccountto()).getUsername());
         transferDTO.setAmount(transfer.getAmount());
+        System.out.println("TransferDTO: " + transferDTO.toString());
         return transferDTO;
     }
 }

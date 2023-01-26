@@ -24,6 +24,10 @@ public interface TransferRepository extends JpaRepository<Transfer, Integer> {
             "WHERE tenmo_user.user_id = ?1 AND transfer.transfer_type_id = 2;", nativeQuery = true)
     List<Transfer> getAllSendMoneyTo(int userId);
 
+//    @Query(value = "SELECT *" +
+//            "")
+//    List<Transfer> getAllReceivedMoneyFrom(int userId);
+
     @Query(value = "SELECT transfer.transfer_id, transfer.transfer_status_id, transfer.transfer_type_id, transfer.account_from, \n" +
             "transfer.account_to, transfer.amount, transfer_status.transfer_status_desc, transfer_type.transfer_type_desc \n" +
             "FROM transfer \n" +

@@ -62,6 +62,23 @@ public class TransferController {
         }
     }
 
+    @GetMapping("/testingSend")
+     public String findTestSend(Model model, Principal principal) throws UserNotFoundException {
+
+        if (principal.getName() != null) {
+
+            //Find the account ID for the user
+            int accountId = accountService.findAccountIdByUserId(Math.toIntExact(userDao.findIdByUsername(principal.getName())));
+
+            //Add the pending and completed transfers for the user's account to the model.
+
+            model.addAttribute("transfers", transferService.getSendMoneyToUser(accountId));
+
+            //returns the name of the view to be rendered if authorized or error.
+
+        }
+        return "testingSend";
+    }
     /**
      * HTTP request handler method that maps a GET request to the '/pending' URL.
      * The Principal's name is used to get the user's id.

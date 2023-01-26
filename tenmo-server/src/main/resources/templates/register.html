@@ -8,26 +8,26 @@
 <body>
 <div class="main-content" layout:fragment="main-content">
     <div id="register-new-user">
-
-
-    <h1 th:text="${message}"></h1>
-    <form th:action="@{/register}" th:object="${registerUserDTO}" method="POST" id="log-in">
-        <label for="username">Username</label>:
-        <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..." /> <br />
-        <label for="password">Password</label>:
-        <input type="password" id="password" name="password" placeholder="New Password..." /> <br />
-        <label for="passwordConfirmation">Password</label>:
-        <input type="password" id="passwordConfirmation" name="passwordConfirmation" placeholder="Re-enter new Password..." /> <br />
-        <input type="submit" class="button-group" value="Create Account" />
-        <div class="or-separator">
+        <h1 th:text="${message}"></h1>
+        <h5 th:text="${errorMessage}"></h5>
+        <form th:action="@{/register}" th:object="${registerUserDTO}" method="POST" id="log-in">
+            <label for="username">Username</label>:
+            <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username..."/> <br/>
+            <label for="password">Password</label>:
+            <input type="password" id="password" name="password" placeholder="New Password..."/> <br/>
+            <label for="passwordConfirmation">Password</label>:
+            <input type="password" id="passwordConfirmation" name="passwordConfirmation"
+                   placeholder="Re-enter new Password..."/> <br/>
+            <input type="submit" class="button-group" value="Create Account"/>
+            <div class="or-separator">
         <span class="or-separator">
         or
         </span>
-    </div>
-        <p class="center-content"><a th:href="@{/}" title="Returns user to log in">Already have an account?</a></p>
-    </form>
+            </div>
+            <p class="center-content"><a th:href="@{/}" title="Returns user to log in">Already have an account?</a></p>
+        </form>
 
-</div>
+    </div>
 </div>
 </body>
 </html>
