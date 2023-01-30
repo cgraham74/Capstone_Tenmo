@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -92,10 +91,11 @@ public class WebAuthenticationController {
             ModelAndView modelAndView = new ModelAndView("layout");
 
             modelAndView.addObject("loginResponse", loginResponse);
-            modelAndView.addObject("user", user);
+            modelAndView.addObject("user", loginResponse.getUser());
             modelAndView.addObject("jwt", loginResponse.getToken());
+            System.out.println("longin Response user: " + loginResponse.getUser());
 
-            session.setAttribute("user", user);
+            session.setAttribute("user", loginResponse.getUser());
             return modelAndView;
         } catch (UserNotActivatedException e) {
             ModelAndView modelAndView = new ModelAndView("error");
