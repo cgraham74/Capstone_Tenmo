@@ -12,7 +12,6 @@
     <div id="login-page">
         <h1 id="log-in-message" th:text="${message}"></h1>
         <div th:if="${param.logout}" class="alert alert-success" th:text="You have been logged out.">
-
         </div>
         <div th:if="${param.error}" th:text="${errorMessage}">
             <p th:text="${errorMessage}"></p>
@@ -23,9 +22,7 @@
             <label for="password">Password</label>:
             <input type="password" id="password" name="password" placeholder="Password..."/> <br/>
             <input type="submit" class="button-group" value="Log in"/>
-
         </form>
-
         <div class="or-separator">
         <span class="or-separator">
         or
@@ -34,9 +31,7 @@
         <div id="log-in-register">
             <p class="center-content"><a th:href="@{register}">Create a new account</a></p>
         </div>
-
     </div>
-
 </div>
 </body>
 </html>

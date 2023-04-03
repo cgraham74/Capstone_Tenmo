@@ -35,7 +35,7 @@ public class TransferDTO {
     @JoinColumn(name = "transfer_status_id", insertable = false, updatable = false)
     private TransferStatus transferStatus;
 
-    public TransferDTO(){
+    public TransferDTO() {
 
     }
 
@@ -97,7 +97,7 @@ public class TransferDTO {
         this.accountNamefrom = accountNamefrom;
     }
 
-    public String getAccountNameto(){
+    public String getAccountNameto() {
         return accountNameto;
     }
 
@@ -112,18 +112,6 @@ public class TransferDTO {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-
-//    @Override
-//    public String toString() {
-//        return "TransferDTO{" +
-//                "id=" + id +
-//                ", transfertypeid=" + transfertypeid +
-//                ", transferstatusid=" + transferstatusid +
-//                ", accountfrom=" + accountNamefrom +
-//                ", accountto=" + accountNameto +
-//                ", amount=" + amount +
-//                '}';
-//    }
 
     @Override
     public String toString() {

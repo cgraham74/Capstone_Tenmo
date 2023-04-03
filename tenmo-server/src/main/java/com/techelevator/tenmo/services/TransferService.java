@@ -18,7 +18,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 @Service
 public class TransferService {
@@ -52,13 +52,18 @@ public class TransferService {
 
     }
 
+    /**
+     * Saves a transfer to the database.
+     * @param transfer The transfer to be saved.
+     * @return returns the saved transfer.
+     */
     public Transfer save(Transfer transfer) {
         return transferRepository.save(transfer);
     }
 
     /**
-     * @param id
-     * @return
+     * @param id Finds a transfer by id
+     * @return returns transfer
      */
     public Transfer findById(int id) {
         return transferRepository.findById(id);
@@ -69,8 +74,8 @@ public class TransferService {
      * If the transfer fails on one account, the transfer
      * will not happen for either account
      *
-     * @param transfer
-     * @return
+     * @param transfer The transfer to be handled.
+     * @return the transfer that was handled.
      */
     @ResponseStatus(HttpStatus.ACCEPTED)
     @Transactional
@@ -168,22 +173,19 @@ public class TransferService {
     }
 
     /**
-     * @param accountfrom
-     * @return
+     *
+     * @param accountfrom the account to retrieve the status from
+     * @return all pending transfers for the account provided.
      */
     public List<Transfer> findAllBystatus(int accountfrom) {
         return transferRepository.findByStatus(accountfrom);
     }
-//
-//    public Transfer saveUpdate(Transfer transfer) {
-//        return transferRepository.save(transfer);
-//    }
 
     /**
      * Updates a Transfer with the status id that is passed in.
      * If that status id is approved. Then the transferBalance method
      * is called to handle the transfer of money from one account to the other
-     * otherwise- the transfer is updated with the id (rejected) from the view
+     * otherwise - the transfer is updated with the id (rejected) from the view
      *
      * @param statusid   The new status id to update the transfer
      * @param transferid the id of a specific transfer to be updated
@@ -198,67 +200,74 @@ public class TransferService {
     }
 
     /**
-     * @param userId
-     * @return
-     */
-    public List<Transfer> getAllToAndFromAccount(int userId) throws UserNotFoundException {
-        System.out.println("userID " + userId);
-        List<Transfer> from = transferRepository.findAllByAccountfrom(userId);
-        List<Transfer> to = transferRepository.findAllByAccountto(userId);
-
-        //if I sent money
-        //then get name of whom I sent it to
-        List<Transfer> sentMoneyTo = transferRepository.getAllSendMoneyTo(userId);
-        System.err.println(getSendMoneyToUser(userId));
-
-        //if I requested money
-        //then get name of whom I requested it from
-        List<Transfer> list = new ArrayList<>();
-        Stream.of(from, to).forEach(list::addAll);
-        return list;
-    }
-
-    /**
      * This method returns a list of transfers that are from the currently logged-in user
      * and has the type "send" and status of "approved"
+     *
      * @param userId of the currently logged-in user
      * @return A list of transfers from the current user
      */
     public List<TransferDTO> getSendMoneyToUser(int userId) throws UserNotFoundException {
-
-        List<Transfer> sentMoneyTo = transferRepository.getAllSendMoneyTo(userId);
-        List<TransferDTO> sentMoney = new ArrayList<>();
-        for (Transfer transfer : sentMoneyTo) {
-            sentMoney.add(createNewTransferDTO(transfer));
-        }
-        return sentMoney;
+        return transferRepository.getAllSendMoneyTo(userId)
+                .stream()
+                .map(transfer -> {
+                    try {
+                        return createNewTransferDTO(transfer);
+                    } catch (UserNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
     }
 
     /**
      * This method returns a list of transfer that are to the currently logged-in user
      * and has the type "request" and status of "approved"
+     *
      * @param userId
-     * @return
+     * @return A list of transfers from the current user
      * @throws UserNotFoundException
      */
     public List<TransferDTO> receivedMoneyFrom(int userId) throws UserNotFoundException {
-        List<Transfer> receivedMoneyFrom = transferRepository.getAllReceivedMoneyFrom(userId);
-        List<TransferDTO> receivedMoney = new ArrayList<>();
-        for (Transfer transfer : receivedMoneyFrom) {
-            receivedMoney.add(createNewTransferDTO(transfer));
-        }
-        System.err.println(receivedMoney);
-        return receivedMoney;
+        return transferRepository.getAllReceivedMoneyFrom(userId)
+                .stream()
+                .map(Transfer ->{
+                    try{
+                        return createNewTransferDTO(Transfer);
+                    }catch (UserNotFoundException e){
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
     }
 
-    public List<TransferDTO> mergeTransferLists(int userId) throws UserNotFoundException {
-        List<TransferDTO> merged = new ArrayList<>();
-        merged.addAll(receivedMoneyFrom(userId));
-        merged.addAll(getSendMoneyToUser(userId));
+    public List<TransferDTO> mergeTransferLists(int userId) {
+        List<TransferDTO> receivedMoney;
+        try {
+            receivedMoney = receivedMoneyFrom(userId);
+        } catch (UserNotFoundException e) {
+            // handle the exception
+            receivedMoney = new ArrayList<>();
+        }
+        List<TransferDTO> sentMoney;
+        try {
+            sentMoney = getSendMoneyToUser(userId);
+        } catch (UserNotFoundException e) {
+            // handle the exception
+            sentMoney = new ArrayList<>();
+        }
+        List<TransferDTO> merged = new ArrayList<>(receivedMoney.size() + sentMoney.size());
+        merged.addAll(receivedMoney);
+        merged.addAll(sentMoney);
         return merged;
     }
 
 
+    /**
+     *
+     * @param transfer The provided transfer object for the transferDto
+     * @return a transferDto object with the details of the transfer
+     * @throws UserNotFoundException
+     */
     public TransferDTO createNewTransferDTO(Transfer transfer) throws UserNotFoundException {
         TransferDTO transferDTO = new TransferDTO();
         transferDTO.setId(transfer.getId());
@@ -267,7 +276,6 @@ public class TransferService {
         transferDTO.setAccountNameto(userDao.findUserByAccountId(transfer.getAccountto()).getUsername());
         transferDTO.setAccountNamefrom(userDao.findUserByAccountId(transfer.getAccountfrom()).getUsername());
         transferDTO.setAmount(transfer.getAmount());
-        System.out.println("TransferDTO: " + transferDTO.toString());
         return transferDTO;
     }
 }
