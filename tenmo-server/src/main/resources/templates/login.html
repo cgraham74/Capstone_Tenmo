@@ -11,10 +11,10 @@
 
     <div id="login-page">
         <h1 id="log-in-message" th:text="${message}"></h1>
-        <div th:if="${param.logout}" class="alert alert-success">
-            You have been logged out.
+        <div th:if="${param.logout}" class="alert alert-success" th:text="You have been logged out.">
+
         </div>
-        <div th:if="${param.error}">
+        <div th:if="${param.error}" th:text="${errorMessage}">
             <p th:text="${errorMessage}"></p>
         </div>
         <form th:action="@{/login}" th:object="${loginDto}" method="POST" id="log-in">

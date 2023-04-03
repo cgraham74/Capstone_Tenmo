@@ -22,15 +22,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="transfer:${transfers}">
-            <td th:text="${transfer.id}">ID</td>
-            <td th:text="${transfer.transferType.transfertypedesc}">TYPE</td>
+        <tr th:each="transferDTO:${transfers}">
+            <td th:text="${transferDTO.id}">ID</td>
+            <td th:text="${transferDTO.transferType.transfertypedesc}">TYPE</td>
 <!--            <td th:if="${session.user.id} == ${transfer.accountfrom}" th:text="${transfer.transferType.transfertypedesc} == 'Send'? ${transfer.accountto}: ${transfer.accountfrom}">TO</td>-->
 <!--            <td th:if="${session.user.id} != ${transfer.accountfrom}" th:text="${transfer.transferType.transfertypedesc} == 'Send'? ${transfer.accountfrom}: ${transfer.accountto}">TO</td>-->
-            <td th:text="${transfer.accountto}">TO</td>
-            <td th:text="${transfer.accountfrom}">FROM</td>
-            <td th:text="'$' + ${transfer.amount}">AMOUNT</td>
-            <td th:text="${transfer.transferStatus.transferstatusdesc}">STATUS</td>
+            <td th:text="${transferDTO.accountNameto}">TO</td>
+            <td th:text="${transferDTO.accountNamefrom}">FROM</td>
+            <td th:text="'$' + ${transferDTO.amount}">AMOUNT</td>
+            <td th:text="${transferDTO.transferStatus.transferstatusdesc}">STATUS</td>
         </tr>
         </tbody>
     </table>

@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.math.BigDecimal;
 import java.security.Principal;
 
@@ -28,6 +29,11 @@ public class TransferController {
     private AccountService accountService;
     private User user;
     private Account account;
+    private static final String activity = "activity";
+    private static final String error = "error";
+    private static final String users = "users";
+    private static final String request_from = "request-from";
+    private static final String pending = "pending";
 
     public TransferController(TransferService transferService, UserDao userDao, AccountService accountService) {
         this.transferService = transferService;
@@ -37,14 +43,22 @@ public class TransferController {
     }
 
     /**
-     * Handles an HTTP GET request to the activity endpoint.
+     * This method retrieves a list of pending and completed transfers associated with
+     * the currently logged-in user's account and passes it to a view named "activity".
+     * <p>
+     * Checks authentication by checking if principal is not null.
+     * Uses the UserDao and AccountService to find the accountID associated
+     * with the principal (current logged-in user). Calls the mergeTransferLists
+     * of the TransferService to retrieve a list of pending and completed transfers.
+     * Adds the list of pending and completed transfers to the model.
      *
-     * @param model   a Model object used to store data for the view.
-     * @return The name of the view to be rendered in response to the GET request
-     * or an error page if session user isn't the principal.
+     * @param model     object used to populate the view.
+     * @param principal object represents the currently logged-in user.
+     * @return A view to be rendered if the user is authenticated, otherwise a redirect to the error page.
+     * @throws UserNotFoundException
      */
     @GetMapping("/activity")
-    public String findActivity(Model model, Principal principal) throws UserNotFoundException {
+    public String findTestSend(Model model, Principal principal) throws UserNotFoundException {
 
         if (principal.getName() != null) {
 
@@ -52,33 +66,15 @@ public class TransferController {
             int accountId = accountService.findAccountIdByUserId(Math.toIntExact(userDao.findIdByUsername(principal.getName())));
 
             //Add the pending and completed transfers for the user's account to the model.
-
-            model.addAttribute("transfers", transferService.getAllToAndFromAccount(accountId));
+            model.addAttribute("transfers", transferService.mergeTransferLists(accountId));
 
             //returns the name of the view to be rendered if authorized or error.
-            return "activity";
+            return activity;
         } else {
-            return "error";
+            return error;
         }
     }
 
-    @GetMapping("/testingSend")
-     public String findTestSend(Model model, Principal principal) throws UserNotFoundException {
-
-        if (principal.getName() != null) {
-
-            //Find the account ID for the user
-            int accountId = accountService.findAccountIdByUserId(Math.toIntExact(userDao.findIdByUsername(principal.getName())));
-
-            //Add the pending and completed transfers for the user's account to the model.
-
-            model.addAttribute("transfers", transferService.getSendMoneyToUser(accountId));
-
-            //returns the name of the view to be rendered if authorized or error.
-
-        }
-        return "testingSend";
-    }
     /**
      * HTTP request handler method that maps a GET request to the '/pending' URL.
      * The Principal's name is used to get the user's id.
@@ -86,37 +82,35 @@ public class TransferController {
      * and then all transfers for that account with the status of pending
      * is returned and displayed on the view.
      *
-     * @param model     object is a Map that holds the data that to be displayed in the view
+     * @param model     Object used to pass data to the view. (list of pending transfers)
      * @param principal object represents the currently authenticated user.
      * @return the string "pending", which is the name of the view template
-     * that will be used to render the response.
+     * that will be used to render the response. Or the error page if the user is not authenticated.
      */
     @GetMapping("/pending")
     public String getPending(Model model, @NotNull Principal principal) {
         try {
             int userId = userDao.findIdByUsername(principal.getName());
             int accountId = accountService.findAccountIdByUserId(userId);
-            model.addAttribute("pending", transferService.findAllBystatus(accountId));
-            return "pending";
+            model.addAttribute(pending, transferService.findAllBystatus(accountId));
+            return pending;
         } catch (DataAccessException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "error";
+            return error;
         }
 
     }
 
-//    @GetMapping("/transfers/transfer")
-//    public Transfer findTransferById(@RequestParam int id) {
-//        return transferService.findById(id);
-//    }
-
     /**
-     * @param model
-     * @return
+     * This method retrieves a list of users that the current user can
+     * transfer funds to and passes it to a view named "send-to".
+     *
+     * @param model Object used to pass data to the view. (list of users)
+     * @return The name of the view template that will be used to render the response.
      */
     @GetMapping("/send-to")
     public String sendTo(Model model, @NotNull Principal principal) {
-        model.addAttribute("users", userDao.findTransferList());
+        model.addAttribute(users, userDao.findTransferList());
         return "send-to";
     }
 
@@ -138,18 +132,19 @@ public class TransferController {
     }
 
     /**
-     * @param model An object mapping a list of users
-     * @return The view that allows requests for money
+     * @param model Object used to pass data to the view. (list of users)
+     * @return The name of the view template that will be used to render the response.
      */
     @GetMapping("/request-from")
     public String requestFrom(Model model, @NotNull Principal principal) {
-        model.addAttribute("users", userDao.findTransferList());
-        return "request-from";
+        model.addAttribute(users, userDao.findTransferList());
+        return request_from;
     }
 
     /**
      * Endpoint for requesting money from a selected user. Username
      * and amount are provided by the form input.
+     *
      * @param requestedUser   Name of user to request money
      * @param amountRequested BigDecimal amount to transfer
      * @param model           An object mapping a list of users, success message,
@@ -160,17 +155,17 @@ public class TransferController {
      */
     @PostMapping("/request")
     public String transferRequest(@RequestParam("user") String requestedUser,
-                                        @RequestParam("amount") String amountRequested,
-                                        Model model, Principal principal) {
+                                  @RequestParam("amount") String amountRequested,
+                                  Model model, Principal principal) {
         try {
-           String message = transferService.requestFundsFromUser(principal.getName(), requestedUser, amountRequested);
-            model.addAttribute("users", userDao.findTransferList());
+            String message = transferService.requestFundsFromUser(principal.getName(), requestedUser, amountRequested);
+            model.addAttribute(users, userDao.findTransferList());
             model.addAttribute("message", message);
-            return "request-from";
+            return request_from;
         } catch (InvalidRequestException e) {
-            model.addAttribute("users", userDao.findTransferList());
-            model.addAttribute("error", e.getMessage());
-            return "request-from";
+            model.addAttribute(users, userDao.findTransferList());
+            model.addAttribute(error, e.getMessage());
+            return request_from;
         }
     }
 

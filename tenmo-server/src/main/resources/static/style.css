@@ -8,6 +8,7 @@
     --buttonFontSize: 1.2em;
     --containerWidth: 70%;
     --containerPadding: 30px;
+    box-sizing: border-box;
 }
 
 #main-layer-body{

@@ -9,16 +9,14 @@
 <body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
 <div class="main-content" layout:fragment="main-content">
     <div class="page-container">
-    <h1>Oops! Something went wrong</h1>
-    <p th:text="${errorMessage}"></p>
-    <p>Please try again later or contact support for assistance.</p>
-    <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
-    <p th:text="${errorMessage}"></p>
+        <h1>Oops! Something went wrong!</h1>
+        <h2 th:text="${errorMessage}"></h2>
+        <h3 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|"></h3>
         <div class="center-content">
-    <p><a th:href="@{/}" title="Returns user to log in">Return to log in</a></p>
-    <p><a th:href="@{register}" title="Returns user to register form">Register new account</a></p>
+            <p><a th:href="@{/}" title="Returns user to log in">Return to log in</a></p>
+            <p><a th:href="@{register}" title="Returns user to register form">Register new account</a></p>
+        </div>
     </div>
-</div>
 </div>
 </body>
 </html>

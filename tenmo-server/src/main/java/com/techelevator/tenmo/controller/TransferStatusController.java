@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("transferstatus")
 public class TransferStatusController {
 
-    //made final so we cannot change our service layer by accident
+    //Made final so that we cannot change our service layer.
     private final TransferStatusService service;
 
     //Dependency injecting service into the transferstatus controller via the constructor. Doesn't need Autowire annotation but using for readability
@@ -24,7 +24,7 @@ public class TransferStatusController {
         this.service = service;
     }
 
-    // endpoint /transferstatus to display all available statuses
+    //Endpoint /transferstatus to display all available statuses
     @GetMapping
     public List<TransferStatus> findAllTransferStatus(){
         return service.findAll();

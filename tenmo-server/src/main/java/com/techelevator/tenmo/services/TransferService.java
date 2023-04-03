@@ -213,7 +213,6 @@ public class TransferService {
 
         //if I requested money
         //then get name of whom I requested it from
-
         List<Transfer> list = new ArrayList<>();
         Stream.of(from, to).forEach(list::addAll);
         return list;
@@ -222,7 +221,6 @@ public class TransferService {
     /**
      * This method returns a list of transfers that are from the currently logged-in user
      * and has the type "send" and status of "approved"
-     *
      * @param userId of the currently logged-in user
      * @return A list of transfers from the current user
      */
@@ -230,18 +228,36 @@ public class TransferService {
 
         List<Transfer> sentMoneyTo = transferRepository.getAllSendMoneyTo(userId);
         List<TransferDTO> sentMoney = new ArrayList<>();
-
         for (Transfer transfer : sentMoneyTo) {
             sentMoney.add(createNewTransferDTO(transfer));
         }
         return sentMoney;
     }
 
-
-    public List<Transfer> receivedMoneyFrom(int userId) {
-
-        return transferRepository.findAllByAccountfrom(userId);
+    /**
+     * This method returns a list of transfer that are to the currently logged-in user
+     * and has the type "request" and status of "approved"
+     * @param userId
+     * @return
+     * @throws UserNotFoundException
+     */
+    public List<TransferDTO> receivedMoneyFrom(int userId) throws UserNotFoundException {
+        List<Transfer> receivedMoneyFrom = transferRepository.getAllReceivedMoneyFrom(userId);
+        List<TransferDTO> receivedMoney = new ArrayList<>();
+        for (Transfer transfer : receivedMoneyFrom) {
+            receivedMoney.add(createNewTransferDTO(transfer));
+        }
+        System.err.println(receivedMoney);
+        return receivedMoney;
     }
+
+    public List<TransferDTO> mergeTransferLists(int userId) throws UserNotFoundException {
+        List<TransferDTO> merged = new ArrayList<>();
+        merged.addAll(receivedMoneyFrom(userId));
+        merged.addAll(getSendMoneyToUser(userId));
+        return merged;
+    }
+
 
     public TransferDTO createNewTransferDTO(Transfer transfer) throws UserNotFoundException {
         TransferDTO transferDTO = new TransferDTO();
@@ -249,6 +265,7 @@ public class TransferService {
         transferDTO.setTransferStatus(transfer.getTransferStatus());
         transferDTO.setTransferType(transfer.getTransferType());
         transferDTO.setAccountNameto(userDao.findUserByAccountId(transfer.getAccountto()).getUsername());
+        transferDTO.setAccountNamefrom(userDao.findUserByAccountId(transfer.getAccountfrom()).getUsername());
         transferDTO.setAmount(transfer.getAmount());
         System.out.println("TransferDTO: " + transferDTO.toString());
         return transferDTO;

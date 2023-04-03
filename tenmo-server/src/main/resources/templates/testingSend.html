@@ -25,11 +25,11 @@
         <tr th:each="transferDTO:${transfers}">
             <td th:text="${transferDTO.id}">ID</td>
             <td th:text="${transferDTO.transferType.transfertypedesc}">TYPE</td>
-            <!--            <td th:if="${}" th:text="${transfer.transferType.transfertypedesc} == 'Send'? ${transfer.accountto}: ${transfer.accountfrom}">TO</td>-->
-            <!--            <td th:if="${session.user.id} != ${transfer.accountfrom}" th:text="${transfer.transferType.transfertypedesc} == 'Send'? ${transfer.accountfrom}: ${transfer.accountto}">TO</td>-->
-            <!--            <td th:text="${transferDTO.accountNameto}">TO</td>-->
-            <td th:text="${transferDTO.accountNameto} ? ${transferDTO.accountNameto}:' '">TO</td>
-            <td th:text="${transferDTO.accountnamefrom} ? ${transferDTO.accountnamefrom}:' '">FROM</td>
+<!--                        <td th:if="${}" th:text="${transfer.transferType.transfertypedesc} == 'Send'? ${transfer.accountto}: ${transfer.accountfrom}">TO</td>-->
+<!--                        <td th:if="${session.user.id} != ${transfer.accountfrom}" th:text="${transfer.transferType.transfertypedesc} == 'Send'? ${transfer.accountfrom}: ${transfer.accountto}">TO</td>-->
+<!--                        <td th:text="${transferDTO.accountNameto}">TO</td>-->
+            <td th:text="${transferDTO.accountNameto} ? ${transferDTO.accountNameto}:' '"></td>
+            <td th:text="${transferDTO.accountNamefrom} ? ${transferDTO.accountNamefrom}:' '">FROM</td>
             <td th:text="'$' + ${transferDTO.amount}">AMOUNT</td>
             <td th:text="${transferDTO.transferStatus.transferstatusdesc}">STATUS</td>
         </tr>

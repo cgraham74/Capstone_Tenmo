@@ -9,18 +9,18 @@ public class TransferDTO {
     private int id;
     private int transfertypeid;
     private int transferstatusid;
-    private String accountnamefrom;
+    private String accountNamefrom;
     private String accountNameto;
     private BigDecimal amount;
     private String transferTypeName;
     private String transferStatusName;
 
 
-    public TransferDTO(int id, TransferType transferType, TransferStatus transferStatus, String accountnamefrom, String accountNameto, BigDecimal amount) {
+    public TransferDTO(int id, TransferType transferType, TransferStatus transferStatus, String accountNamefrom, String accountNameto, BigDecimal amount) {
         this.id = id;
 //        this.transferstatusid = transferstatusid;
 //        this.transfertypeid = transfertypeid;
-        this.accountnamefrom = accountnamefrom;
+        this.accountNamefrom = accountNamefrom;
         this.accountNameto = accountNameto;
         this.amount = amount;
         this.transferType = transferType;
@@ -89,12 +89,12 @@ public class TransferDTO {
     }
 
 
-    public String getAccountnamefrom() {
-        return accountnamefrom;
+    public String getAccountNamefrom() {
+        return accountNamefrom;
     }
 
-    public void setAccountnamefrom(String accountnamefrom) {
-        this.accountnamefrom = accountnamefrom;
+    public void setAccountNamefrom(String accountNamefrom) {
+        this.accountNamefrom = accountNamefrom;
     }
 
     public String getAccountNameto(){
@@ -119,7 +119,7 @@ public class TransferDTO {
 //                "id=" + id +
 //                ", transfertypeid=" + transfertypeid +
 //                ", transferstatusid=" + transferstatusid +
-//                ", accountfrom=" + accountnamefrom +
+//                ", accountfrom=" + accountNamefrom +
 //                ", accountto=" + accountNameto +
 //                ", amount=" + amount +
 //                '}';
@@ -129,7 +129,7 @@ public class TransferDTO {
     public String toString() {
         return "TransferDTO{" +
                 "id=" + id +
-                ", accountnamefrom='" + accountnamefrom + '\'' +
+                ", accountNamefrom='" + accountNamefrom + '\'' +
                 ", accountNameto='" + accountNameto + '\'' +
                 ", amount=" + amount +
                 ", transferType=" + transferType +
