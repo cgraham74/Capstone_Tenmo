@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer>{
+    // Spring Data JPA framework interface defining repository
+    // for managing "Account" entities with n Integer Primary keys <The Entity, Primary Key Type>
+
 
     //Finds account by account id
     Account findById(int id);
