@@ -18,8 +18,6 @@ public class TransferDTO {
 
     public TransferDTO(int id, TransferType transferType, TransferStatus transferStatus, String accountNamefrom, String accountNameto, BigDecimal amount) {
         this.id = id;
-//        this.transferstatusid = transferstatusid;
-//        this.transfertypeid = transfertypeid;
         this.accountNamefrom = accountNamefrom;
         this.accountNameto = accountNameto;
         this.amount = amount;

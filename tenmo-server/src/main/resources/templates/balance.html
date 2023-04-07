@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="main-content" layout:fragment="main-content">
-    <div class="page-container">
+    <div class="account-container">
         <p>Account Details: <span th:text="${#authentication.name}"></span></p>
         <div sec:authorize="isAuthenticated()">
             <p>Current Balance: <span th:text="'$' +${balance}"></span></p>

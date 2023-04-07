@@ -1,18 +1,18 @@
 *{
-    --containerAlign: center;
-    --containerJustifySelf: center;
-    --buttonBackGroundColor: #1C6EA4;
-    --buttonHoverColor: #196393;
-    --buttonTextColor: #ffffff;
-    --buttonActiveColor: #175C89;
-    --buttonFontSize: 1.2em;
-    --containerWidth: 70%;
-    --containerPadding: 30px;
+    --container-align: center;
+    --container-justify-self: center;
+    --button-background-color: #1C6EA4;
+    --button-hover-color: #196393;
+    --button-text-color: #ffffff;
+    --button-active-color: #175C89;
+    --button-font-size: 1.2em;
+    --container-width: 70%;
+    --container-padding: 30px;
     box-sizing: border-box;
 }
 
 #main-layer-body{
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 header {
@@ -23,7 +23,13 @@ header {
     margin-right: auto;
     margin-left: auto;
 }
-
+.navbar{
+    background-color: white;
+    position:fixed;
+    top:0;
+    width:100vw;
+    margin-bottom:20px;
+}
 .main-content{
     margin-bottom:86px;
 }
@@ -35,13 +41,7 @@ header {
     justify-self: center;
 }
 
-.navbar{
-    background-color: white;
-    position:fixed;
-    top:0;
-    width:100vw;
-    margin-bottom:20px;
-}
+
 
 #btnGroupContainer.container{
     color: #ffffff !important;
@@ -51,7 +51,7 @@ header {
     justify-content: center;
     align-content: center;
     flex-direction:row;
-    background: var(--buttonBackGroundColor);
+    background: var(--button-background-color);
     border: 1px solid #444444;
     border-bottom: 2px solid #444444;
 }
@@ -68,11 +68,11 @@ text-decoration: none;
 
 a.button-group, .button-group {
     color: #ffffff !important;
-    background: var(--buttonBackGroundColor);
+    background: var(--button-background-color);
     font-size: 18px;
     font-weight: bold;
     border: none;
-    background-color: var(--buttonBackGroundColor);
+    background-color: var(--button-background-color);
     color: white;
     padding: 14px 20px;
     border: none;
@@ -97,7 +97,7 @@ a.button-group, .button-group {
 table.blueTable {
     border: none;
     background-color: #FFFFFF;
-    width: var(--containerWidth);
+    width: var(--container-width);
     margin: 0 auto;
     text-align: left;
     font-size: 18px;
@@ -106,7 +106,7 @@ table.blueTable {
 }
 
 table.blueTable th {
-    background: var(--buttonBackGroundColor);
+    background: var(--button-background-color);
     color: #FFFFFF;
     font-weight: bold;
     text-align: left;
@@ -122,7 +122,7 @@ table.blueTable tr:nth-child(even) {
 }
 
 table.blueTable thead {
-  background: var(--buttonBackGroundColor);
+  background: var(--button-background-color);
   background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
   background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
   background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
@@ -162,7 +162,7 @@ table.blueTable tfoot .links {
 
 table.blueTable tfoot .links a{
   display: inline-block;
-  background: var(--buttonBackGroundColor);
+  background: var(--button-background-color);
   color: #FFFFFF;
   padding: 2px 8px;
   border-radius: 5px;
@@ -192,14 +192,13 @@ table.blueTable tfoot .links a{
 }
 
 
-#login-page, #register-new-user, .page-container {
+#login-page, #register-new-user, .account-container {
     display: flex;
     flex-direction: column;
-    width: var(--containerWidth);
-    padding: var(--containerPadding);
+    width: var(--container-width);
+    padding: var(--container-padding);
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
     margin: 30px auto auto auto;
     width: 396px;
 }
